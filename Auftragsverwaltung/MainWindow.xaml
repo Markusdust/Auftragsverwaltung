@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="220" Grid.Column="0" Grid.RowSpan="5">
+            <Label Content="Navigation" HorizontalAlignment="Center" FontSize="32" BorderThickness="0,0,0,2" BorderBrush="Black" Margin="5" FontWeight="Bold" FontStyle="Normal" FontStretch="Normal"></Label>
+            <Button Content="Kunde/Adresse" MinWidth="100" FontSize="18" Margin="10,30,10,0"></Button>
+            <Button Content="Artikel/Artikelgruppe" MinWidth="100" FontSize="18" Margin="10,10,10,0"></Button>
+            <Button Content="Auftrag/Position" MinWidth="100" FontSize="18" Margin="10,10,10,0"></Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="100" Grid.Row="4" Grid.Column="0">
+            <Button Content="test"></Button>
+        </StackPanel>
     </Grid>
 </Window>
