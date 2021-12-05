@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Auftragsverwaltung.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,21 @@ namespace Auftragsverwaltung
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new KundeAdresse();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ArtikelArtikelgruppe();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new AuftragPosition();
         }
     }
 }
