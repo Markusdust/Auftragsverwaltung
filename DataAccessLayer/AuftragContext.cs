@@ -29,7 +29,7 @@ namespace DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
         }
     }
 }

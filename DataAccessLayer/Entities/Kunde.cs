@@ -13,6 +13,9 @@ namespace DataAccessLayer.Entities
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public string Firma { get; set; }
+        public string Email { get; set; }
+        public string Passwort { get; set; }
+        public string Website { get; set; }
         public DateTime GueltigAb { get; set; }
         public DateTime GueltigBis { get; set; }
     }
