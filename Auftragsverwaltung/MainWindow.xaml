@@ -17,15 +17,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
 
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="220" Grid.Column="0" Grid.Row="0">
             <Label Content="Navigation" HorizontalAlignment="Center" FontSize="32" BorderThickness="0,0,0,2" BorderBrush="Black" Margin="5" FontWeight="Bold" FontStyle="Normal" FontStretch="Normal"></Label>
-            <Button Content="Kunde/Adresse" MinWidth="100" FontSize="18" Margin="10,30,10,0"></Button>
-            <Button Content="Artikel/Artikelgruppe" MinWidth="100" FontSize="18" Margin="10,10,10,0"></Button>
-            <Button Content="Auftrag/Position" MinWidth="100" FontSize="18" Margin="10,10,10,0"></Button>
+            <Button Content="Kunde/Adresse" MinWidth="100" FontSize="18" Margin="10,30,10,0" Click="Button_Click"></Button>
+            <Button Content="Artikel/Artikelgruppe" MinWidth="100" FontSize="18" Margin="10,10,10,0" Click="Button_Click_1"></Button>
+            <Button Content="Auftrag/Position" MinWidth="100" FontSize="18" Margin="10,10,10,0" Click="Button_Click_2"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" MinWidth="220" Grid.Row="2" Grid.Column="0">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="95" Grid.Row="2" Grid.Column="0">
@@ -37,6 +36,6 @@
                 <Button Content="Leeren" MinWidth="95" FontSize="18" Margin="10,10,0,0" MaxHeight="30"></Button>
             </StackPanel>
         </StackPanel>
-        
+        <Frame x:Name="Main" Margin="0,0,0,0" Grid.Column="1" Grid.RowSpan="3"></Frame>
     </Grid>
 </Window>
