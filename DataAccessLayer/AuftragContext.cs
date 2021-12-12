@@ -16,7 +16,8 @@ namespace DataAccessLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.\\SQL_INSTANCE; Database=Auftragsverwaltung; Trusted_Connection=True");
-            optionsBuilder.UseLazyLoadingProxies();
+          //  optionsBuilder.UseLazyLoadingProxies();
+          
 
             // install-package Microsoft.Extensions.Configuration.Json
 

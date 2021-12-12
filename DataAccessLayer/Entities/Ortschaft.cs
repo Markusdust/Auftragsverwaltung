@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DataAccessLayer.Entities
 {
-   public class Ortschaft
+    public class Ortschaft
     {
         public int Id { get; set; }
         public int PLZ { get; set; }
