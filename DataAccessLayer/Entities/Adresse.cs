@@ -11,7 +11,8 @@ namespace DataAccessLayer.Entities
         public int Id { get; set; }
         public string Strasse { get; set; }
         public string HausNr { get; set; }
-        
+        public DateTime GueltigAb { get; set; }
+        public DateTime GueltigBis { get; set; }
         public int OrtschaftId { get; set; }
         public Ortschaft Ortschaft { get; set; }
     }
