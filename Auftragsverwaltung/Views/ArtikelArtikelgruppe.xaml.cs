@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessLogik;
 
 namespace Auftragsverwaltung.Views
 {
@@ -20,9 +21,20 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class ArtikelArtikelgruppe : Page
     {
+        private ControllerArtikel controller;
         public ArtikelArtikelgruppe()
         {
             InitializeComponent();
+            controller = new ControllerArtikel();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Test Artikel anlegen
+          //  controller.testartikelanlegen();
+
+            //Test ArtikelGruppe anlegen
+            controller.testartikelgruppeanlegen();
         }
     }
 }

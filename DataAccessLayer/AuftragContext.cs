@@ -12,7 +12,8 @@ namespace DataAccessLayer
     public class AuftragContext : DbContext
     {
         public DbSet<Kunde> Kunden { get; set; }
-
+        public DbSet<Artikel> Artikel { get; set; }
+        public DbSet<Artikelgruppe> Artikelgruppe { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.\\SQL_INSTANCE; Database=Auftragsverwaltung; Trusted_Connection=True");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AuftragContext))]
-    [Migration("20211212103034_initial")]
-    partial class initial
+    [Migration("20211212121843_ArtikelArtikelGruppe")]
+    partial class ArtikelArtikelGruppe
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,20 +28,91 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("GueltigAb")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("GueltigBis")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("HausNr")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("OrtschaftId")
                         .HasColumnType("int");
 
                     b.Property<string>("Strasse")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrtschaftId");
 
                     b.ToTable("Adresse");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Artikel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Aktiv")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ArtikelNr")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ArtikelgruppeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Bezeichnung")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<decimal>("PreisNetto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("mwst")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("preisBrutto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtikelgruppeId");
+
+                    b.ToTable("Artikel");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Artikelgruppe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ArtikelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtikelId");
+
+                    b.ToTable("Artikelgruppe");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Kunde", b =>
@@ -161,6 +232,22 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Ortschaft");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Entities.Artikel", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Artikelgruppe", null)
+                        .WithMany("Artikels")
+                        .HasForeignKey("ArtikelgruppeId");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Artikelgruppe", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Artikel", "Artikel")
+                        .WithMany()
+                        .HasForeignKey("ArtikelId");
+
+                    b.Navigation("Artikel");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Entities.KundenAdresse", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.Adresse", "Adresse")
@@ -176,6 +263,11 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Adresse");
 
                     b.Navigation("Kunde");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Artikelgruppe", b =>
+                {
+                    b.Navigation("Artikels");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Ortschaft", b =>

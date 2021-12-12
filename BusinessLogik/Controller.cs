@@ -11,7 +11,7 @@ namespace BusinessLogik
 
     public class Controller
     {
-        private Model model = new Model();
+        private ModelKunde model = new ModelKunde();
 
 
         //int id, int kundenNr,string vorname, string nachname, string firma, DateTime gueltigAb, DateTime guelitigbis 

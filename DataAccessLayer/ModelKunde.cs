@@ -7,7 +7,7 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer
 {
-   public class Model
+   public class ModelKunde
     {
         public bool kundespeichern(Kunde kunde)
         {
