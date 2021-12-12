@@ -17,8 +17,8 @@ namespace DataAccessLayer.Entities
         private decimal PreisBrutto;
         public bool Aktiv { get; set; }
 
-        //public int ArtikelgruppeId { get; set; }
-        //public Artikelgruppe Artikelgruppe { get; set; } // Hier Fehlermeldung (Is not virtual)
+        public int ArtikelgruppeId { get; set; }
+        public Artikelgruppe Artikelgruppe { get; set; } // Hier Fehlermeldung (Is not virtual)
 
         // gibt es noch eine Klasse Position ? -- Joel
         // public ICollection<Position> Positionen { get; set; }
