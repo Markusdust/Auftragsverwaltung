@@ -6,9 +6,38 @@
       xmlns:local="clr-namespace:Auftragsverwaltung.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="KundeAdresse">
+      Title="KundeAdresse"
+      Background="White">
 
     <Grid>
-        <TextBlock Text="Kunde/Artikel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <TextBlock Text="Kunde/Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="227,10,0,0"/>
+        <Label Content="Kunde:" HorizontalAlignment="Left" Margin="37,24,0,0" VerticalAlignment="Top"/>
+        <Label Content="KundenId:" HorizontalAlignment="Left" Margin="37,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblKundenId" Content="xxxx" HorizontalAlignment="Left" Margin="103,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="KundenNr:" HorizontalAlignment="Left" Margin="139,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblKundenNr" Content="xxxx" HorizontalAlignment="Left" Margin="205,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="Nachname:" HorizontalAlignment="Left" Margin="265,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblNachname" Content="xxxx" HorizontalAlignment="Left" Margin="331,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vorname:" HorizontalAlignment="Left" Margin="411,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblVorname" Content="xxxx" HorizontalAlignment="Left" Margin="477,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="Firma:" HorizontalAlignment="Left" Margin="544,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblFirma" Content="xxxx" HorizontalAlignment="Left" Margin="610,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="37,84,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblEmail" Content="xxxx" HorizontalAlignment="Left" Margin="103,84,0,0" VerticalAlignment="Top"/>
+        <Label Content="Website:" HorizontalAlignment="Left" Margin="178,82,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblWebeite" Content="xxxx" HorizontalAlignment="Left" Margin="244,82,0,0" VerticalAlignment="Top"/>
+        <Label Content="Passwort:" HorizontalAlignment="Left" Margin="313,82,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblPasswort" Content="xxxx" HorizontalAlignment="Left" Margin="379,79,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgvKunde" Margin="16,110,16,200"/>
+
+        <Label Content="Strasse:" HorizontalAlignment="Left" Margin="33,263,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblStrasse" Content="xxxx" HorizontalAlignment="Left" Margin="99,263,0,0" VerticalAlignment="Top"/>
+        <Label Content="HausNr:" HorizontalAlignment="Left" Margin="172,263,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblHausNr" Content="xxxx" HorizontalAlignment="Left" Margin="238,263,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="318,263,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblOrtschaft" Content="xxxx" HorizontalAlignment="Center" Margin="0,263,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgvAdresse" Margin="16,294,16,16"/>
+
+
     </Grid>
 </Page>
