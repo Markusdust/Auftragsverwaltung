@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessLogik;
 
 namespace Auftragsverwaltung.Views
 {
@@ -20,6 +21,7 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class KundeAdresse : Page
     {
+        private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
         public KundeAdresse()
         {
             InitializeComponent();
@@ -27,7 +29,9 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
+            var kundenNr =
 
+            controllerKundeAdresse.KundeAnlegen()
         }
     }
 }

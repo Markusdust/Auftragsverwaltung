@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Model
 {
-    public class ModelKunde :IModel
+    public class ModelKunde  //:IModel
     {
-        public bool speichern()
+        public bool speichern(Kunde kunde)
         {
-            throw new NotImplementedException();
+            using (var context= new AuftragContext())
+            {
+                context.Kunden.Add(kunde);
+                context.SaveChanges();
+                return true;
+            }
         }
 
         public bool aendern()
@@ -22,5 +28,7 @@ namespace DataAccessLayer.Model
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }
