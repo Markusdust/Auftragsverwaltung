@@ -16,7 +16,7 @@ namespace DataAccessLayer
         public DbSet<Artikelgruppe> Artikelgruppe { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.\\SQL_INSTANCE; Database=Auftragsverwaltung; Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True");
           //  optionsBuilder.UseLazyLoadingProxies();
           
 

@@ -6,7 +6,7 @@ namespace BusinessLogik
 {
     public class ControllerKundeAdresse
     {
-        private ModelKunde modelKunde;
+        private ModelKunde modelKunde = new ModelKunde();
 
         public bool KundeAnlegen(int kundenNr, string vorname, string nachname,
             string firma, string email, string passwort, string website)

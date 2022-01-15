@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,9 +30,15 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
-            var kundenNr =
+            var kundenNr = 111;
+            var vorname = txtVorname.Text;
+            var nachname = txtNachname.Text;
+            var firma = txtFirma.Text;
+            var email = txtEmail.Text;
+            var passwort = txtPasswort.Text;
+            var website = txtWebsite.Text;
 
-            controllerKundeAdresse.KundeAnlegen()
+                controllerKundeAdresse.KundeAnlegen(kundenNr,vorname,nachname,firma,email,passwort,website);
         }
     }
 }
