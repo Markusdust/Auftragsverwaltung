@@ -16,7 +16,7 @@ namespace DataAccessLayer.Entities
         public DateTime GueltigBis { get; set; }
 
         //Foreign Key Kunde
-        public int KudenId { get; set; }
+        public int KundeId { get; set; }
         public Kunde Kunde { get; set; }
 
         //Foreign Key Adresse

@@ -49,7 +49,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("OrtschaftId");
 
-                    b.ToTable("Adresse");
+                    b.ToTable("Adressen");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Artikel", b =>
@@ -65,7 +65,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("ArtikelNr")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArtikelgruppeId")
+                    b.Property<int>("ArtikelgruppeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Bezeichnung")
@@ -99,16 +99,11 @@ namespace DataAccessLayer.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ArtikelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArtikelId");
 
                     b.ToTable("Artikelgruppe");
                 });
@@ -178,10 +173,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("GueltigBis")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("KudenId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KundeId")
+                    b.Property<int>("KundeId")
                         .HasColumnType("int");
 
                     b.Property<int>("KundenNr")
@@ -193,7 +185,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("KundeId");
 
-                    b.ToTable("KundenAdresse");
+                    b.ToTable("KundenAdressen");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Ortschaft", b =>
@@ -232,18 +224,13 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.Artikel", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entities.Artikelgruppe", null)
-                        .WithMany("Artikels")
-                        .HasForeignKey("ArtikelgruppeId");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entities.Artikelgruppe", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entities.Artikel", "Artikel")
+                    b.HasOne("DataAccessLayer.Entities.Artikelgruppe", "Artikelgruppe")
                         .WithMany()
-                        .HasForeignKey("ArtikelId");
+                        .HasForeignKey("ArtikelgruppeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Artikel");
+                    b.Navigation("Artikelgruppe");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.KundenAdresse", b =>
@@ -256,16 +243,13 @@ namespace DataAccessLayer.Migrations
 
                     b.HasOne("DataAccessLayer.Entities.Kunde", "Kunde")
                         .WithMany()
-                        .HasForeignKey("KundeId");
+                        .HasForeignKey("KundeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Adresse");
 
                     b.Navigation("Kunde");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entities.Artikelgruppe", b =>
-                {
-                    b.Navigation("Artikels");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Ortschaft", b =>

@@ -12,40 +12,40 @@
     <Grid>
         <TextBlock Text="Kunde/Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="227,10,0,0"/>
         <Label Content="Kunde:" HorizontalAlignment="Left" Margin="37,24,0,0" VerticalAlignment="Top"/>
-        <Label Content="KundenId:" HorizontalAlignment="Left" Margin="37,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="KundeId:" HorizontalAlignment="Left" Margin="37,55,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblKundenId" Content="xxxx" HorizontalAlignment="Left" Margin="103,55,0,0" VerticalAlignment="Top"/>
-
 
         <Label Content="KundenNr:" HorizontalAlignment="Left" Margin="166,55,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblKundenNr" Content="xxxx" HorizontalAlignment="Left" Margin="232,55,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="279,55,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNachname" HorizontalAlignment="Center" Margin="0,59,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18"/>
+        <TextBox x:Name="txtNachname" HorizontalAlignment="Center" Margin="0,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18"/>
 
         <Label Content="Vorname:" HorizontalAlignment="Left" Margin="466,55,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtVorname" HorizontalAlignment="Left" Margin="526,59,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="18"/>
-
+        <TextBox x:Name="txtVorname" HorizontalAlignment="Left" Margin="526,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="18"/>
 
         <Label Content="Firma:" HorizontalAlignment="Left" Margin="633,55,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtFirma" HorizontalAlignment="Left" Margin="675,59,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="18"/>
+        <TextBox x:Name="txtFirma" HorizontalAlignment="Left" Margin="675,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="18"/>
 
         <Label Content="Email:" HorizontalAlignment="Left" Margin="37,84,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="83,87,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="83,87,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18"/>
 
         <Label Content="Website:" HorizontalAlignment="Left" Margin="190,80,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtWebsite" HorizontalAlignment="Left" Margin="245,85,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" Height="18"/>
+        <TextBox x:Name="txtWebsite" HorizontalAlignment="Left" Margin="245,85,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" Height="18"/>
 
         <Label Content="Passwort:" HorizontalAlignment="Left" Margin="341,80,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="400,84,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
-
+        <TextBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="400,84,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
         <DataGrid x:Name="dgvKunde" Margin="16,110,16,200"/>
         <Label Content="Strasse:" HorizontalAlignment="Left" Margin="33,263,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblStrasse" Content="xxxx" HorizontalAlignment="Left" Margin="99,263,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtStrasse" HorizontalAlignment="Left" Margin="83,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
+
         <Label Content="HausNr:" HorizontalAlignment="Left" Margin="172,263,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblHausNr" Content="xxxx" HorizontalAlignment="Left" Margin="238,263,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtHausNr" HorizontalAlignment="Left" Margin="227,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
+
         <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="318,263,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblOrtschaft" Content="xxxx" HorizontalAlignment="Center" Margin="0,263,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Left" Margin="384,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
+
         <DataGrid x:Name="dgvAdresse" Margin="16,294,16,16"/>
         <Button x:Name="cmdSpeichern" Content="SpeichernTEST" HorizontalAlignment="Left" Margin="548,21,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
 

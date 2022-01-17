@@ -37,8 +37,20 @@ namespace Auftragsverwaltung.Views
             var email = txtEmail.Text;
             var passwort = txtPasswort.Text;
             var website = txtWebsite.Text;
-
-                controllerKundeAdresse.KundeAnlegen(kundenNr,vorname,nachname,firma,email,passwort,website);
+            var strasse = txtStrasse.Text;
+            var hausNr = txtHausNr.Text;
+            var ortschaft = 2;
+            try
+            {
+                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma, email, passwort,
+                    website, strasse,hausNr,ortschaft);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+                
         }
     }
 }

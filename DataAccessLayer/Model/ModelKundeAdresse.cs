@@ -7,13 +7,13 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Model
 {
-    public class ModelKunde 
+    public class ModelKundeAdresse 
     {
-        public bool speichern(Kunde kunde)
+        public bool speichern(KundenAdresse kundenAdresse)
         {
-            using (var context= new AuftragContext())
+            using (var context = new AuftragContext())
             {
-                context.Kunden.Add(kunde);
+                context.KundenAdressen.Add(kundenAdresse);
                 context.SaveChanges();
                 return true;
             }
@@ -28,7 +28,5 @@ namespace DataAccessLayer.Model
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }

@@ -11,8 +11,8 @@ namespace DataAccessLayer.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Active { get; set; }
-        public ICollection<Artikel> Artikels { get; set; }
-        public Artikel Artikel { get; set; }
-        //https://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
+        //public ICollection<Artikel> Artikels { get; set; }
+        //public Artikel Artikel { get; set; }
+        ////https://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
     }
 }
