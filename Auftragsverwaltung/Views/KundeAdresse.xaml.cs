@@ -65,12 +65,13 @@ namespace Auftragsverwaltung.Views
 
         private void LadeAdressen()
         {
-
+            dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LadeKunden();
+            LadeAdressen();
         }
     }
 }

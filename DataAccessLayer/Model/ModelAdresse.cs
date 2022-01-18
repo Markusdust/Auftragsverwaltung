@@ -7,8 +7,9 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Model
 {
-    public class ModelAdresse 
+    public class ModelAdresse
     {
+        private List<Adresse> meineAdressen;
         public bool speichern(Adresse adresse)
         {
             using (var context = new AuftragContext())
@@ -28,5 +29,16 @@ namespace DataAccessLayer.Model
         {
             throw new NotImplementedException();
         }
+
+        public List<Adresse> LadeAdressen()
+        {
+            using (var context = new AuftragContext())
+            {
+               meineAdressen= context.Adressen.ToList();
+            }
+
+            return meineAdressen;
+        }
+
     }
 }

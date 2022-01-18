@@ -64,5 +64,9 @@ namespace BusinessLogik
             return modelKunde.LadeKunden();
         }
 
+        public List<Adresse> LadeAdressen()
+        {
+            return modelAdresse.LadeAdressen();
+        }
     }
 }
