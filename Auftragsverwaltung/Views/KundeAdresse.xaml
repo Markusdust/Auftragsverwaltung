@@ -19,7 +19,7 @@
         <Label x:Name="lblKundenNr" Content="xxxx" HorizontalAlignment="Left" Margin="232,55,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="279,55,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNachname" HorizontalAlignment="Center" Margin="0,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18"/>
+        <TextBox x:Name="txtNachname" HorizontalAlignment="Center" Margin="0,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18" RenderTransformOrigin="0.546,0.426"/>
 
         <Label Content="Vorname:" HorizontalAlignment="Left" Margin="466,55,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtVorname" HorizontalAlignment="Left" Margin="526,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="18"/>
@@ -48,6 +48,7 @@
 
         <DataGrid x:Name="dgvAdresse" Margin="16,294,16,16"/>
         <Button x:Name="cmdSpeichern" Content="SpeichernTEST" HorizontalAlignment="Left" Margin="548,21,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="422,21,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
 
 

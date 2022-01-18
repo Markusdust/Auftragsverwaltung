@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogik;
+using DataAccessLayer;
+using DataAccessLayer.Entities;
 
 namespace Auftragsverwaltung.Views
 {
@@ -23,6 +25,9 @@ namespace Auftragsverwaltung.Views
     public partial class KundeAdresse : Page
     {
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
+
+        // test
+        private List<Kunde> meineKunden { get; set; }
         public KundeAdresse()
         {
             InitializeComponent();
@@ -50,7 +55,22 @@ namespace Auftragsverwaltung.Views
                 Console.WriteLine(exception);
                 throw;
             }
-                
+            LadeKunden();
+        }
+
+        private void LadeKunden()
+        {
+           dgvKunde.ItemsSource= controllerKundeAdresse.LadeKunden();
+        }
+
+        private void LadeAdressen()
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LadeKunden();
         }
     }
 }

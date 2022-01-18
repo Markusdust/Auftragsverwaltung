@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Model;
 
 namespace BusinessLogik
 {
@@ -28,7 +29,7 @@ namespace BusinessLogik
                 GueltigBis = DateTime.Now
             };
 
-            model.kundespeichern(k1);
+          //  model.kundespeichern(k1);
         }
         
     }

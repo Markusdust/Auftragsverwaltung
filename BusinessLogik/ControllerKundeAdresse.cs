@@ -1,6 +1,10 @@
 ﻿using DataAccessLayer.Entities;
 using DataAccessLayer.Model;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace BusinessLogik
 {
@@ -51,10 +55,14 @@ namespace BusinessLogik
            modelKundeAdresse.speichern(kA1);
             // modelKunde aber mit KudnenAdresse also => modelKunde(kA1);
 
-
             return true;
         }
 
+
+        public List<Kunde> LadeKunden()
+        {
+            return modelKunde.LadeKunden();
+        }
 
     }
 }

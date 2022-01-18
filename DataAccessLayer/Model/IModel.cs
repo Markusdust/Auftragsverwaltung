@@ -8,7 +8,7 @@ namespace DataAccessLayer.Model
 {
     interface IModel
     {
-        public bool speichern(object test);
+        public bool speichern();
         public bool aendern();
         public bool loeschen();
 
