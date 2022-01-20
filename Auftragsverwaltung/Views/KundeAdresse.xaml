@@ -9,7 +9,7 @@
       Title="KundeAdresse"
       Background="White">
 
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <TextBlock Text="Kunde/Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="227,10,0,0"/>
         <Label Content="Kunde:" HorizontalAlignment="Left" Margin="37,24,0,0" VerticalAlignment="Top"/>
         <Label Content="KundeId:" HorizontalAlignment="Left" Margin="37,55,0,0" VerticalAlignment="Top"/>
@@ -19,7 +19,7 @@
         <Label x:Name="lblKundenNr" Content="xxxx" HorizontalAlignment="Left" Margin="232,55,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="279,55,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNachname" HorizontalAlignment="Center" Margin="0,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18" RenderTransformOrigin="0.546,0.426"/>
+        <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="354,63,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18" RenderTransformOrigin="0.546,0.426"/>
 
         <Label Content="Vorname:" HorizontalAlignment="Left" Margin="466,55,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtVorname" HorizontalAlignment="Left" Margin="526,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="18"/>

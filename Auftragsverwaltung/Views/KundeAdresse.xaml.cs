@@ -26,11 +26,10 @@ namespace Auftragsverwaltung.Views
     {
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
 
-        // test
-        private List<Kunde> meineKunden { get; set; }
         public KundeAdresse()
         {
             InitializeComponent();
+
         }
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
@@ -47,8 +46,8 @@ namespace Auftragsverwaltung.Views
             var ortschaft = 2;
             try
             {
-                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma, email, passwort,
-                    website, strasse,hausNr,ortschaft);
+                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma, 
+                    email, passwort, website, strasse,hausNr,ortschaft);
             }
             catch (Exception exception)
             {
@@ -56,19 +55,24 @@ namespace Auftragsverwaltung.Views
                 throw;
             }
             LadeKunden();
+            LadeAdressen();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LadeKunden();
+            LadeAdressen();
+        }
         private void LadeKunden()
         {
-           dgvKunde.ItemsSource= controllerKundeAdresse.LadeKunden();
+            dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden();
         }
-
         private void LadeAdressen()
         {
             dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             LadeKunden();
             LadeAdressen();
