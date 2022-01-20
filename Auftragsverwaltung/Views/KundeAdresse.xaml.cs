@@ -60,8 +60,17 @@ namespace Auftragsverwaltung.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LadeKunden();
-            LadeAdressen();
+            try
+            {
+                LadeKunden();
+                LadeAdressen();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Daten könnten nicht geladen werden." + exception);
+                throw;
+            }
+            
         }
         private void LadeKunden()
         {
@@ -74,8 +83,17 @@ namespace Auftragsverwaltung.Views
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            LadeKunden();
-            LadeAdressen();
+            try
+            {
+                LadeKunden();
+                LadeAdressen();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Daten könnten nicht geladen werden."+exception);
+                throw;
+            }
+            
         }
     }
 }
