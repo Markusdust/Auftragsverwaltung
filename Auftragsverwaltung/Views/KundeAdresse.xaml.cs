@@ -52,7 +52,7 @@ namespace Auftragsverwaltung.Views
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                throw;
+                
             }
             LadeKunden();
             LadeAdressen();
@@ -68,7 +68,7 @@ namespace Auftragsverwaltung.Views
             catch (Exception exception)
             {
                 Console.WriteLine("Daten könnten nicht geladen werden." + exception);
-                throw;
+                
             }
             
         }
@@ -91,7 +91,7 @@ namespace Auftragsverwaltung.Views
             catch (Exception exception)
             {
                 Console.WriteLine("Daten könnten nicht geladen werden."+exception);
-                throw;
+                
             }
             
         }
