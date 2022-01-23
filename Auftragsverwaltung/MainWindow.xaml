@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Auftragsverwaltung"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" MinHeight="450" Width="1020" MinWidth="1020">
+        Title="MainWindow" Height="460" MinHeight="460" Width="1020" MinWidth="1020">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="250"/>
@@ -28,7 +28,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" MinWidth="220" Grid.Row="2" Grid.Column="0">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="95" Grid.Row="2" Grid.Column="0">
-                <Button Content="Speichern" MinWidth="95" FontSize="18" Margin="10,10,0,0" MaxHeight="30"></Button>
+                <Button Content="Speichern" MinWidth="95" FontSize="18" Margin="10,10,0,0" MaxHeight="30" Click="Button_Click_3"></Button>
                 <Button Content="Löschen" MinWidth="95" FontSize="18" Margin="10,10,0,0" MaxHeight="30"></Button>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="95" Grid.Row="2" Grid.Column="0">

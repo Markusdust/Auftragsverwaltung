@@ -9,8 +9,25 @@
       Title="AuftragPosition"
       Background="White">
 
-    <Grid>
-        <TextBlock Text="Auftrag/Position" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="24,74,0,0" VerticalAlignment="Top"/>
+    <Grid Loaded="Grid_Loaded">
+        <TextBlock Text="Auftrag / Position" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="227,10,0,0"/>
+
+        <Label Content="KundenNr:" HorizontalAlignment="Left" Margin="37,55,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtKundenNr" HorizontalAlignment="Left" Margin="102,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="18" RenderTransformOrigin="0.546,0.426"/>
+
+        <Label Content="Vorname:" HorizontalAlignment="Left" Margin="166,55,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtVorname" HorizontalAlignment="Left" Margin="225,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18" RenderTransformOrigin="0.546,0.426"/>
+
+        <Label Content="Nachname:" HorizontalAlignment="Left" Margin="340,55,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="410,59,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18" RenderTransformOrigin="0.546,0.426"/>
+
+        <Label Content="Erstelldatum:" HorizontalAlignment="Left" Margin="528,55,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpDatum" HorizontalAlignment="Left" Margin="606,59,0,0" VerticalAlignment="Top"/>
+
+        <DataGrid x:Name="dgvAuftrag" Margin="16,110,16,200"/>
+
+        <DataGrid x:Name="dgvPosition" Margin="16,294,16,16"/>
+        <Button x:Name="cmdSpeichern" Content="Speichern" HorizontalAlignment="Left" Margin="539,21,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
+
     </Grid>
 </Page>

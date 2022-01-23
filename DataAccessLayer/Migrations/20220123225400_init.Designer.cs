@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AuftragContext))]
-    [Migration("20220117202049_initial")]
-    partial class initial
+    [Migration("20220123225400_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,6 +108,33 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artikelgruppe");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Auftrag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuftragsNr")
+                        .HasMaxLength(45)
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Datum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("KundeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KundenId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KundeId");
+
+                    b.ToTable("Auftraege");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Kunde", b =>
@@ -213,6 +240,39 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Ortschaft");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Entities.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArtikelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AuftragId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AuftragsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Menge")
+                        .HasMaxLength(45)
+                        .HasColumnType("int");
+
+                    b.Property<int>("PositionNr")
+                        .HasMaxLength(45)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtikelId");
+
+                    b.HasIndex("AuftragId");
+
+                    b.ToTable("Positionen");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Entities.Adresse", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.Ortschaft", "Ortschaft")
@@ -235,6 +295,15 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Artikelgruppe");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Entities.Auftrag", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Kunde", "Kunde")
+                        .WithMany()
+                        .HasForeignKey("KundeId");
+
+                    b.Navigation("Kunde");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Entities.KundenAdresse", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.Adresse", "Adresse")
@@ -252,6 +321,23 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Adresse");
 
                     b.Navigation("Kunde");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Position", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Artikel", "Artikel")
+                        .WithMany()
+                        .HasForeignKey("ArtikelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entities.Auftrag", "Auftrag")
+                        .WithMany()
+                        .HasForeignKey("AuftragId");
+
+                    b.Navigation("Artikel");
+
+                    b.Navigation("Auftrag");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Ortschaft", b =>

@@ -16,11 +16,17 @@ namespace DataAccessLayer
         public DbSet<KundenAdresse> KundenAdressen { get; set; }
         public DbSet<Artikel> Artikel { get; set; }
         public DbSet<Artikelgruppe> Artikelgruppe { get; set; }
+        public DbSet<Auftrag> Auftraege { get; set; }
+        public DbSet<Position> Positionen { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True");
-          //  optionsBuilder.UseLazyLoadingProxies();
-          
+            // Markus
+            //optionsBuilder.UseSqlServer("Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True");
+            // Andy
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True");
+            //  optionsBuilder.UseLazyLoadingProxies();
+
 
             // install-package Microsoft.Extensions.Configuration.Json
 

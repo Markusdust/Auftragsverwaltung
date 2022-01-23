@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,6 +83,28 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Auftraege",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AuftragsNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
+                    Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    KundenId = table.Column<int>(type: "int", nullable: false),
+                    KundeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auftraege", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Auftraege_Kunden_KundeId",
+                        column: x => x.KundeId,
+                        principalTable: "Kunden",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Adressen",
                 columns: table => new
                 {
@@ -103,6 +125,35 @@ namespace DataAccessLayer.Migrations
                         principalTable: "Ortschaft",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Positionen",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PositionNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
+                    Menge = table.Column<int>(type: "int", maxLength: 45, nullable: false),
+                    AuftragsId = table.Column<int>(type: "int", nullable: false),
+                    AuftragId = table.Column<int>(type: "int", nullable: true),
+                    ArtikelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Positionen", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Positionen_Artikel_ArtikelId",
+                        column: x => x.ArtikelId,
+                        principalTable: "Artikel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Positionen_Auftraege_AuftragId",
+                        column: x => x.AuftragId,
+                        principalTable: "Auftraege",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,6 +196,11 @@ namespace DataAccessLayer.Migrations
                 column: "ArtikelgruppeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Auftraege_KundeId",
+                table: "Auftraege",
+                column: "KundeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_KundenAdressen_AdresseId",
                 table: "KundenAdressen",
                 column: "AdresseId");
@@ -153,27 +209,43 @@ namespace DataAccessLayer.Migrations
                 name: "IX_KundenAdressen_KundeId",
                 table: "KundenAdressen",
                 column: "KundeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Positionen_ArtikelId",
+                table: "Positionen",
+                column: "ArtikelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Positionen_AuftragId",
+                table: "Positionen",
+                column: "AuftragId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Artikel");
-
-            migrationBuilder.DropTable(
                 name: "KundenAdressen");
 
             migrationBuilder.DropTable(
-                name: "Artikelgruppe");
+                name: "Positionen");
 
             migrationBuilder.DropTable(
                 name: "Adressen");
 
             migrationBuilder.DropTable(
-                name: "Kunden");
+                name: "Artikel");
+
+            migrationBuilder.DropTable(
+                name: "Auftraege");
 
             migrationBuilder.DropTable(
                 name: "Ortschaft");
+
+            migrationBuilder.DropTable(
+                name: "Artikelgruppe");
+
+            migrationBuilder.DropTable(
+                name: "Kunden");
         }
     }
 }
