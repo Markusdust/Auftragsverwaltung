@@ -90,8 +90,7 @@ namespace DataAccessLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AuftragsNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    KundenId = table.Column<int>(type: "int", nullable: false),
-                    KundeId = table.Column<int>(type: "int", nullable: true)
+                    KundeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,7 +100,7 @@ namespace DataAccessLayer.Migrations
                         column: x => x.KundeId,
                         principalTable: "Kunden",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

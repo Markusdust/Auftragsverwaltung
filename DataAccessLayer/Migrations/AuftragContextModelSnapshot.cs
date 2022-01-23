@@ -122,10 +122,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("KundeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KundenId")
+                    b.Property<int>("KundeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -297,7 +294,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("DataAccessLayer.Entities.Kunde", "Kunde")
                         .WithMany()
-                        .HasForeignKey("KundeId");
+                        .HasForeignKey("KundeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kunde");
                 });

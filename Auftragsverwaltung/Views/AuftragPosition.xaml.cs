@@ -32,10 +32,10 @@ namespace Auftragsverwaltung.Views
         {
             var auftragNr = 1;
             var datum = dpDatum.SelectedDate.Value;
-            var kundenId = Convert.ToInt32(txtKundenNr.Text);
+            var kundeId = Convert.ToInt32(txtKundenNr.Text);
             try
             {
-                controllerAuftrag.NeuerAuftragAnlegen(auftragNr, datum, kundenId);
+                controllerAuftrag.NeuerAuftragAnlegen(auftragNr, datum, kundeId);
             }
             catch(Exception exception)
             {

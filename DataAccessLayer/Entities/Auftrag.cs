@@ -13,7 +13,7 @@ namespace DataAccessLayer.Entities
         public DateTime Datum { get; set; }
 
         //Foreign Key Kunde
-        public int KundenId { get; set; }
+        public int KundeId { get; set; }
         public Kunde Kunde { get; set; }
     }
 }

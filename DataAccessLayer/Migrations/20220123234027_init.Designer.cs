@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AuftragContext))]
-    [Migration("20220123225400_init")]
+    [Migration("20220123234027_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,10 +124,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("KundeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KundenId")
+                    b.Property<int>("KundeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -299,7 +296,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("DataAccessLayer.Entities.Kunde", "Kunde")
                         .WithMany()
-                        .HasForeignKey("KundeId");
+                        .HasForeignKey("KundeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kunde");
                 });
