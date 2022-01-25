@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class init : Migration
+    public partial class ArtikelArtikelgruppe : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,9 +67,7 @@ namespace DataAccessLayer.Migrations
                     ArtikelNr = table.Column<int>(type: "int", nullable: false),
                     PreisNetto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Aktiv = table.Column<bool>(type: "bit", nullable: false),
-                    ArtikelgruppeId = table.Column<int>(type: "int", nullable: false),
-                    mwst = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    preisBrutto = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ArtikelgruppeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

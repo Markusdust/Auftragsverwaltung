@@ -76,12 +76,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<decimal>("PreisNetto")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("mwst")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("preisBrutto")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ArtikelgruppeId");

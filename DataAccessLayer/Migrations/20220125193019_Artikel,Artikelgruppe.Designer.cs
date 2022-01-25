@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AuftragContext))]
-    [Migration("20220123234027_init")]
-    partial class init
+    [Migration("20220125193019_Artikel,Artikelgruppe")]
+    partial class ArtikelArtikelgruppe
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,12 +76,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<decimal>("PreisNetto")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("mwst")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("preisBrutto")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");

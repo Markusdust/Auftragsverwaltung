@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entities
@@ -18,24 +19,32 @@ namespace DataAccessLayer.Entities
         public bool Aktiv { get; set; }
 
         public int ArtikelgruppeId { get; set; }
-        public Artikelgruppe Artikelgruppe { get; set; } // Hier Fehlermeldung (Is not virtual)
+        public Artikelgruppe Artikelgruppe { get; set; }
+
 
         // gibt es noch eine Klasse Position ? -- Joel
         // public ICollection<Position> Positionen { get; set; }
         // public Position Position { get; set; }
 
-        public decimal mwst
-        {
-            get { return Mwst; }
-            set { Mwst = 7.7m; }
 
-        }
+        // public Artikel(string bezeichnung, int artikelnummer, decimal preisnetto, bool aktiv)
+        // {
+        //     this.Bezeichnung = bezeichnung; this.ArtikelNr = artikelnummer; this.PreisNetto = preisnetto; this.Aktiv = aktiv;
+        //
+        // }
 
-        public decimal preisBrutto
-        {
-            get { return PreisBrutto; }
-            set { PreisBrutto = PreisNetto * Mwst; }
-        }
+        // public decimal mwst
+        // {
+        //     get { return Mwst; }
+        //     set { Mwst = 7.7m; }
+        //
+        // }
+        //
+        // public decimal preisBrutto
+        // {
+        //     get { return PreisBrutto; }
+        //     set { PreisBrutto = PreisNetto * Mwst; }
+        // }
 
 
     }

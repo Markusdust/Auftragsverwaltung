@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogik;
+using DataAccessLayer.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auftragsverwaltung.Views
 {
@@ -21,20 +23,75 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class ArtikelArtikelgruppe : Page
     {
-        private ControllerArtikel controller;
+        private ControllerArtikel controllerArtikel;
+        private ControllerArtikelGruppe controllerArtikelGruppe;
         public ArtikelArtikelgruppe()
         {
             InitializeComponent();
-            controller = new ControllerArtikel();
+            controllerArtikel = new ControllerArtikel();
+            controllerArtikelGruppe = new ControllerArtikelGruppe();
+
+            LblArtikelNummmer.Content = controllerArtikel.GetCounterArtikel().ToString();
+            LblArtikekgruppeNummer.Content = controllerArtikelGruppe.GetCounterArtikelGruppe().ToString();
+
+            LadeDataGrid("Artikel");
+            LadeDataGrid("Artikelgruppe");
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Test Artikel anlegen
-          //  controller.testartikelanlegen();
+            //  controller.testartikelanlegen();
 
             //Test ArtikelGruppe anlegen
-            controller.testartikelgruppeanlegen();
+            //controller.testartikelgruppeanlegen();
+
+            try
+            {
+                string bezeichnung = TxtArtikelBezeichung.Text;
+                decimal nettopreis = Convert.ToInt16(TxtPreisNetto.Text);
+                bool aktiv = (bool)ChkAktiv.IsChecked ? true : false;
+                string artikelgruppe = CmbArtikelGruppe.Text;
+
+                controllerArtikel.NeuerArtieklAnlegen(bezeichnung, nettopreis, aktiv /*artikelgruppe*/);
+
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Konnte nicht geladen werden");
+            }
+            LadeDataGrid("Artikel");
+        }
+
+        private void LadeDataGrid(string grid)
+        {
+            switch (grid)
+            {
+                case "Artikel":
+                    DgvArtikel.ItemsSource = controllerArtikel.LadeArtikel();
+                    break;
+                case "Artikelgruppe":
+                    DgvArtikelGruppe.ItemsSource = controllerArtikelGruppe.LadeArtikelgruppe();
+                    break;
+
+            }
+
+            DgvArtikel.ItemsSource = controllerArtikel.LadeArtikel();
+        }
+
+        //TestArtikel
+        private void CmbTestArtikel_Click(object sender, RoutedEventArgs e)
+        {
+            //Artikelgruppe muss zuerst erstellt werden, Artikel ist abhängig von Artikelgruppe
+            // controllerArtikelGruppe.ArtikelGruppeAnlegen();
+            // LadeDataGrid("Artikelgruppe");
+
+            controllerArtikel.testartikelanlegen();
+            LadeDataGrid("Artikel");
+            
+
         }
     }
 }
