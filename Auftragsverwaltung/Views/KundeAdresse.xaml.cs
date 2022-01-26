@@ -1,20 +1,9 @@
-﻿using System;
+﻿using BusinessLogik;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BusinessLogik;
-using DataAccessLayer;
 using DataAccessLayer.Entities;
 
 namespace Auftragsverwaltung.Views
@@ -24,6 +13,8 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class KundeAdresse : Page
     {
+
+
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
 
         public KundeAdresse()
@@ -46,13 +37,13 @@ namespace Auftragsverwaltung.Views
             var ortschaft = 2;
             try
             {
-                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma, 
-                    email, passwort, website, strasse,hausNr,ortschaft);
+                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma,
+                    email, passwort, website, strasse, hausNr, ortschaft);
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                
+
             }
             LadeKunden();
             LadeAdressen();
@@ -67,10 +58,10 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                Console.WriteLine("Daten könnten nicht geladen werden." + exception);
-                
+                MessageBox.Show("Daten konnten nicht geladen werden: " + "r\n" + exception);
+
             }
-            
+
         }
         private void LadeKunden()
         {
@@ -90,10 +81,40 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                Console.WriteLine("Daten könnten nicht geladen werden."+exception);
-                
+                MessageBox.Show("Daten konnten nicht geladen werden: " + "r\n" + exception);
+
+            }
+
+        }
+
+        private void dgvKunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var aktuelleZeile = dgvKunde.SelectedCells.ToArray();
+                var aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
+
+                SelectierterKundeZuFeldern(aktuellerKunde);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Fehler: "+"r\n"+exception);
             }
             
+
+        }
+
+        private void SelectierterKundeZuFeldern(Kunde aktuellerKunde)
+        {
+            lblKundenId.Content = Convert.ToString(aktuellerKunde.Id);
+            lblKundenNr.Content = Convert.ToString(aktuellerKunde.KundenNr);
+            txtNachname.Text = aktuellerKunde.Nachname;
+            txtVorname.Text = aktuellerKunde.Vorname;
+            txtFirma.Text = aktuellerKunde.Firma;
+            txtEmail.Text = aktuellerKunde.Email;
+            txtWebsite.Text = aktuellerKunde.Website;
+            txtPasswort.Text = aktuellerKunde.Passwort;
+
         }
     }
 }

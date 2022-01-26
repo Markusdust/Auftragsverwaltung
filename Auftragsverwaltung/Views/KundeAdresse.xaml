@@ -36,7 +36,7 @@
         <Label Content="Passwort:" HorizontalAlignment="Left" Margin="341,80,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="400,84,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
-        <DataGrid x:Name="dgvKunde" Margin="16,110,16,200"/>
+        <DataGrid x:Name="dgvKunde" Margin="16,110,16,200" SelectionChanged="dgvKunde_SelectionChanged"/>
         <Label Content="Strasse:" HorizontalAlignment="Left" Margin="33,263,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtStrasse" HorizontalAlignment="Left" Margin="83,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
@@ -49,6 +49,7 @@
         <DataGrid x:Name="dgvAdresse" Margin="16,294,16,16"/>
         <Button x:Name="cmdSpeichern" Content="SpeichernTEST" HorizontalAlignment="Left" Margin="548,21,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="422,21,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="cmdAendern" Content="ÄndernTEST" HorizontalAlignment="Left" Margin="654,21,0,0" VerticalAlignment="Top"/>
 
 
 
