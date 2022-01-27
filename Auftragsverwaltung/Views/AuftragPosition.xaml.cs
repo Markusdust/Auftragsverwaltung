@@ -37,7 +37,7 @@ namespace Auftragsverwaltung.Views
             {
                 controllerAuftrag.NeuerAuftragAnlegen(auftragNr, datum, kundeId);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 Console.WriteLine("Kunde kann nicht geladen werden.");
             }
@@ -59,6 +59,6 @@ namespace Auftragsverwaltung.Views
             {
                 Console.WriteLine("Daten können nicht geladen werden." + exception);
             }
-        }
+        }        
     }
 }
