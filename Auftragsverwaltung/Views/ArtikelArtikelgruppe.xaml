@@ -5,12 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Auftragsverwaltung.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="506" d:DesignWidth="897"
       Title="ArtikelArtikelgruppe"
       Background="White">
 
     <Grid>
-        <TextBlock Text="Artikel/Artikelgruppe" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        <Button Content="TestButton" HorizontalAlignment="Left" Margin="392,101,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBlock x:Name="LblArtikelTopic" Text="Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="91,3,0,0" Height="33" Width="69"/>
+        <Button Content="TestButton" HorizontalAlignment="Left" Margin="279,163,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="0.5,0.5" Height="21" Width="61"/>
+        <Label x:Name="LblBezeichung" Content="Artikel Bezeichung:" HorizontalAlignment="Left" Margin="152,42,0,0" VerticalAlignment="Top" FontSize="15" Height="29" Width="140"/>
+        <TextBox x:Name="TxtArtikelBezeichung" HorizontalAlignment="Left" Margin="296,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="15" Height="28" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.062,0.603" TabIndex="1"/>
+        <Label x:Name="LblArtikelNummerName" Content="Artikel Nummer:" HorizontalAlignment="Left" Margin="-4,42,0,0" VerticalAlignment="Top" FontSize="15" Height="29" Width="123"/>
+        <Label x:Name="LblArtikelNummmer" Content="..." HorizontalAlignment="Left" Margin="124,43,0,0" VerticalAlignment="Top" FontSize="15" Width="36" Height="31"/>
+        <Label x:Name="LblPreisNetto" Content="Preis Netto:" HorizontalAlignment="Left" Margin="152,75,0,0" VerticalAlignment="Top" FontSize="15" Height="32" Width="88"/>
+        <TextBox x:Name="TxtPreisNetto" HorizontalAlignment="Left" Margin="296,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" FontSize="15" Height="27" Text="&#xA;" AutomationProperties.IsRequiredForForm="True" TabIndex="4"/>
+        <Label x:Name="LblPreisBrutto" Content="Preis Brutto:" HorizontalAlignment="Left" Margin="152,107,0,0" VerticalAlignment="Top" FontSize="15" Width="110" Height="29"/>
+        <TextBox x:Name="TxtPreisNetto_Copy" HorizontalAlignment="Left" Margin="296,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" FontSize="15" Height="25" Text="&#xA;" Background="#FFC5C1C1" IsEnabled="False"/>
+        <Label x:Name="LblAktiv" Content="Aktiv:" HorizontalAlignment="Left" Margin="5,81,0,0" VerticalAlignment="Top" FontSize="15" Width="48" Height="31"/>
+        <CheckBox x:Name="ChkAktiv" Content="" HorizontalAlignment="Left" Margin="71,88,0,0" VerticalAlignment="Top" Height="21" Width="28" RenderTransformOrigin="0.535,0.562" TabIndex="3" IsChecked="True"/>
+        <Label x:Name="LblArtikelGruppe" Content="Artikel Gruppe:" HorizontalAlignment="Left" Margin="-1,119,0,0" VerticalAlignment="Top" FontSize="15" Height="28" Width="114"/>
+        <DataGrid x:Name="DgvArtikel" Margin="4,217,438,11"/>
+        <Button x:Name="CmbTestArtikel" Content="TestArtikel 2x" HorizontalAlignment="Left" Margin="382,164,0,0" VerticalAlignment="Top" Click="CmbTestArtikel_Click" Height="21" Width="77"/>
+        <ComboBox x:Name="CmbArtikelGruppe" HorizontalAlignment="Left" Margin="5,152,0,0" VerticalAlignment="Top" Width="125" Height="22"/>
+        <TextBlock x:Name="LblArtikelGruppeTopic" Text="ArtikelGruppe" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="520,6,0,0" Height="33" Width="150"/>
+        <Label x:Name="LblArtikelGruppeNummerName" Content="Nummer:" HorizontalAlignment="Left" Margin="504,45,0,0" VerticalAlignment="Top" FontSize="15" Height="29" Width="72"/>
+        <Label x:Name="LblArtikekgruppeNummer" Content="..." HorizontalAlignment="Left" Margin="576,46,0,0" VerticalAlignment="Top" FontSize="15" Width="38" Height="31"/>
+        <Label x:Name="LblBezeichungArtikelGruppe" Content="Artikel Bezeichung:" HorizontalAlignment="Left" Margin="504,81,0,0" VerticalAlignment="Top" FontSize="15" Height="31" Width="139"/>
+        <TextBox x:Name="TxtArtikelgruppeBezeichung" HorizontalAlignment="Left" Margin="668,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="15" Height="26" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.062,0.603" TabIndex="1"/>
+        <Label x:Name="LblArtikelgruppeAktiv" Content="Aktiv:" HorizontalAlignment="Left" Margin="511,123,0,0" VerticalAlignment="Top" FontSize="15" Width="50" Height="28"/>
+        <CheckBox x:Name="ChkArtikelGruppeAktiv" Content="" HorizontalAlignment="Left" Margin="576,128,0,0" VerticalAlignment="Top" Height="20" Width="30" RenderTransformOrigin="0.535,0.562" TabIndex="3" IsChecked="True"/>
+        <DataGrid x:Name="DgvArtikelGruppe" Margin="540,218,28,10"/>
     </Grid>
 </Page>

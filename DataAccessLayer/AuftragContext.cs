@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
@@ -18,13 +19,15 @@ namespace DataAccessLayer
         public DbSet<Artikelgruppe> Artikelgruppe { get; set; }
         public DbSet<Auftrag> Auftraege { get; set; }
         public DbSet<Position> Positionen { get; set; }
-        
+        //Joel
+        public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
+        //Markus
+        //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
+        //Andy
+        //public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Markus
-            //optionsBuilder.UseSqlServer("Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True");
-            // Andy
-            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True");
+            optionsBuilder.UseSqlServer(connectionstring);
             //  optionsBuilder.UseLazyLoadingProxies();
 
 
@@ -41,5 +44,22 @@ namespace DataAccessLayer
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
         }
+
+        // Gibt eine Zahl int zurück //sql string muss übergeben werden
+        public int GetCountColumn(string sqlstring)
+        {
+            int count = 0;
+            using (SqlConnection connection = new SqlConnection(connectionstring))
+            {
+                using (SqlCommand cmdCount = new SqlCommand(sqlstring, connection))
+                {
+                    connection.Open();
+                    count = (int)cmdCount.ExecuteScalar();
+                }
+
+                return count;
+            }
+        }
+
     }
 }
