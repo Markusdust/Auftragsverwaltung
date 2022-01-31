@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,28 +12,57 @@ namespace BusinessLogik
 {
     public class ControllerArtikel
     {
-        private ModelArtikel modelArtikModel = new ModelArtikel();
+        private ModelArtikel modelArtikel = new ModelArtikel();
+
+
         public void testartikelanlegen()
         {
+
             Artikel a1 = new Artikel()
             {
-                // Id = ??
-                Bezeichnung = "Hammer",
+                Bezeichnung = "Trizeps",
                 ArtikelNr = 5,
                 PreisNetto = 50.50m,
-                Aktiv = true
+                Aktiv = true,
+                ArtikelgruppeId = 1
             };
-            modelArtikModel.artikelspeichern(a1);
+            modelArtikel.artikelspeichern(a1);
+            
+            Artikel a2 = new Artikel()
+            {
+                Bezeichnung = "Discopumper",
+                ArtikelNr = 5,
+                PreisNetto = 50.50m,
+                Aktiv = true,
+                ArtikelgruppeId = 1
+            };
+            modelArtikel.artikelspeichern(a2);
+
         }
 
-        public void testartikelgruppeanlegen()
+        public bool NeuerArtieklAnlegen(string bezeichnung, decimal preisnetto, bool aktiv)
         {
-            Artikelgruppe agruppe1 = new Artikelgruppe()
+
+            Artikel a1 = new Artikel()
             {
-                Name = "TestGruppe",
-                Active = true,
+                Bezeichnung = bezeichnung,
+                PreisNetto = preisnetto,
+                Aktiv = aktiv,
+                //ArtikelgruppeId = artikelgruppeid
             };
-            modelArtikModel.artikelgruppespeichern(agruppe1);
+            modelArtikel.artikelspeichern(a1);
+
+            return true;
+        }
+
+        public List<Artikel> LadeArtikel()
+        {
+            return ModelArtikel.LadeArtikel();
+        }
+
+        public int GetCounterArtikel()
+        {
+            return modelArtikel.GetCounterArtikel();
         }
     }
 }

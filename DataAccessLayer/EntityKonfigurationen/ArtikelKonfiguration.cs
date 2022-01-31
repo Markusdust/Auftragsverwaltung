@@ -15,7 +15,6 @@ namespace DataAccessLayer.EntityKonfigurationen
         {
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Bezeichnung).IsRequired().HasMaxLength(255); //Beschränken auf grösse von Txtfeld? --Joel
-            builder.Property(x => x.ArtikelNr).IsRequired();
             builder.Property(x => x.PreisNetto).IsRequired();
             builder.Property(x => x.Aktiv).IsRequired();
             // Artikelgruppe ??

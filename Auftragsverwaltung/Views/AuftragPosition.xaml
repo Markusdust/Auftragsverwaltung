@@ -5,12 +5,48 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Auftragsverwaltung.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="950"
       Title="AuftragPosition"
       Background="White">
 
-    <Grid>
-        <TextBlock Text="Auftrag/Position" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="24,74,0,0" VerticalAlignment="Top"/>
+    <Grid Loaded="Grid_Loaded">
+        <TextBlock Text="Auftrag / Position" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="227,10,0,0"/>
+        <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Margin="0,60,0,0">
+            <Label Content="KundenNr:" Margin="20,0,0,0"></Label>
+            <TextBox x:Name="txtKundenNr" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+
+            <Label Content="Vorname:" Margin="20,0,0,0"></Label>
+            <TextBox x:Name="txtVorname" Width="100" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+
+            <Label Content="Nachname:" Margin="20,0,0,0"></Label>
+            <TextBox x:Name="txtNachname" Width="100" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+
+            <Label Content="Erstelldatum:" Margin="20,0,0,0"></Label>
+            <DatePicker x:Name="dpDatum" VerticalAlignment="Center" Margin="5,0,0,0"></DatePicker>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Width="150" HorizontalAlignment="Right" Margin="0,105,0,0">
+            <Button x:Name="cmdSpeichern" Content="Speichern" Width="100" Height="20" Margin="5" Click="cmdSpeichern_Click"></Button>
+            <Button x:Name="cmdAendern" Content="Ändern" Width="100" Height="20" Margin="5"></Button>
+            <Button x:Name="cmdLoeschen" Content="Löschen" Width="100" Height="20" Margin="5"></Button>
+            <Button x:Name="cmdLeeren" Content="Leeren" Width="100" Height="20" Margin="5"></Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Center" Margin="0,100,0,0">
+            <Label Content="Position:" Margin="20,0,0,0" VerticalAlignment="Center"></Label>
+            <TextBox x:Name="txtPosition" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center" IsEnabled="False"></TextBox>
+            
+            <Label Content="Menge:" Margin="20,0,0,0" VerticalAlignment="Center"></Label>
+            <TextBox x:Name="txtMenge" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+
+            <Label Content="Artikel:" Margin="20,0,0,0" VerticalAlignment="Center"></Label>
+            <ComboBox x:Name="cmboArtikel" Width="150" Height="20" VerticalAlignment="Center"></ComboBox>
+
+            <Button x:Name="cmdInBestellung" Content="In die Liste" Margin="80,0,0,0" Width="100" Height="20"></Button>
+        </StackPanel>
+
+        <DataGrid x:Name="dgvAuftrag" Margin="20,110,197,200"/>
+
+        <DataGrid x:Name="dgvPosition" Margin="20,294,197,16"/>
     </Grid>
 </Page>
