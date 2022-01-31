@@ -95,6 +95,10 @@ namespace Auftragsverwaltung.Views
                 var aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
 
                 SelectierterKundeZuFeldern(aktuellerKunde);
+                // SelectierteAdresseZuFeldern(aktuelleAdresse);
+                //Aktuelle Adresse soll automatisch selektiert werden wenn der kunde angewählt wird.
+                // Hat ja verknüpfung zwischen kunde`/Adresse 
+
             }
             catch (Exception exception)
             {
@@ -115,6 +119,13 @@ namespace Auftragsverwaltung.Views
             txtWebsite.Text = aktuellerKunde.Website;
             txtPasswort.Text = aktuellerKunde.Passwort;
 
+        }
+
+        private void SeletierteAdresseZuFeldern(Adresse aktuelleAdresse)
+        {
+            txtStrasse.Text = "";
+            txtHausNr.Text = "";
+            txtOrtschaft.Text = "";
         }
     }
 }
