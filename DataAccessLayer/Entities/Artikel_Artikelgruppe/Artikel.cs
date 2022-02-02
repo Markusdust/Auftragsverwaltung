@@ -22,11 +22,6 @@ namespace DataAccessLayer.Entities
         public Artikelgruppe Artikelgruppe { get; set; }
 
 
-        // gibt es noch eine Klasse Position ? -- Joel
-        // public ICollection<Position> Positionen { get; set; }
-        // public Position Position { get; set; }
-
-
         // public Artikel(string bezeichnung, int artikelnummer, decimal preisnetto, bool aktiv)
         // {
         //     this.Bezeichnung = bezeichnung; this.ArtikelNr = artikelnummer; this.PreisNetto = preisnetto; this.Aktiv = aktiv;
