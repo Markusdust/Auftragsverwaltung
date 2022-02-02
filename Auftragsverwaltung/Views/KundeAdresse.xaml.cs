@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using DataAccessLayer;
 using DataAccessLayer.Entities;
 
 namespace Auftragsverwaltung.Views
@@ -13,7 +14,7 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class KundeAdresse : Page
     {
-
+        private int aktuellerKundenId;
 
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
 
@@ -95,6 +96,10 @@ namespace Auftragsverwaltung.Views
                 var aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
 
                 SelectierterKundeZuFeldern(aktuellerKunde);
+                aktuellerKundenId = aktuellerKunde.Id;
+                AdresseZuKundenId(aktuellerKundenId);
+                
+
                 // SelectierteAdresseZuFeldern(aktuelleAdresse);
                 //Aktuelle Adresse soll automatisch selektiert werden wenn der kunde angewählt wird.
                 // Hat ja verknüpfung zwischen kunde`/Adresse 
@@ -126,6 +131,16 @@ namespace Auftragsverwaltung.Views
             txtStrasse.Text = "";
             txtHausNr.Text = "";
             txtOrtschaft.Text = "";
+        }
+
+        private void AdresseZuKundenId(int kundenID)
+        {
+            using (var context= new AuftragContext())
+            {
+             var queryMatchingAdress = context.KundenAdressen.Where(x =>
+                        x.Kunde.Id.Equals(aktuellerKundenId) && x.GueltigBis.Equals(DateTime.MaxValue))
+                    .Select(x => x.Adresse).First();
+            }
         }
     }
 }
