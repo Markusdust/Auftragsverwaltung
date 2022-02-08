@@ -68,5 +68,10 @@ namespace BusinessLogik
         {
             return modelAdresse.LadeAdressen();
         }
+
+        public Adresse AdresseZuKunde(int KundenId)
+        {
+            return modelKundeAdresse.LadeAdresseZuKunde(KundenId);
+        }
     }
 }

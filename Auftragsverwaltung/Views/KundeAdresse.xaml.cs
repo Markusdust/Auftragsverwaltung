@@ -1,11 +1,11 @@
 ﻿using BusinessLogik;
+using DataAccessLayer.Entities;
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using DataAccessLayer;
-using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Auftragsverwaltung.Views
 {
@@ -36,6 +36,7 @@ namespace Auftragsverwaltung.Views
             var strasse = txtStrasse.Text;
             var hausNr = txtHausNr.Text;
             var ortschaft = 2;
+
             try
             {
                 controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma,
@@ -52,25 +53,8 @@ namespace Auftragsverwaltung.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                LadeKunden();
-                LadeAdressen();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Daten konnten nicht geladen werden: " + "r\n" + exception);
+            SelectiereAdressInDg(2);
 
-            }
-
-        }
-        private void LadeKunden()
-        {
-            dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden();
-        }
-        private void LadeAdressen()
-        {
-            dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -83,33 +67,33 @@ namespace Auftragsverwaltung.Views
             catch (Exception exception)
             {
                 MessageBox.Show("Daten konnten nicht geladen werden: " + "r\n" + exception);
-
             }
 
         }
 
         private void dgvKunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Adresse adresseVonKunde;
             try
             {
                 var aktuelleZeile = dgvKunde.SelectedCells.ToArray();
                 var aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
+                
 
                 SelectierterKundeZuFeldern(aktuellerKunde);
                 aktuellerKundenId = aktuellerKunde.Id;
-                AdresseZuKundenId(aktuellerKundenId);
-                
 
-                // SelectierteAdresseZuFeldern(aktuelleAdresse);
-                //Aktuelle Adresse soll automatisch selektiert werden wenn der kunde angewählt wird.
-                // Hat ja verknüpfung zwischen kunde`/Adresse 
+                adresseVonKunde=AdresseZuKundenId(aktuellerKundenId);
+                SelectiereAdressInDg(adresseVonKunde.Id);
+                SeletierteAdresseZuFeldern(adresseVonKunde);
+                
 
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Fehler: "+"r\n"+exception);
+                MessageBox.Show("Fehler: " + "r\n" + exception);
             }
-            
+
 
         }
 
@@ -123,24 +107,39 @@ namespace Auftragsverwaltung.Views
             txtEmail.Text = aktuellerKunde.Email;
             txtWebsite.Text = aktuellerKunde.Website;
             txtPasswort.Text = aktuellerKunde.Passwort;
-
         }
 
         private void SeletierteAdresseZuFeldern(Adresse aktuelleAdresse)
         {
-            txtStrasse.Text = "";
-            txtHausNr.Text = "";
-            txtOrtschaft.Text = "";
+            txtStrasse.Text = aktuelleAdresse.Strasse;
+            txtHausNr.Text = Convert.ToString(aktuelleAdresse.HausNr);
+            txtOrtschaft.Text = Convert.ToString(aktuelleAdresse.OrtschaftId);
         }
 
-        private void AdresseZuKundenId(int kundenID)
+        private Adresse AdresseZuKundenId(int kundenID)
         {
-            using (var context= new AuftragContext())
+            return controllerKundeAdresse.AdresseZuKunde(kundenID);
+        }
+        private void LadeKunden()
+        {
+            dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden();
+        }
+        private void LadeAdressen()
+        {
+            dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
+        }
+
+        private void SelectiereAdressInDg(int AdressId)
+        {
+            for (int i = 0; i < dgvAdresse.Items.Count; i++)
             {
-             var queryMatchingAdress = context.KundenAdressen.Where(x =>
-                        x.Kunde.Id.Equals(aktuellerKundenId) && x.GueltigBis.Equals(DateTime.MaxValue))
-                    .Select(x => x.Adresse).First();
+                if (AdressId == ((Adresse)dgvAdresse.Items[i]).Id)
+                {
+                    dgvAdresse.SelectedIndex = i;
+                    
+                }
             }
+
         }
     }
 }

@@ -28,5 +28,20 @@ namespace DataAccessLayer.Model
         {
             throw new NotImplementedException();
         }
+
+        public Adresse LadeAdresseZuKunde(int KundenId)
+        {
+            Adresse adresseZuKunde;
+            using (var context = new AuftragContext())
+            {
+                var queryMatchingAdress = context.KundenAdressen.Where(x =>
+                        x.Kunde.Id.Equals(KundenId) && x.GueltigBis.Equals(DateTime.MaxValue))
+                    .Select(x => x.Adresse).First();
+
+                adresseZuKunde = queryMatchingAdress;
+            }
+
+            return adresseZuKunde;
+        }
     }
 }
