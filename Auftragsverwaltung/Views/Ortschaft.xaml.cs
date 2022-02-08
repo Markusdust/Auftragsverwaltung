@@ -24,5 +24,10 @@ namespace Auftragsverwaltung.Views
         {
             InitializeComponent();
         }
+
+        private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

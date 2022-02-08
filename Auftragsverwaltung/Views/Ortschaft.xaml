@@ -11,11 +11,16 @@
 
     <Grid>
         <Label Content="Ortschaft" HorizontalAlignment="Left" Margin="346,10,0,0" VerticalAlignment="Top" FontSize="20"/>
+
         <Label Content="PLZ:" HorizontalAlignment="Left" Margin="80,93,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblPlz" Content="xxx" HorizontalAlignment="Left" Margin="133,93,0,0" VerticalAlignment="Top"/>
-        <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="206,93,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblOrtschaft" Content="xxx" HorizontalAlignment="Left" Margin="294,93,0,0" VerticalAlignment="Top"/>
-        <DataGrid Margin="28,124,21,101"/>
+        <TextBox x:Name="txtPLZ" HorizontalAlignment="Left" Margin="117,97,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="18"/>
+
+
+        <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="273,97,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Center" Margin="0,101,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Height="18"/>
+
+        <DataGrid Margin="28,124,0,0" HorizontalAlignment="Left" Width="748" Height="203" VerticalAlignment="Top" CanUserAddRows="False"/>
+        <Button x:Name="cmdSpeichern"  Content="Speichern" HorizontalAlignment="Left" Margin="533,47,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="cmdSpeichern_Click"/>
 
     </Grid>
 </Page>

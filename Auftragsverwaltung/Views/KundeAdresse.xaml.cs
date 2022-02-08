@@ -53,7 +53,7 @@ namespace Auftragsverwaltung.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SelectiereAdressInDg(2);
+            MarkiereAdressInDg(2);
 
         }
 
@@ -84,7 +84,7 @@ namespace Auftragsverwaltung.Views
                 aktuellerKundenId = aktuellerKunde.Id;
 
                 adresseVonKunde=AdresseZuKundenId(aktuellerKundenId);
-                SelectiereAdressInDg(adresseVonKunde.Id);
+                MarkiereAdressInDg(adresseVonKunde.Id);
                 SeletierteAdresseZuFeldern(adresseVonKunde);
                 
 
@@ -129,7 +129,7 @@ namespace Auftragsverwaltung.Views
             dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
         }
 
-        private void SelectiereAdressInDg(int AdressId)
+        private void MarkiereAdressInDg(int AdressId)
         {
             for (int i = 0; i < dgvAdresse.Items.Count; i++)
             {
