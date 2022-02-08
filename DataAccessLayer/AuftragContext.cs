@@ -61,5 +61,22 @@ namespace DataAccessLayer
             }
         }
 
+        // public string[] GetTable(string sqlstring)
+        // {
+        //      
+        //     using (SqlConnection connection = new SqlConnection(sqlstring))
+        //     {
+        //         string[] table;
+        //         using (SqlCommand getTable = new SqlCommand(sqlstring, connection))
+        //         {
+        //             connection.Open();
+        //             
+        //             table = getTable.CommandText(sqlstring);
+        //         }
+        //
+        //         return table;
+        //     }
+        // }
+
     }
 }

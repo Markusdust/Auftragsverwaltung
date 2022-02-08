@@ -12,31 +12,41 @@ namespace BusinessLogik
     public class ControllerArtikelGruppe
     {
         private ModelArtikelgruppe modelArtikelgruppe = new ModelArtikelgruppe();
-        public int GetCounterArtikelGruppe()
+        public int GetCounterArtikelGruppe(string sqlcommand)
         {
-            return modelArtikelgruppe.GetCounterArtikelgruppe();
+            return modelArtikelgruppe.GetCounterArtikelgruppe(sqlcommand);
         }
 
-        public void ArtikelGruppeAnlegen()
+        public void ArtikelGruppeAnlegen(string name, bool aktiv)
         {
+            // Artikelgruppe ag1 = new Artikelgruppe()
+            // {
+            //     Name = "Werkzeug",
+            //     Active = true
+            // };
+            // modelArtikelgruppe.artikelgruppespeichern(ag1);
+            //
+            // Artikelgruppe ag2 = new Artikelgruppe()
+            // {
+            //     Name = "Schmuck",
+            //     Active = true
+            // };
             Artikelgruppe ag1 = new Artikelgruppe()
             {
-                Name = "Werkzeug",
-                Active = true
+                Name = name,
+                Active = aktiv
             };
             modelArtikelgruppe.artikelgruppespeichern(ag1);
-
-            Artikelgruppe ag2 = new Artikelgruppe()
-            {
-                Name = "Schmuck",
-                Active = true
-            };
-            modelArtikelgruppe.artikelgruppespeichern(ag2);
         }
 
         public List<Artikelgruppe> LadeArtikelgruppe()
         {
             return ModelArtikelgruppe.LadeArtikelGruppe();
         }
+
+        // public object GetTable(string sqlcommand)
+        // {
+        //     return modelArtikelgruppe.GetTable(sqlcommand);
+        // }
     }
 }

@@ -21,43 +21,25 @@ namespace DataAccessLayer.Model
             }
         }
 
-
-        public int GetCounterArtikel()
+        public int GetCounterArtikel(string sqlcommand)
         {
 
             using (var context = new AuftragContext())
             {
 
-                string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKEL";
-                int count = context.GetCountColumn(sqlgetcountstring);
+                //string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKEL";
+                int count = context.GetCountColumn(sqlcommand);
 
-                // using (SqlCommand cmdCount = new SqlCommand(sqlgetcountstring))
-                // {
-                //     count = context.GetCountColumn(sqlgetcountstring);
-                //     
-                // }
+                using (SqlCommand cmdCount = new SqlCommand(sqlcommand))
+                {
+                    count = context.GetCountColumn(sqlcommand);
+                    
+                }
 
                 return count;
             }
-
         }
-        // public int GetCountArtikel()
-        // {
-        //     int count = 0;
-        //     using (SqlConnection connection = new SqlConnection(connectionstring))
-        //     {
-        //
-        //         string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKEL";
-        //
-        //         using (SqlCommand cmdCount = new SqlCommand(sqlgetcountstring, connection))
-        //         {
-        //             connection.Open();
-        //             count = (int)cmdCount.ExecuteScalar();
-        //         }
-        //
-        //         return count;
-        //     }
-        // }
+
         public static List<Artikel> LadeArtikel()
         {
             using (AuftragContext context = new AuftragContext())

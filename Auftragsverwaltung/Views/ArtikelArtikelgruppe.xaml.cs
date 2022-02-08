@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogik;
+using DataAccessLayer.Entities;
 using DataAccessLayer.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,47 +25,63 @@ namespace Auftragsverwaltung.Views
     public partial class ArtikelArtikelgruppe : Page
     {
         private ControllerArtikel controllerArtikel;
-        private ControllerArtikelGruppe controllerArtikelGruppe;
+        private static ControllerArtikelGruppe controllerArtikelGruppe;
         public ArtikelArtikelgruppe()
         {
             InitializeComponent();
             controllerArtikel = new ControllerArtikel();
             controllerArtikelGruppe = new ControllerArtikelGruppe();
 
-            LblArtikelNummmer.Content = controllerArtikel.GetCounterArtikel().ToString();
-            LblArtikekgruppeNummer.Content = controllerArtikelGruppe.GetCounterArtikelGruppe().ToString();
+            // Zählt anzahl einträge +1 => nächste verfügbare id
+            LblArtikelNummmer.Content = controllerArtikel.GetCounterArtikel("SELECT COUNT(Id) FROM ARTIKEL").ToString();
+            LblArtikekgruppeNummer.Content = controllerArtikelGruppe.GetCounterArtikelGruppe("SELECT COUNT(Id) FROM ARTIKELGRUPPE").ToString();
 
+            // Füllt Grid mit Bestehenden Daten von DB
             LadeDataGrid("Artikel");
             LadeDataGrid("Artikelgruppe");
+            LadeCmbAG();
         }
 
-
+        // Artikel anlegen
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Test Artikel anlegen
-            //  controller.testartikelanlegen();
-
-            //Test ArtikelGruppe anlegen
-            //controller.testartikelgruppeanlegen();
 
             try
             {
                 string bezeichnung = TxtArtikelBezeichung.Text;
                 decimal nettopreis = Convert.ToInt16(TxtPreisNetto.Text);
                 bool aktiv = (bool)ChkAktiv.IsChecked ? true : false;
-                string artikelgruppe = CmbArtikelGruppe.Text;
-
-                controllerArtikel.NeuerArtieklAnlegen(bezeichnung, nettopreis, aktiv /*artikelgruppe*/);
+                int artikelgruppeid = CmbArtikelGruppe.Text=="" ? -1 : CmbArtikelGruppe.SelectedIndex + 1;
 
 
+
+                controllerArtikel.NeuerArtieklAnlegen(bezeichnung, nettopreis, aktiv , artikelgruppeid);
+
+                LadeDataGrid("Artikel");
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Konnte nicht geladen werden");
+                MessageBox.Show("Konnte nicht geladen werden, überprüfen Sie ihre Eingabe" + exception);
             }
-            LadeDataGrid("Artikel");
+            
         }
+        //ArtikelGruppe anlegen
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string name = TxtArtikelgruppeBezeichung.Text;
+                bool akitve = (bool)ChkArtikelGruppeAktiv.IsChecked ? true : false;
 
+                controllerArtikelGruppe.ArtikelGruppeAnlegen(name, akitve);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Konnte nicht geladen werden, überprüfen Sie ihre Eingabe" + exception);
+                throw;
+            }
+        }
+        // Ladet Grid
         private void LadeDataGrid(string grid)
         {
             switch (grid)
@@ -88,10 +105,49 @@ namespace Auftragsverwaltung.Views
             // controllerArtikelGruppe.ArtikelGruppeAnlegen();
             // LadeDataGrid("Artikelgruppe");
 
-            controllerArtikel.testartikelanlegen();
+            //controllerArtikel.testartikelanlegen();
             LadeDataGrid("Artikel");
-            
+            //controllerArtikelGruppe.ArtikelGruppeAnlegen();
+            LadeDataGrid("Artikelgruppe");
+            LadeCmbAG();
 
         }
+        // Ladet Cmb
+        private void LadeCmbAG()
+        {
+            var tempGruppe = new Artikelgruppe();
+            var testdaten = DgvArtikelGruppe.Items;
+
+            for (int i = 0; i < testdaten.Count  ; i++)
+            {
+                var gruppen =(Artikelgruppe)testdaten[i];
+                CmbArtikelGruppe.Items.Add(gruppen.Name);
+            }
+        }
+
+        // Selektion im Grid zu Textfeldern
+        private void DgvArtikel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var aktuelleZeile = DgvArtikel.SelectedCells.ToArray();
+            var aktuellerArtikel = (Artikel)aktuelleZeile[0].Item;
+
+            LadeArtikelinFeldern(aktuellerArtikel);
+            
+            
+        }
+
+        private void LadeArtikelinFeldern(Artikel aktuellerArtikel)
+        {
+            LblArtikelNummmer.Content = aktuellerArtikel.Id.ToString();
+            TxtArtikelBezeichung.Text = aktuellerArtikel.Bezeichnung;
+            TxtPreisNetto.Text = aktuellerArtikel.PreisNetto.ToString();
+            ChkAktiv.Content = aktuellerArtikel.Aktiv;
+
+            //CmbArtikelGruppe.SelectionBoxItemStringFormat()
+
+
+        }
+
+        
     }
 }
