@@ -49,6 +49,11 @@ namespace Auftragsverwaltung.Views
             dgvAuftrag.ItemsSource = controllerAuftrag.LadeAuftraege();
         }
 
+        private void LadePositionen()
+        {
+            dgvPosition.ItemsSource = controllerAuftrag.LadePositionen();
+        }
+
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -59,6 +64,24 @@ namespace Auftragsverwaltung.Views
             {
                 Console.WriteLine("Daten können nicht geladen werden." + exception);
             }
-        }        
+        }
+
+        private void cmdInBestellung_Click(object sender, RoutedEventArgs e)
+        {
+            var id = 1;
+            var positionNr = 10;
+            var auftrag = 1;
+            var menge = Convert.ToInt32(txtMenge.Text);
+            var artikelId = 1; //Convert.ToInt32(cmboArtikel.SelectedItem);
+            try
+            {
+                controllerAuftrag.NeuerArtikelAnlegen(id, positionNr, menge, auftrag, artikelId);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Position kann nicht geladen werden.");
+            }
+            LadePositionen();
+        }
     }
 }

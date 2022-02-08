@@ -24,7 +24,7 @@ namespace DataAccessLayer.Model
         {
             using (AuftragContext context = new AuftragContext())
             {
-                meineAuftraege = context.Auftraege.ToList();                
+                meineAuftraege = context.Auftraege.ToList();             
             }
             return meineAuftraege;
         }

@@ -42,7 +42,7 @@
             <Label Content="Artikel:" Margin="20,0,0,0" VerticalAlignment="Center"></Label>
             <ComboBox x:Name="cmboArtikel" Width="150" Height="20" VerticalAlignment="Center"></ComboBox>
 
-            <Button x:Name="cmdInBestellung" Content="In die Liste" Margin="80,0,0,0" Width="100" Height="20"></Button>
+            <Button x:Name="cmdInBestellung" Content="In die Liste" Margin="80,0,0,0" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
         </StackPanel>
 
         <DataGrid x:Name="dgvAuftrag" Margin="20,110,197,200"/>

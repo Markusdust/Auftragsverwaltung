@@ -10,6 +10,7 @@ namespace BusinessLogik
     public class ControllerAuftrag
     {
         private ModelAuftrag modelAuftrag = new ModelAuftrag();
+        private ModelPosition modelPosition = new ModelPosition();
 
         public bool NeuerAuftragAnlegen(int auftragsNr, DateTime datum, int kundeId)
         {
@@ -23,9 +24,28 @@ namespace BusinessLogik
             return true;
         }
 
+        public bool NeuerArtikelAnlegen(int id, int positionNr, int menge, int auftragId, int artikelId)
+        {
+            Position p1 = new Position()
+            {
+                Id = id,
+                PositionNr = positionNr,
+                Menge = menge,
+                AuftragId = auftragId,
+                ArtikelId = artikelId                
+            };
+            modelPosition.speichern(p1);
+            return true;
+        }
+
         public List<Auftrag> LadeAuftraege()
         {
             return modelAuftrag.LadeAuftraege();
+        }
+
+        public List<Position> LadePositionen()
+        {
+            return modelPosition.LadePositionen();
         }
     }
 }

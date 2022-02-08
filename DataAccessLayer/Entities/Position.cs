@@ -13,11 +13,11 @@ namespace DataAccessLayer.Entities
         public int Menge { get; set; }
 
         //Foreign Key Auftrag
-        public int AuftragsId { get; set; }
-        public Auftrag Auftrag { get; set; }
+        public int AuftragId { get; set; }
+        //public Auftrag Auftrag { get; set; }
 
         //Foreign Key Artikel
         public int ArtikelId { get; set; }
-        public Artikel Artikel { get; set; }
+        //public Artikel Artikel { get; set; }
     }
 }
