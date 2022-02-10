@@ -16,7 +16,7 @@ namespace DataAccessLayer.EntityKonfigurationen
         {
             builder.Property(x => x.Id).IsRequired();
             //Autoinkrement implementieren ab 1000 in 5er schritten
-            builder.Property(x => x.KundenNr).IsRequired();
+            //builder.Property(x => x.KundenNr).IsRequired();
 
             builder.Property(x => x.Nachname).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Vorname).IsRequired().HasMaxLength(255);
@@ -28,6 +28,8 @@ namespace DataAccessLayer.EntityKonfigurationen
 
             builder.Property(x => x.GueltigAb).IsRequired();
             builder.Property(x => x.GueltigBis).IsRequired();
+
+            
         }
     }
 }

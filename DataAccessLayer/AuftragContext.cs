@@ -42,6 +42,15 @@ namespace DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //CustomerNumber gets automatic a number starting by 1000 increment 5
+            modelBuilder.HasSequence<int>("KundenNummern", schema: "shared")
+                .StartsAt(1000)
+                .IncrementsBy(5);
+
+            modelBuilder.Entity<Kunde>()
+                .Property(c => c.KundenNr)
+                .HasDefaultValueSql("NEXT VALUE FOR shared.KundenNummern");
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
         }
 

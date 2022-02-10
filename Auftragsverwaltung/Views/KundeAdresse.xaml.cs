@@ -39,7 +39,7 @@ namespace Auftragsverwaltung.Views
 
             try
             {
-                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr, vorname, nachname, firma,
+                controllerKundeAdresse.NeuerKundeAdresseAnlegen( vorname, nachname, firma,
                     email, passwort, website, strasse, hausNr, ortschaft);
             }
             catch (Exception exception)

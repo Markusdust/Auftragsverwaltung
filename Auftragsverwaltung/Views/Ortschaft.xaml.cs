@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessLogik;
 
 namespace Auftragsverwaltung.Views
 {
@@ -20,6 +21,7 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class Ortschaft : Page
     {
+        private ControllerOrtschaft controllerOrtschaft = new ControllerOrtschaft();
         public Ortschaft()
         {
             InitializeComponent();
@@ -27,7 +29,18 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
+            var postleitzahl = txtPLZ.Text;
+            var ortschaft = txtOrtschaft.Text;
+            
+            try
+            {
+                //controllerOrtschaft.NeueOrtschaftanlegen()
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
 
+            }
         }
     }
 }

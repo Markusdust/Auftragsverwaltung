@@ -14,7 +14,7 @@ namespace BusinessLogik
         private ModelAdresse modelAdresse = new ModelAdresse();
         private ModelKundeAdresse modelKundeAdresse = new ModelKundeAdresse();
 
-        public bool NeuerKundeAdresseAnlegen(int kundenNr, string vorname, string nachname,
+        public bool NeuerKundeAdresseAnlegen( string vorname, string nachname,
             string firma, string email, string passwort, string website, string strasse,
             string hausNr, int ortschaft)
         {
@@ -23,7 +23,7 @@ namespace BusinessLogik
 
             Kunde k1 = new Kunde()
             {
-                KundenNr = kundenNr,
+               
                 Vorname = vorname,
                 Nachname = nachname,
                 Firma = firma,
