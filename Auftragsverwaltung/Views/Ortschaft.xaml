@@ -19,7 +19,7 @@
         <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="273,97,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Center" Margin="0,101,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Height="18"/>
 
-        <DataGrid Margin="28,124,0,0" HorizontalAlignment="Left" Width="748" Height="203" VerticalAlignment="Top" CanUserAddRows="False"/>
+        <DataGrid x:Name="dgvOrtschaft" Margin="28,124,0,0" HorizontalAlignment="Left" Width="748" Height="203" VerticalAlignment="Top" CanUserAddRows="False" Loaded="DataGrid_Loaded"/>
         <Button x:Name="cmdSpeichern"  Content="Speichern" HorizontalAlignment="Left" Margin="533,47,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="cmdSpeichern_Click"/>
 
     </Grid>

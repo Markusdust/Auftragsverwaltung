@@ -42,5 +42,16 @@ namespace Auftragsverwaltung.Views
 
             }
         }
+
+        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LadeOrtschaften()
+        {
+            dgvOrtschaft.ItemsSource = controllerOrtschaft.LadeOrtschaften();
+
+        }
     }
 }

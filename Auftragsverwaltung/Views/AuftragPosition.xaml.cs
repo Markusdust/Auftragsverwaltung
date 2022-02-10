@@ -39,7 +39,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                Console.WriteLine("Kunde kann nicht geladen werden.");
+                Console.WriteLine("Kunde kann nicht geladen werden." +"r/n"+exception);
             }
             LadeAuftraege();
         }

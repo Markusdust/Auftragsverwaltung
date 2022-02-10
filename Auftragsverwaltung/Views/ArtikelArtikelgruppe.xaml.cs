@@ -60,7 +60,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Konnte nicht geladen werden");
+                MessageBox.Show("Konnte nicht geladen werden" + "r/n" + exception);
             }
             LadeDataGrid("Artikel");
         }

@@ -26,7 +26,6 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
-            var kundenNr = 111;
             var vorname = txtVorname.Text;
             var nachname = txtNachname.Text;
             var firma = txtFirma.Text;

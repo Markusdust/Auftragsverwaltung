@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Entities;
 using DataAccessLayer.Model;
 
 namespace BusinessLogik
@@ -11,6 +12,11 @@ namespace BusinessLogik
     {
         private ModelOrtschaft modelOrtschaft = new ModelOrtschaft();
 
-
+        public List<Ortschaft> LadeOrtschaften()
+        {
+            return modelOrtschaft.LadeOrtschaft();
+        }
     }
+
+   
 }

@@ -15,6 +15,7 @@ namespace DataAccessLayer
         public DbSet<Kunde> Kunden { get; set; }
         public DbSet<Adresse> Adressen { get; set; }
         public DbSet<KundenAdresse> KundenAdressen { get; set; }
+        public DbSet<Ortschaft> Ortschaften { get; set; }
         public DbSet<Artikel> Artikel { get; set; }
         public DbSet<Artikelgruppe> Artikelgruppe { get; set; }
         public DbSet<Auftrag> Auftraege { get; set; }
