@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Auftragsverwaltung.Views;
 
 namespace Auftragsverwaltung.Views
 {
@@ -139,6 +140,13 @@ namespace Auftragsverwaltung.Views
                 }
             }
 
+        }
+
+
+        private void lblOrtschaft_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OrtschaftWindow ortschaftWindow = new OrtschaftWindow();
+            ortschaftWindow.Show();
         }
     }
 }

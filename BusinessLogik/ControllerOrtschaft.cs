@@ -12,6 +12,18 @@ namespace BusinessLogik
     {
         private ModelOrtschaft modelOrtschaft = new ModelOrtschaft();
 
+        public bool NeueOrtschaftAnlegen(int postleitzahl, string ortschaft)
+        {
+            Ortschaft o1 = new Ortschaft()
+            {
+                PLZ = postleitzahl,
+                Ort = ortschaft,
+                Aktiv = true,
+            };
+            modelOrtschaft.speichern(o1);
+            return true;
+        }
+
         public List<Ortschaft> LadeOrtschaften()
         {
             return modelOrtschaft.LadeOrtschaft();

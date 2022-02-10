@@ -1,0 +1,23 @@
+﻿<Window x:Class="Auftragsverwaltung.Views.OrtschaftWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Auftragsverwaltung.Views"
+        mc:Ignorable="d"
+        Title="OrtschaftWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Ortschaft" HorizontalAlignment="Left" Margin="346,10,0,0" VerticalAlignment="Top" FontSize="20"/>
+
+        <Label Content="PLZ:" HorizontalAlignment="Left" Margin="80,93,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtPLZ" HorizontalAlignment="Left" Margin="117,97,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="18"/>
+
+
+        <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="273,97,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Center" Margin="0,101,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Height="18"/>
+
+        <DataGrid x:Name="dgvOrtschaft" Margin="28,124,0,0" HorizontalAlignment="Left" Width="748" Height="203" VerticalAlignment="Top" CanUserAddRows="False" Loaded="DataGrid_Loaded"/>
+        <Button x:Name="cmdSpeichern"  Content="Speichern" HorizontalAlignment="Left" Margin="533,47,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="cmdSpeichern_Click"/>
+
+    </Grid>
+</Window>

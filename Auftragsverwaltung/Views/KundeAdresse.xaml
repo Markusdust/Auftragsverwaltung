@@ -43,13 +43,14 @@
         <Label Content="HausNr:" HorizontalAlignment="Left" Margin="172,263,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtHausNr" HorizontalAlignment="Left" Margin="227,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
-        <Label Content="Ortschaft:" HorizontalAlignment="Left" Margin="318,263,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Left" Margin="384,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
+        <Label x:Name="lblOrtschaft" Content="Ortschaft:" HorizontalAlignment="Left" Margin="318,263,0,0" VerticalAlignment="Top" PreviewMouseDoubleClick="lblOrtschaft_PreviewMouseDoubleClick"/>
+        <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Left" Margin="450,267,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
         <DataGrid x:Name="dgvAdresse" Margin="16,294,16,16" CanUserAddRows="False"/>
         <Button x:Name="cmdSpeichern" Content="SpeichernTEST" HorizontalAlignment="Left" Margin="548,21,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="422,21,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button x:Name="cmdAendern" Content="ÄndernTEST" HorizontalAlignment="Left" Margin="654,21,0,0" VerticalAlignment="Top"/>
+        <Label Content="Doppelklick auf Ortschaft um OrtschaftenView zu öffnen" HorizontalAlignment="Left" Margin="379,250,0,0" VerticalAlignment="Top" FontSize="8"/>
 
 
 

@@ -12,9 +12,18 @@ namespace DataAccessLayer.Model
        private List<Ortschaft> meineOrtschaften;
 
 
+       public bool speichern(Ortschaft ortschaft)
+       {
+           using (var context = new AuftragContext())
+           {
+               context.Ortschaften.Add(ortschaft);
+               context.SaveChanges();
+               return true;
+           }
+       }
        public List<Ortschaft> LadeOrtschaft()
        {
-           using (AuftragContext context = new AuftragContext())
+           using (var context = new AuftragContext())
            {
                meineOrtschaften = context.Ortschaften.ToList();
            }
