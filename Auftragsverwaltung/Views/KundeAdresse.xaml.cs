@@ -99,6 +99,7 @@ namespace Auftragsverwaltung.Views
 
                 ortschaftVonAdresse= OrtschaftzuAdresseId(adresseVonKunde.OrtschaftId);
                 SelectierteOrtschaftZuFelder(ortschaftVonAdresse);
+                MarkiereOrtschaftInDg(ortschaftVonAdresse.Id);
 
 
             }
@@ -168,17 +169,29 @@ namespace Auftragsverwaltung.Views
 
         }
 
-        private void MarkiereAdressInDg(int AdressId)
+        private void MarkiereAdressInDg(int adressId)
         {
             for (int i = 0; i < dgvAdresse.Items.Count; i++)
             {
-                if (AdressId == ((Adresse)dgvAdresse.Items[i]).Id)
+                if (adressId == ((Adresse)dgvAdresse.Items[i]).Id)
                 {
                     dgvAdresse.SelectedIndex = i;
                     
                 }
             }
 
+        }
+
+        private void MarkiereOrtschaftInDg(int ortschaftId)
+        {
+            for (int i = 0; i < dgvOrtschaft.Items.Count; i++)
+            {
+                if (ortschaftId == ((Ortschaft)dgvOrtschaft.Items[i]).Id)
+                {
+                    dgvOrtschaft.SelectedIndex = i;
+
+                }
+            }
         }
 
         private void FelderLeeren()
