@@ -13,10 +13,11 @@ namespace BusinessLogik
         private ModelKunde modelKunde = new ModelKunde();
         private ModelAdresse modelAdresse = new ModelAdresse();
         private ModelKundeAdresse modelKundeAdresse = new ModelKundeAdresse();
+        private ModelOrtschaft modelOrtschaft = new ModelOrtschaft();
 
         public bool NeuerKundeAdresseAnlegen( string vorname, string nachname,
             string firma, string email, string passwort, string website, string strasse,
-            string hausNr, int ortschaft)
+            string hausNr, string ortschaft, int plz)
         {
             ///KundeAdresse als Speicherbefehl geben somit sollte Adresse und Kunde automatisch mitgespeichert werden.
             /// muss somit nicht einzel gespeichert werden.
@@ -35,13 +36,22 @@ namespace BusinessLogik
             };
            modelKunde.speichern(k1);
 
+           Ortschaft o1 = new Ortschaft()
+           {
+               Ort = ortschaft,
+               PLZ = plz,
+               Aktiv = true
+           };
+           modelOrtschaft.speichern(o1);
+           
+
            Adresse a1 = new Adresse()
            {
                Strasse = strasse,
                HausNr = hausNr,
                GueltigAb = DateTime.Now,
                GueltigBis = DateTime.MaxValue,
-               OrtschaftId = ortschaft
+               OrtschaftId = o1.Id
            };
            modelAdresse.speichern(a1);
            KundenAdresse kA1 = new KundenAdresse()

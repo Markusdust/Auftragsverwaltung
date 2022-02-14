@@ -30,6 +30,21 @@ namespace DataAccessLayer.Model
 
            return meineOrtschaften;
        }
+
+       public Ortschaft LadeOrtschaftZuAdresse(int OrtschaftId)
+       {
+           Ortschaft ortschaftZuAdresse;
+           using (var context = new AuftragContext())
+           {
+               var queryMatchingOrtschaft = context.Adressen.Where(x =>
+                       x.Ortschaft.Id.Equals(OrtschaftId) && x.GueltigBis.Equals(DateTime.MaxValue))
+                   .Select(x => x.Ortschaft).First();
+
+               ortschaftZuAdresse = queryMatchingOrtschaft;
+           }
+
+           return ortschaftZuAdresse;
+       }
     }
 
    

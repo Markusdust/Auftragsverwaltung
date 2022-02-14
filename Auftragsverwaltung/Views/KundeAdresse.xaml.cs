@@ -19,7 +19,6 @@ namespace Auftragsverwaltung.Views
         private int aktuellerKundenId;
 
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
-
         private ControllerOrtschaft controllerOrtschaft = new ControllerOrtschaft();
 
         public KundeAdresse()
@@ -38,12 +37,13 @@ namespace Auftragsverwaltung.Views
             var website = txtWebsite.Text;
             var strasse = txtStrasse.Text;
             var hausNr = txtHausNr.Text;
-            var ortschaft = 2;
+            var ortschaft = txtOrtschaft.Text;
+            var plz =Convert.ToInt32(txtPLZ.Text);
 
             try
             {
                 controllerKundeAdresse.NeuerKundeAdresseAnlegen( vorname, nachname, firma,
-                    email, passwort, website, strasse, hausNr, ortschaft);
+                    email, passwort, website, strasse, hausNr, ortschaft, plz);
             }
             catch (Exception exception)
             {
@@ -56,10 +56,6 @@ namespace Auftragsverwaltung.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-          cmbOrtschaft.ItemsSource=  controllerOrtschaft.LadeOrtschaften();
-          
-
-
         }
 
         
@@ -75,6 +71,7 @@ namespace Auftragsverwaltung.Views
             {
                 LadeKunden();
                 LadeAdressen();
+                LadeOrtschaften();
             }
             catch (Exception exception)
             {
@@ -86,6 +83,7 @@ namespace Auftragsverwaltung.Views
         private void dgvKunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Adresse adresseVonKunde;
+            Ortschaft ortschaftVonAdresse;
             try
             {
                 var aktuelleZeile = dgvKunde.SelectedCells.ToArray();
@@ -98,7 +96,10 @@ namespace Auftragsverwaltung.Views
                 adresseVonKunde=AdresseZuKundenId(aktuellerKundenId);
                 MarkiereAdressInDg(adresseVonKunde.Id);
                 SeletierteAdresseZuFeldern(adresseVonKunde);
-                
+
+                ortschaftVonAdresse= OrtschaftzuAdresseId(adresseVonKunde.OrtschaftId);
+                SelectierteOrtschaftZuFelder(ortschaftVonAdresse);
+
 
             }
             catch (Exception exception)
@@ -135,12 +136,23 @@ namespace Auftragsverwaltung.Views
         {
             txtStrasse.Text = aktuelleAdresse.Strasse;
             txtHausNr.Text = Convert.ToString(aktuelleAdresse.HausNr);
-            txtOrtschaft.Text = Convert.ToString(aktuelleAdresse.OrtschaftId);
+          //  txtOrtschaft.Text = Convert.ToString(aktuelleAdresse.OrtschaftId);
         }
 
-        private Adresse AdresseZuKundenId(int kundenID)
+        private void SelectierteOrtschaftZuFelder(Ortschaft aktuelleOrtschaft)
         {
-            return controllerKundeAdresse.AdresseZuKunde(kundenID);
+            txtOrtschaft.Text = aktuelleOrtschaft.Ort;
+            txtPLZ.Text = Convert.ToString(aktuelleOrtschaft.PLZ);
+        }
+
+        private Adresse AdresseZuKundenId(int kundenId)
+        {
+            return controllerKundeAdresse.AdresseZuKunde(kundenId);
+        }
+
+        private Ortschaft OrtschaftzuAdresseId(int ortschaftId)
+        {
+            return controllerOrtschaft.OrtschaftZuAdresse(ortschaftId);
         }
         private void LadeKunden()
         {
@@ -149,6 +161,11 @@ namespace Auftragsverwaltung.Views
         private void LadeAdressen()
         {
             dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
+        }
+        private void LadeOrtschaften()
+        {
+            dgvOrtschaft.ItemsSource = controllerOrtschaft.LadeOrtschaften();
+
         }
 
         private void MarkiereAdressInDg(int AdressId)

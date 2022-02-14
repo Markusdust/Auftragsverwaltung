@@ -28,6 +28,11 @@ namespace BusinessLogik
         {
             return modelOrtschaft.LadeOrtschaft();
         }
+
+        public Ortschaft OrtschaftZuAdresse(int ortschaftId)
+        {
+            return modelOrtschaft.LadeOrtschaftZuAdresse(ortschaftId);
+        }
     }
 
    
