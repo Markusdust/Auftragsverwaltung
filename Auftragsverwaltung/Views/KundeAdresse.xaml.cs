@@ -16,6 +16,7 @@ namespace Auftragsverwaltung.Views
     /// </summary>
     public partial class KundeAdresse : Page
     {
+
         private int aktuellerKundenId;
 
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
@@ -52,6 +53,7 @@ namespace Auftragsverwaltung.Views
             }
             LadeKunden();
             LadeAdressen();
+            LadeOrtschaften();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -155,6 +157,8 @@ namespace Auftragsverwaltung.Views
         {
             return controllerOrtschaft.OrtschaftZuAdresse(ortschaftId);
         }
+
+        
         private void LadeKunden()
         {
             dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden();
