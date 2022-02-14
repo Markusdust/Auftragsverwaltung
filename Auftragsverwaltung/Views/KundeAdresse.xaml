@@ -49,8 +49,11 @@
         <DataGrid x:Name="dgvAdresse" Margin="16,294,16,16" CanUserAddRows="False"/>
         <Button x:Name="cmdSpeichern" Content="SpeichernTEST" HorizontalAlignment="Left" Margin="548,21,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="422,21,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button x:Name="cmdAendern" Content="ÄndernTEST" HorizontalAlignment="Left" Margin="654,21,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="cmdAendern" Content="Ändern" HorizontalAlignment="Left" Margin="654,21,0,0" VerticalAlignment="Top"/>
         <Label Content="Doppelklick auf Ortschaft um OrtschaftenView zu öffnen" HorizontalAlignment="Left" Margin="379,250,0,0" VerticalAlignment="Top" FontSize="8"/>
+        <ComboBox x:Name="cmbOrtschaft" HorizontalAlignment="Left" Margin="604,263,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbOrtschaft_SelectionChanged"
+                  SelectedValuePath="Tag"/>
+        <Button x:Name="cmdFelderLeeren" Content="Felder leeren" HorizontalAlignment="Left" Margin="718,21,0,0" VerticalAlignment="Top" Click="cmdFelderLeeren_Click"/>
 
 
 

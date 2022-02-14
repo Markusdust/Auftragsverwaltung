@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Auftragsverwaltung.Views;
+using DataAccessLayer;
 
 namespace Auftragsverwaltung.Views
 {
@@ -18,6 +19,8 @@ namespace Auftragsverwaltung.Views
         private int aktuellerKundenId;
 
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
+
+        private ControllerOrtschaft controllerOrtschaft = new ControllerOrtschaft();
 
         public KundeAdresse()
         {
@@ -53,8 +56,17 @@ namespace Auftragsverwaltung.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MarkiereAdressInDg(2);
+          cmbOrtschaft.ItemsSource=  controllerOrtschaft.LadeOrtschaften();
+          
 
+
+        }
+
+        
+
+        private void cmdFelderLeeren_Click(object sender, RoutedEventArgs e)
+        {
+            FelderLeeren();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -95,6 +107,16 @@ namespace Auftragsverwaltung.Views
             }
 
 
+        }
+
+        private void cmbOrtschaft_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        private void lblOrtschaft_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OrtschaftWindow ortschaftWindow = new OrtschaftWindow();
+            ortschaftWindow.Show();
         }
 
         private void SelectierterKundeZuFeldern(Kunde aktuellerKunde)
@@ -142,11 +164,20 @@ namespace Auftragsverwaltung.Views
 
         }
 
-
-        private void lblOrtschaft_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void FelderLeeren()
         {
-            OrtschaftWindow ortschaftWindow = new OrtschaftWindow();
-            ortschaftWindow.Show();
+            lblKundenId.Content = "";
+            lblKundenNr.Content = "";
+            txtNachname.Text = "";
+            txtVorname.Text = "";
+            txtFirma.Text = "";
+            txtEmail.Text = "";
+            txtWebsite.Text = "";
+            txtPasswort.Text = "";
+
+            txtStrasse.Text = "";
+            txtHausNr.Text = "";
+            txtOrtschaft.Text = "";
         }
     }
 }
