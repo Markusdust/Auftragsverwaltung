@@ -20,9 +20,14 @@ namespace DataAccessLayer.Model
             }
         }
 
-        public bool aendern()
+        public bool Aendern(Adresse adresse)
         {
-            throw new NotImplementedException();
+            using (var context = new AuftragContext())
+            {
+                context.Adressen.Update(adresse);
+                context.SaveChanges();
+                return true;
+            }
         }
 
         public bool loeschen()

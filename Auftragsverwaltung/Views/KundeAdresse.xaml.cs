@@ -18,6 +18,9 @@ namespace Auftragsverwaltung.Views
     {
 
         private int aktuellerKundenId;
+        private Kunde aktuellerKunde;
+        private Adresse adresseVonKunde;
+        private Ortschaft ortschaftVonAdresse;
 
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
         private ControllerOrtschaft controllerOrtschaft = new ControllerOrtschaft();
@@ -56,16 +59,51 @@ namespace Auftragsverwaltung.Views
             LadeOrtschaften();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void cmdAendern_Click(object sender, RoutedEventArgs e)
         {
-        }
+            var altKundenId = aktuellerKundenId;
+            var altAdressId = adresseVonKunde.Id;
+            var altOrtschaftId = ortschaftVonAdresse.Id;
 
-        
+            var vorname = txtVorname.Text;
+            var nachname = txtNachname.Text;
+            var firma = txtFirma.Text;
+            var email = txtEmail.Text;
+            var passwort = txtPasswort.Text;
+            var website = txtWebsite.Text;
+            var strasse = txtStrasse.Text;
+            var hausNr = txtHausNr.Text;
+            var ortschaft = txtOrtschaft.Text;
+            var plz = Convert.ToInt32(txtPLZ.Text);
+
+            //Wenn alles geändert wurde dann Änderungen bei Kunde, Adresse und Ortschaft
+            if (PruefeAenderungKunde()/*&&
+                PruefeAnderungAdresse()&&
+                PruefeAnderungOrtschaft()*/)
+            {
+                controllerKundeAdresse.AendereKundeAdresseOrtschaft(
+                    aktuellerKunde, adresseVonKunde, altOrtschaftId,
+                    vorname, nachname, firma,
+                    email, passwort, website, 
+                    strasse, hausNr, ortschaft, plz);
+
+            }
+
+        }
 
         private void cmdFelderLeeren_Click(object sender, RoutedEventArgs e)
         {
             FelderLeeren();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PruefeAenderungKunde();
+        }
+
+        
+
+        
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -84,12 +122,12 @@ namespace Auftragsverwaltung.Views
 
         private void dgvKunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Adresse adresseVonKunde;
-            Ortschaft ortschaftVonAdresse;
+            
+           
             try
             {
                 var aktuelleZeile = dgvKunde.SelectedCells.ToArray();
-                var aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
+                 aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
                 
 
                 SelectierterKundeZuFeldern(aktuellerKunde);
@@ -158,7 +196,6 @@ namespace Auftragsverwaltung.Views
             return controllerOrtschaft.OrtschaftZuAdresse(ortschaftId);
         }
 
-        
         private void LadeKunden()
         {
             dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden();
@@ -213,5 +250,61 @@ namespace Auftragsverwaltung.Views
             txtHausNr.Text = "";
             txtOrtschaft.Text = "";
         }
+
+        private bool PruefeAenderungKunde()
+        {
+            //prüft ob txt eingaben mit selektierteme Kunden Änderungen vorweisen
+            //aktuellerKunde
+
+            //prüft ob ännderunge vorgenommen wruden
+            if (txtVorname.Text!=aktuellerKunde.Vorname || 
+                txtNachname.Text !=aktuellerKunde.Nachname ||
+                txtEmail.Text != aktuellerKunde.Email||
+                txtFirma.Text != aktuellerKunde.Firma||
+                txtWebsite.Text != aktuellerKunde.Website ||
+                txtPasswort.Text != aktuellerKunde.Passwort)
+            {
+                //return true => änderungen sind vorhanden
+                return true;
+            }
+            else
+            {
+                //return false => keine änderungen vorhanden
+                return false;
+            }
+
+        }
+        private bool PruefeAnderungAdresse()
+        {
+            //prüft ob txt eingaben mit selektierteme Kunden Änderungen in Adresse vorweisen
+
+            if (txtStrasse.Text != adresseVonKunde.Strasse||
+                txtHausNr.Text != adresseVonKunde.HausNr)
+            {
+                //return true => änderungen sind vorhanden
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool PruefeAnderungOrtschaft()
+        {
+            //prüft ob txt eingaben mit selektierteme Kunden Änderungen in Ortschaft vorweisen
+
+            if (txtOrtschaft.Text != ortschaftVonAdresse.Ort ||
+                Convert.ToInt32(txtPLZ.Text) != ortschaftVonAdresse.PLZ)
+            {
+                //return true => änderungen sind vorhanden
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        
     }
 }

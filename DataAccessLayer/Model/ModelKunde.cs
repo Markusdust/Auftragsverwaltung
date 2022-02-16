@@ -20,12 +20,17 @@ namespace DataAccessLayer.Model
             }
         }
 
-        public bool aendern()
+        public bool Aendern(Kunde kunde)
         {
-            throw new NotImplementedException();
+            using (var context = new AuftragContext())
+            {
+                context.Kunden.Update(kunde);
+                context.SaveChanges();
+                return true;
+            }
         }
 
-        public bool loeschen()
+        public bool Loeschen()
         {
             throw new NotImplementedException();
         }

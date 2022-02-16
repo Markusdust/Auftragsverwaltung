@@ -37,7 +37,7 @@ namespace DataAccessLayer.Model
            using (var context = new AuftragContext())
            {
                var queryMatchingOrtschaft = context.Adressen.Where(x =>
-                       x.Ortschaft.Id.Equals(OrtschaftId) && x.GueltigBis.Equals(DateTime.MaxValue))
+                       x.Ortschaft.Id.Equals(OrtschaftId))
                    .Select(x => x.Ortschaft).First();
 
                ortschaftZuAdresse = queryMatchingOrtschaft;
