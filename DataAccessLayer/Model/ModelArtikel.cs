@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace DataAccessLayer.Model
 {
@@ -48,6 +49,18 @@ namespace DataAccessLayer.Model
             }
             return artikellist;
 
+        }
+
+        public void DeleteArtikel(int  artikelid)
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                var artikel = context.Artikel.SingleOrDefault(a => a.Id == artikelid);
+                if (artikel == null) return;
+
+                context.Artikel.Remove(artikel);
+                context.SaveChanges();
+            }
         }
 
     }

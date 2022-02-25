@@ -9,6 +9,7 @@ namespace DataAccessLayer.Entities
 {
     public class Artikel
     {
+        
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
         public int ArtikelNr { get; set; }

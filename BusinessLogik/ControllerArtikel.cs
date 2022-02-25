@@ -64,5 +64,10 @@ namespace BusinessLogik
         {
             return modelArtikel.GetCounterArtikel(sqlcommand);
         }
+
+        public void DeleteArtikel(int artikelid)
+        {
+            modelArtikel.DeleteArtikel(artikelid);
+        }
     }
 }

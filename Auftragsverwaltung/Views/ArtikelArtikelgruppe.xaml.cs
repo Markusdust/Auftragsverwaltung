@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using BusinessLogik;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Auftragsverwaltung.Views
 {
@@ -45,25 +47,22 @@ namespace Auftragsverwaltung.Views
         // Artikel anlegen
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 string bezeichnung = TxtArtikelBezeichung.Text;
-                decimal nettopreis = Convert.ToInt16(TxtPreisNetto.Text);
+                decimal nettopreis = Convert.ToDecimal(TxtPreisNetto.Text);
                 bool aktiv = (bool)ChkAktiv.IsChecked ? true : false;
                 int artikelgruppeid = CmbArtikelGruppe.Text=="" ? -1 : CmbArtikelGruppe.SelectedIndex + 1;
 
-
-
                 controllerArtikel.NeuerArtieklAnlegen(bezeichnung, nettopreis, aktiv , artikelgruppeid);
 
-                LadeDataGrid("Artikel");
+                
             }
             catch (Exception exception)
             {
                 MessageBox.Show("Konnte nicht geladen werden, überprüfen Sie ihre Eingabe" + exception);
             }
-            
+            LadeDataGrid("Artikel");
         }
         //ArtikelGruppe anlegen
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -74,6 +73,8 @@ namespace Auftragsverwaltung.Views
                 bool akitve = (bool)ChkArtikelGruppeAktiv.IsChecked ? true : false;
 
                 controllerArtikelGruppe.ArtikelGruppeAnlegen(name, akitve);
+                LadeDataGrid("Artikelgruppe");
+                LadeCmbAG();
             }
             catch (Exception exception)
             {
@@ -98,24 +99,11 @@ namespace Auftragsverwaltung.Views
             DgvArtikel.ItemsSource = controllerArtikel.LadeArtikel();
         }
 
-        //TestArtikel
-        private void CmbTestArtikel_Click(object sender, RoutedEventArgs e)
-        {
-            //Artikelgruppe muss zuerst erstellt werden, Artikel ist abhängig von Artikelgruppe
-            // controllerArtikelGruppe.ArtikelGruppeAnlegen();
-            // LadeDataGrid("Artikelgruppe");
-
-            //controllerArtikel.testartikelanlegen();
-            LadeDataGrid("Artikel");
-            //controllerArtikelGruppe.ArtikelGruppeAnlegen();
-            LadeDataGrid("Artikelgruppe");
-            LadeCmbAG();
-
-        }
         // Ladet Cmb
         private void LadeCmbAG()
         {
-            var tempGruppe = new Artikelgruppe();
+            CmbArtikelGruppe.Items.Clear();
+
             var testdaten = DgvArtikelGruppe.Items;
 
             for (int i = 0; i < testdaten.Count  ; i++)
@@ -125,15 +113,11 @@ namespace Auftragsverwaltung.Views
             }
         }
 
-        // Selektion im Grid zu Textfeldern
+        // Artikel im Grid zu Textfeldern
         private void DgvArtikel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var aktuelleZeile = DgvArtikel.SelectedCells.ToArray();
-            var aktuellerArtikel = (Artikel)aktuelleZeile[0].Item;
-
-            LadeArtikelinFeldern(aktuellerArtikel);
-            
-            
+            //var aktuelleZeile = (Artikel)DgvArtikel.SelectedCells[0].Item;
+            //LadeArtikelinFeldern(aktuelleZeile);
         }
 
         private void LadeArtikelinFeldern(Artikel aktuellerArtikel)
@@ -142,12 +126,64 @@ namespace Auftragsverwaltung.Views
             TxtArtikelBezeichung.Text = aktuellerArtikel.Bezeichnung;
             TxtPreisNetto.Text = aktuellerArtikel.PreisNetto.ToString();
             ChkAktiv.Content = aktuellerArtikel.Aktiv;
+        }
+        //Artikel Löschen
+        private void CmdLöschen_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var selectdeletedata =(Artikel) DgvArtikel.SelectedCells[0].Item;
+                controllerArtikel.DeleteArtikel(selectdeletedata.Id);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Artikel konnte nicht gelöscht werden");
+                throw;
+            }
 
-            //CmbArtikelGruppe.SelectionBoxItemStringFormat()
+            LadeDataGrid("Artikel");
+        }
 
+        private void CmbTestArtikel_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
-        
+        private void CmdArtikelGruppeLöschen_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var deleteArtikelgruppe = (Artikelgruppe)DgvArtikelGruppe.SelectedCells[0].Item;
+
+                if (controllerArtikelGruppe.ArtikelGruppeLöschen(deleteArtikelgruppe.Id) == true)
+                    MessageBox.Show("Artikelgruppe wurde gelöscht");
+                else
+                    MessageBox.Show("Bei dieser Artikelgruppe gibt es noch dazugehörige Artikel");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+
+            LadeDataGrid("Artikelgruppe");
+
+        }
+
+        private void DgvArtikelGruppe_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //var artikelgruppe = (Artikelgruppe)DgvArtikelGruppe.SelectedCells[0].Item;
+            var aktuelleZeile = DgvArtikelGruppe.SelectedCells.ToArray();
+            var aktuelleGruppe = (Artikelgruppe)aktuelleZeile[0].Item;
+
+            LadeArtikelGruppeInFeldern(aktuelleGruppe);
+        }
+
+        private void LadeArtikelGruppeInFeldern(Artikelgruppe artikelgruppe)
+        {
+            LblArtikekgruppeNummer.Content = artikelgruppe.Id;
+            TxtArtikelgruppeBezeichung.Text = artikelgruppe.Name;
+            ChkArtikelGruppeAktiv.IsChecked = artikelgruppe.Active;
+        }
     }
 }
