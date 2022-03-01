@@ -15,32 +15,17 @@ namespace DataAccessLayer.Entities
         public int ArtikelNr { get; set; }
         public decimal PreisNetto { get; set; }
 
-        private decimal Mwst;
-        private decimal PreisBrutto;
+        public decimal Mwst { get; set; }
+        public decimal PreisBrutto { get; set; }
         public bool Aktiv { get; set; }
 
+
+
+        // Foreign Key
         public int ArtikelgruppeId { get; set; }
         public Artikelgruppe Artikelgruppe { get; set; }
+        
 
-
-        // public Artikel(string bezeichnung, int artikelnummer, decimal preisnetto, bool aktiv)
-        // {
-        //     this.Bezeichnung = bezeichnung; this.ArtikelNr = artikelnummer; this.PreisNetto = preisnetto; this.Aktiv = aktiv;
-        //
-        // }
-
-        // public decimal mwst
-        // {
-        //     get { return Mwst; }
-        //     set { Mwst = 7.7m; }
-        //
-        // }
-        //
-        // public decimal preisBrutto
-        // {
-        //     get { return PreisBrutto; }
-        //     set { PreisBrutto = PreisNetto * Mwst; }
-        // }
 
 
     }

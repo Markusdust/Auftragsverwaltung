@@ -17,6 +17,7 @@ namespace DataAccessLayer.EntityKonfigurationen
             builder.Property(x => x.Bezeichnung).IsRequired().HasMaxLength(255);
             builder.Property(x => x.PreisNetto).IsRequired();
             builder.Property(x => x.Aktiv).IsRequired();
+           
 
         }
     }

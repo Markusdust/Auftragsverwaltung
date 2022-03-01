@@ -49,12 +49,17 @@ namespace Auftragsverwaltung.Views
         {
             try
             {
-                string bezeichnung = TxtArtikelBezeichung.Text;
-                decimal nettopreis = Convert.ToDecimal(TxtPreisNetto.Text);
-                bool aktiv = (bool)ChkAktiv.IsChecked ? true : false;
-                int artikelgruppeid = CmbArtikelGruppe.Text=="" ? -1 : CmbArtikelGruppe.SelectedIndex + 1;
-
-                controllerArtikel.NeuerArtieklAnlegen(bezeichnung, nettopreis, aktiv , artikelgruppeid);
+                Artikel a1 = new Artikel()
+                {
+                    Bezeichnung = TxtArtikelBezeichung.Text,
+                    PreisNetto = Convert.ToDecimal(TxtPreisNetto.Text),
+                    Aktiv = (bool)ChkAktiv.IsChecked ? true : false,
+                    Mwst = MWST(),
+                    ArtikelgruppeId = CmbArtikelGruppe.Text == "" ? -1 : CmbArtikelGruppe.SelectedIndex + 1
+                    
+                };
+                
+                controllerArtikel.NeuerArtieklAnlegen(a1);
 
                 
             }
@@ -64,6 +69,17 @@ namespace Auftragsverwaltung.Views
             }
             LadeDataGrid("Artikel");
         }
+
+        private decimal MWST()
+        {
+            if (RadNormalMWST.IsChecked == true)
+                return 7.7m;
+            else if (RadReduziert.IsChecked == true)
+                return 2.5m;
+             else 
+                return 0;
+        }
+
         //ArtikelGruppe anlegen
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -78,7 +94,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                Console.WriteLine("Konnte nicht geladen werden, überprüfen Sie ihre Eingabe" + exception);
+                Console.WriteLine("Konnte nicht geladen werden, überprüfen Sie ihre Eingabe" );
                 throw;
             }
         }
@@ -93,10 +109,8 @@ namespace Auftragsverwaltung.Views
                 case "Artikelgruppe":
                     DgvArtikelGruppe.ItemsSource = controllerArtikelGruppe.LadeArtikelgruppe();
                     break;
-
             }
 
-            DgvArtikel.ItemsSource = controllerArtikel.LadeArtikel();
         }
 
         // Ladet Cmb
@@ -116,8 +130,15 @@ namespace Auftragsverwaltung.Views
         // Artikel im Grid zu Textfeldern
         private void DgvArtikel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var aktuelleZeile = (Artikel)DgvArtikel.SelectedCells[0].Item;
-            //LadeArtikelinFeldern(aktuelleZeile);
+            try
+            {
+                var aktuelleZeile = (Artikel)DgvArtikel.SelectedCells[0].Item;
+                LadeArtikelinFeldern(aktuelleZeile);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("exception");
+            }
         }
 
         private void LadeArtikelinFeldern(Artikel aktuellerArtikel)
@@ -126,6 +147,7 @@ namespace Auftragsverwaltung.Views
             TxtArtikelBezeichung.Text = aktuellerArtikel.Bezeichnung;
             TxtPreisNetto.Text = aktuellerArtikel.PreisNetto.ToString();
             ChkAktiv.Content = aktuellerArtikel.Aktiv;
+            CmbArtikelGruppe.Text = DgvArtikel.SelectedCells[8].ToString();
         }
         //Artikel Löschen
         private void CmdLöschen_Click(object sender, RoutedEventArgs e)
@@ -141,7 +163,9 @@ namespace Auftragsverwaltung.Views
                 throw;
             }
 
+            DgvArtikel.SelectedItem = false;
             LadeDataGrid("Artikel");
+            
         }
 
         private void CmbTestArtikel_Click(object sender, RoutedEventArgs e)
@@ -184,6 +208,11 @@ namespace Auftragsverwaltung.Views
             LblArtikekgruppeNummer.Content = artikelgruppe.Id;
             TxtArtikelgruppeBezeichung.Text = artikelgruppe.Name;
             ChkArtikelGruppeAktiv.IsChecked = artikelgruppe.Active;
+        }
+
+        private void CmDArtikelAendern_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -37,7 +37,7 @@ namespace DataAccessLayer.Model
                     
                 }
 
-                return count;
+                return count+1;
             }
         }
 
@@ -60,6 +60,16 @@ namespace DataAccessLayer.Model
 
                 context.Artikel.Remove(artikel);
                 context.SaveChanges();
+            }
+        }
+
+        public bool Aendere(Artikel artikel)
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                context.Artikel.Update(artikel);
+                context.SaveChanges();
+                return true;
             }
         }
 
