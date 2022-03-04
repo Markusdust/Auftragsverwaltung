@@ -20,11 +20,11 @@ namespace DataAccessLayer
         public DbSet<Auftrag> Auftraege { get; set; }
         public DbSet<Position> Positionen { get; set; }
         //Joel
-        //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
+        public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Markus
         //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Andy
-        public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
+        //public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connectionstring);
@@ -61,22 +61,6 @@ namespace DataAccessLayer
             }
         }
 
-        // public string[] GetTable(string sqlstring)
-        // {
-        //      
-        //     using (SqlConnection connection = new SqlConnection(sqlstring))
-        //     {
-        //         string[] table;
-        //         using (SqlCommand getTable = new SqlCommand(sqlstring, connection))
-        //         {
-        //             connection.Open();
-        //             
-        //             table = getTable.CommandText(sqlstring);
-        //         }
-        //
-        //         return table;
-        //     }
-        // }
 
     }
 }

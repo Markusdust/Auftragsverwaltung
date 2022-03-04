@@ -40,17 +40,11 @@ namespace BusinessLogik
 
         }
 
-        public bool NeuerArtieklAnlegen(string bezeichnung, decimal preisnetto, bool aktiv, int artikelgruppeid)
+        public bool NeuerArtieklAnlegen(Artikel artikel)
         {
 
-            Artikel a1 = new Artikel()
-            {
-                Bezeichnung = bezeichnung,
-                PreisNetto = preisnetto,
-                Aktiv = aktiv,
-                ArtikelgruppeId = artikelgruppeid
-            };
-            modelArtikel.artikelspeichern(a1);
+         
+            modelArtikel.artikelspeichern(artikel);
 
             return true;
         }
@@ -63,6 +57,11 @@ namespace BusinessLogik
         public int GetCounterArtikel(string sqlcommand)
         {
             return modelArtikel.GetCounterArtikel(sqlcommand);
+        }
+
+        public void DeleteArtikel(int artikelid)
+        {
+            modelArtikel.DeleteArtikel(artikelid);
         }
     }
 }

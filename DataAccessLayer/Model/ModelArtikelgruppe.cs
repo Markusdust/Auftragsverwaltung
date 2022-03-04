@@ -36,7 +36,7 @@ namespace DataAccessLayer.Model
                     count = context.GetCountColumn(sqlcommand);
 
                 }
-                return count + 1;
+                return count +1;
             }
 
         }
@@ -66,6 +66,48 @@ namespace DataAccessLayer.Model
         //
         //         }
         //         return table ;
+        //     }
+        // }
+        public bool ArtikelGruppenReferenzCheck(int artikelgruppeId)
+        {
+            using (var context = new AuftragContext())
+            {
+                bool check = false;
+                var listArtikel = context.Artikel.ToList();
+                foreach (var Artikel in listArtikel)
+                {
+                    if (check = Artikel.ArtikelgruppeId.Equals(artikelgruppeId) == true)
+                        break;
+                }
+
+                return check;
+            }
+        }
+
+        public bool ArtikelGruppeLöschen(int artikelgruppeId)
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                var artikelgruppe = context.Artikelgruppe.SingleOrDefault(a => a.Id == artikelgruppeId);
+
+                context.Artikelgruppe.Remove(artikelgruppe);
+                context.SaveChanges();
+
+                return true;
+            }
+
+            
+        }
+
+        // public void DeleteArtikel(int artikelid)
+        // {
+        //     using (AuftragContext context = new AuftragContext())
+        //     {
+        //         var artikel = context.Artikel.SingleOrDefault(a => a.Id == artikelid);
+        //         if (artikel == null) return;
+        //
+        //         context.Artikel.Remove(artikel);
+        //         context.SaveChanges();
         //     }
         // }
     }

@@ -48,5 +48,18 @@ namespace BusinessLogik
         // {
         //     return modelArtikelgruppe.GetTable(sqlcommand);
         // }
+        public bool ArtikelGruppeLöschen(int artikelgruppeId)
+        {
+            if (artikelgruppeId == null)
+                return false;
+            else if (modelArtikelgruppe.ArtikelGruppenReferenzCheck(artikelgruppeId) == true)
+                return false;
+            else
+            {
+                modelArtikelgruppe.ArtikelGruppeLöschen(artikelgruppeId);
+                return true;
+            }
+
+        }
     }
 }
