@@ -20,6 +20,16 @@ namespace DataAccessLayer.Model
             }
         }
 
+        public bool aendern(Auftrag auftrag)
+        {
+            using (var context = new AuftragContext())
+            {
+                context.Auftraege.Update(auftrag);
+                context.SaveChanges();
+                return true;
+            }
+        }
+
         public List<Auftrag> LadeAuftraege()
         {
             using (AuftragContext context = new AuftragContext())

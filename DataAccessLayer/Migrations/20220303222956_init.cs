@@ -22,6 +22,21 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Auftraege",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AuftragsNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
+                    Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    KundeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auftraege", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Kunden",
                 columns: table => new
                 {
@@ -58,6 +73,22 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Positionen",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PositionNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
+                    Menge = table.Column<int>(type: "int", maxLength: 45, nullable: false),
+                    AuftragId = table.Column<int>(type: "int", nullable: false),
+                    ArtikelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Positionen", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Artikel",
                 columns: table => new
                 {
@@ -81,27 +112,6 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Auftraege",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AuftragsNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
-                    Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    KundeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Auftraege", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Auftraege_Kunden_KundeId",
-                        column: x => x.KundeId,
-                        principalTable: "Kunden",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Adressen",
                 columns: table => new
                 {
@@ -120,34 +130,6 @@ namespace DataAccessLayer.Migrations
                         name: "FK_Adressen_Ortschaft_OrtschaftId",
                         column: x => x.OrtschaftId,
                         principalTable: "Ortschaft",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Positionen",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PositionNr = table.Column<int>(type: "int", maxLength: 45, nullable: false),
-                    Menge = table.Column<int>(type: "int", maxLength: 45, nullable: false),
-                    AuftragId = table.Column<int>(type: "int", nullable: false),
-                    ArtikelId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Positionen", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Positionen_Artikel_ArtikelId",
-                        column: x => x.ArtikelId,
-                        principalTable: "Artikel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Positionen_Auftraege_AuftragId",
-                        column: x => x.AuftragId,
-                        principalTable: "Auftraege",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -192,11 +174,6 @@ namespace DataAccessLayer.Migrations
                 column: "ArtikelgruppeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Auftraege_KundeId",
-                table: "Auftraege",
-                column: "KundeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_KundenAdressen_AdresseId",
                 table: "KundenAdressen",
                 column: "AdresseId");
@@ -205,29 +182,10 @@ namespace DataAccessLayer.Migrations
                 name: "IX_KundenAdressen_KundeId",
                 table: "KundenAdressen",
                 column: "KundeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Positionen_ArtikelId",
-                table: "Positionen",
-                column: "ArtikelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Positionen_AuftragId",
-                table: "Positionen",
-                column: "AuftragId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "KundenAdressen");
-
-            migrationBuilder.DropTable(
-                name: "Positionen");
-
-            migrationBuilder.DropTable(
-                name: "Adressen");
-
             migrationBuilder.DropTable(
                 name: "Artikel");
 
@@ -235,13 +193,22 @@ namespace DataAccessLayer.Migrations
                 name: "Auftraege");
 
             migrationBuilder.DropTable(
-                name: "Ortschaft");
+                name: "KundenAdressen");
+
+            migrationBuilder.DropTable(
+                name: "Positionen");
 
             migrationBuilder.DropTable(
                 name: "Artikelgruppe");
 
             migrationBuilder.DropTable(
+                name: "Adressen");
+
+            migrationBuilder.DropTable(
                 name: "Kunden");
+
+            migrationBuilder.DropTable(
+                name: "Ortschaft");
         }
     }
 }

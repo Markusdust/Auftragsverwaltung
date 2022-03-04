@@ -121,8 +121,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KundeId");
-
                     b.ToTable("Auftraege");
                 });
 
@@ -252,10 +250,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtikelId");
-
-                    b.HasIndex("AuftragId");
-
                     b.ToTable("Positionen");
                 });
 
@@ -281,17 +275,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Artikelgruppe");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entities.Auftrag", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entities.Kunde", "Kunde")
-                        .WithMany()
-                        .HasForeignKey("KundeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kunde");
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entities.KundenAdresse", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.Adresse", "Adresse")
@@ -309,25 +292,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Adresse");
 
                     b.Navigation("Kunde");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entities.Position", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entities.Artikel", "Artikel")
-                        .WithMany()
-                        .HasForeignKey("ArtikelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessLayer.Entities.Auftrag", "Auftrag")
-                        .WithMany()
-                        .HasForeignKey("AuftragId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Artikel");
-
-                    b.Navigation("Auftrag");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Ortschaft", b =>

@@ -24,17 +24,42 @@ namespace BusinessLogik
             return true;
         }
 
-        public bool NeuerArtikelAnlegen(int id, int positionNr, int menge, int auftragId, int artikelId)
+        public bool AlterAuftragBearbeiten(int id, int auftragsNr, DateTime datum, int kundeId)
         {
-            Position p1 = new Position()
+            Auftrag a1 = new Auftrag()
             {
                 Id = id,
+                AuftragsNr = auftragsNr,
+                Datum = datum,
+                KundeId = kundeId
+            };
+            modelAuftrag.aendern(a1);
+            return true;
+        }
+
+        public bool NeuePositionAnlegen(int positionNr, int menge, int auftragId, int artikelId)
+        {
+            Position p1 = new Position()
+            {                
                 PositionNr = positionNr,
                 Menge = menge,
                 AuftragId = auftragId,
                 ArtikelId = artikelId                
             };
             modelPosition.speichern(p1);
+            return true;
+        }
+
+        public bool AltePositionBearbeiten(int positionNr, int menge, int auftragId, int artikelId)
+        {
+            Position p1 = new Position()
+            {
+                PositionNr = positionNr,
+                Menge = menge,
+                AuftragId = auftragId,
+                ArtikelId = artikelId
+            };
+            modelPosition.aendern(p1);
             return true;
         }
 
@@ -46,6 +71,11 @@ namespace BusinessLogik
         public List<Position> LadePositionen()
         {
             return modelPosition.LadePositionen();
+        }
+
+        public List<Position> LadeTeilPositionen(int auftragsId)
+        {
+            return modelPosition.LadeTeilPositionen(auftragsId);
         }
     }
 }

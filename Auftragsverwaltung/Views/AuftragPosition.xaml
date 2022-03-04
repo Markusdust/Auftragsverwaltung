@@ -12,14 +12,14 @@
     <Grid Loaded="Grid_Loaded">
         <TextBlock Text="Auftrag / Position" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="227,10,0,0"/>
         <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Margin="0,60,0,0">
+            <Label Content="Id:" Margin="20,0,0,0"></Label>
+            <TextBox x:Name="txtId" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center" IsEnabled="False"></TextBox>
+
+            <Label Content="AuftragNr:" Margin="20,0,0,0"></Label>
+            <TextBox x:Name="txtAuftragNr" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center" IsEnabled="False"></TextBox>
+
             <Label Content="KundenNr:" Margin="20,0,0,0"></Label>
             <TextBox x:Name="txtKundenNr" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
-
-            <Label Content="Vorname:" Margin="20,0,0,0"></Label>
-            <TextBox x:Name="txtVorname" Width="100" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
-
-            <Label Content="Nachname:" Margin="20,0,0,0"></Label>
-            <TextBox x:Name="txtNachname" Width="100" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
 
             <Label Content="Erstelldatum:" Margin="20,0,0,0"></Label>
             <DatePicker x:Name="dpDatum" VerticalAlignment="Center" Margin="5,0,0,0"></DatePicker>
@@ -27,9 +27,10 @@
 
         <StackPanel Orientation="Vertical" Width="150" HorizontalAlignment="Right" Margin="0,105,0,0">
             <Button x:Name="cmdSpeichern" Content="Speichern" Width="100" Height="20" Margin="5" Click="cmdSpeichern_Click"></Button>
-            <Button x:Name="cmdAendern" Content="Ändern" Width="100" Height="20" Margin="5"></Button>
+            <Button x:Name="cmdAendern" Content="Ändern" Width="100" Height="20" Margin="5" Click="cmdAendern_Click"></Button>
             <Button x:Name="cmdLoeschen" Content="Löschen" Width="100" Height="20" Margin="5"></Button>
-            <Button x:Name="cmdLeeren" Content="Leeren" Width="100" Height="20" Margin="5"></Button>
+            <Button x:Name="cmdLeeren" Content="Leeren" Width="100" Height="20" Margin="5" Click="cmdLeeren_Click"></Button>
+            <!--<TextBox x:Name="TestBox" Text="TextBox" TextWrapping="Wrap" Width="120" Height="170"/>-->
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Center" Margin="0,100,0,0">
@@ -40,13 +41,18 @@
             <TextBox x:Name="txtMenge" Width="50" Height="18" Margin="5,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
 
             <Label Content="Artikel:" Margin="20,0,0,0" VerticalAlignment="Center"></Label>
-            <ComboBox x:Name="cmboArtikel" Width="150" Height="20" VerticalAlignment="Center"></ComboBox>
+            <TextBox x:Name="txtArtikelNr" Width="50" Height="18" Margin="5,0,5,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+            <!--<ComboBox x:Name="cmboArtikel" Width="150" Height="20" VerticalAlignment="Center"></ComboBox>-->
 
-            <Button x:Name="cmdInBestellung" Content="In die Liste" Margin="80,0,0,0" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
+            <Button x:Name="cmdInBestellung" Content="In die Liste" Margin="20,0,0,0" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
         </StackPanel>
 
-        <DataGrid x:Name="dgvAuftrag" Margin="20,110,197,200"/>
+        <DataGrid x:Name="dgvAuftrag" Margin="20,110,574,200" CanUserAddRows="False" SelectionChanged="dgvAuftrag_SelectionChanged"/>
+        <DataGrid x:Name="dgvKunde2" Margin="400,110,197,200" CanUserAddRows="False"/>
 
-        <DataGrid x:Name="dgvPosition" Margin="20,294,197,16"/>
+        <DataGrid x:Name="dgvPosition" Margin="20,294,574,16" CanUserAddRows="False"/>
+        <DataGrid x:Name="dgvArtikel" Margin="400,294,197,16" CanUserAddRows="False"/>
+        <Label Content="Kunden Liste" HorizontalAlignment="Left" Margin="675,85,0,0" VerticalAlignment="Top" FontStyle="Normal" />
+        <Label Content="Artikel Liste" HorizontalAlignment="Left" Margin="675,270,0,0" VerticalAlignment="Top" FontStyle="Normal" />
     </Grid>
 </Page>
