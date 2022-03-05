@@ -44,23 +44,5 @@ namespace DataAccessLayer
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
         }
-
-        // Gibt eine Zahl int zurück //sql string muss übergeben werden
-        public int GetCountColumn(string sqlstring)
-        {
-            int count = 0;
-            using (SqlConnection connection = new SqlConnection(connectionstring))
-            {
-                using (SqlCommand cmdCount = new SqlCommand(sqlstring, connection))
-                {
-                    connection.Open();
-                    count = (int)cmdCount.ExecuteScalar();
-                }
-
-                return count;
-            }
-        }
-
-
     }
 }

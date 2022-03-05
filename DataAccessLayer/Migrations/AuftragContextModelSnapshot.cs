@@ -73,6 +73,12 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<decimal>("Mwst")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PreisBrutto")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("PreisNetto")
                         .HasColumnType("decimal(18,2)");
 
@@ -96,6 +102,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UebergeordneteGruppeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -267,7 +276,7 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("DataAccessLayer.Entities.Artikel", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.Artikelgruppe", "Artikelgruppe")
-                        .WithMany()
+                        .WithMany("Artikels")
                         .HasForeignKey("ArtikelgruppeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -292,6 +301,11 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Adresse");
 
                     b.Navigation("Kunde");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Artikelgruppe", b =>
+                {
+                    b.Navigation("Artikels");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Ortschaft", b =>

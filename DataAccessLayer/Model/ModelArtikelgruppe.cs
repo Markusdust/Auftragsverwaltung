@@ -23,51 +23,58 @@ namespace DataAccessLayer.Model
             }
         }
 
-        public int GetCounterArtikelgruppe(string sqlcommand)
-        {
-
-            using (var context = new AuftragContext())
-            {
-                int count = 0;
-                // string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKELGRUPPE";
-
-                using (SqlCommand cmdCount = new SqlCommand(sqlcommand))
-                {
-                    count = context.GetCountColumn(sqlcommand);
-
-                }
-                return count +1;
-            }
-
-        }
-        
         public static List<Artikelgruppe> LadeArtikelGruppe()
         {
             using (AuftragContext context = new AuftragContext())
             {
-              
-               artikelgruppelist = context.Artikelgruppe.ToList();
+
+                artikelgruppelist = context.Artikelgruppe.ToList();
 
             }
+
             return artikelgruppelist;
         }
 
-        // public static string[] GetTable(string sqlcommand)
-        // {
-        //     string[] table;
-        //     using (var context = new AuftragContext())
-        //     {
-        //         int count = 0;
-        //         // string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKELGRUPPE";
-        //
-        //         using (SqlCommand cmdCount = new SqlCommand(sqlcommand))
-        //         {
-        //             table = context.GetCountColumn(sqlcommand);
-        //
-        //         }
-        //         return table ;
-        //     }
-        // }
+        public bool ArtikelGruppeLöschen(int artikelgruppeId)
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                var artikelgruppe = context.Artikelgruppe.SingleOrDefault(a => a.Id == artikelgruppeId);
+
+                context.Artikelgruppe.Remove(artikelgruppe);
+                context.SaveChanges();
+
+                return true;
+            }
+        }
+
+        public bool Aendere(Artikelgruppe artikelgruppe)
+        {
+            using (var context = new AuftragContext())
+            {
+                var updateartikelgruppe = context.Artikelgruppe.Where(a => a.Id == artikelgruppe.Id).SingleOrDefault();
+                if (updateartikelgruppe != null)
+                {
+                    updateartikelgruppe.Name = artikelgruppe.Name;
+                    updateartikelgruppe.Active = artikelgruppe.Active;
+
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        public List<Artikelgruppe> SucheArtikelgruppe(string name)
+        {
+            using (var context = new AuftragContext())
+            {
+                artikelgruppelist = context.Artikelgruppe.Where(a => a.Name == name).ToList();
+                return artikelgruppelist;
+            }
+                
+        }
         public bool ArtikelGruppenReferenzCheck(int artikelgruppeId)
         {
             using (var context = new AuftragContext())
@@ -84,31 +91,13 @@ namespace DataAccessLayer.Model
             }
         }
 
-        public bool ArtikelGruppeLöschen(int artikelgruppeId)
+        public int ArtikelgruppeID(string name)
         {
-            using (AuftragContext context = new AuftragContext())
+            using (var context = new AuftragContext())
             {
-                var artikelgruppe = context.Artikelgruppe.SingleOrDefault(a => a.Id == artikelgruppeId);
-
-                context.Artikelgruppe.Remove(artikelgruppe);
-                context.SaveChanges();
-
-                return true;
+                var ag = context.Artikelgruppe.Where(ag => ag.Name == name).SingleOrDefault();
+                return ag.Id;
             }
-
-            
         }
-
-        // public void DeleteArtikel(int artikelid)
-        // {
-        //     using (AuftragContext context = new AuftragContext())
-        //     {
-        //         var artikel = context.Artikel.SingleOrDefault(a => a.Id == artikelid);
-        //         if (artikel == null) return;
-        //
-        //         context.Artikel.Remove(artikel);
-        //         context.SaveChanges();
-        //     }
-        // }
     }
 }

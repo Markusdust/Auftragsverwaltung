@@ -12,25 +12,9 @@ namespace BusinessLogik
     public class ControllerArtikelGruppe
     {
         private ModelArtikelgruppe modelArtikelgruppe = new ModelArtikelgruppe();
-        public int GetCounterArtikelGruppe(string sqlcommand)
-        {
-            return modelArtikelgruppe.GetCounterArtikelgruppe(sqlcommand);
-        }
 
         public void ArtikelGruppeAnlegen(string name, bool aktiv)
         {
-            // Artikelgruppe ag1 = new Artikelgruppe()
-            // {
-            //     Name = "Werkzeug",
-            //     Active = true
-            // };
-            // modelArtikelgruppe.artikelgruppespeichern(ag1);
-            //
-            // Artikelgruppe ag2 = new Artikelgruppe()
-            // {
-            //     Name = "Schmuck",
-            //     Active = true
-            // };
             Artikelgruppe ag1 = new Artikelgruppe()
             {
                 Name = name,
@@ -44,10 +28,6 @@ namespace BusinessLogik
             return ModelArtikelgruppe.LadeArtikelGruppe();
         }
 
-        // public object GetTable(string sqlcommand)
-        // {
-        //     return modelArtikelgruppe.GetTable(sqlcommand);
-        // }
         public bool ArtikelGruppeLöschen(int artikelgruppeId)
         {
             if (artikelgruppeId == null)
@@ -60,6 +40,21 @@ namespace BusinessLogik
                 return true;
             }
 
+        }
+
+        public bool ArtikelGruppeÄndern(Artikelgruppe artikelgruppe)
+        {
+            return modelArtikelgruppe.Aendere(artikelgruppe);
+        }
+
+        public List<Artikelgruppe> SucheArtikelgruppe(string name)
+        {
+            return modelArtikelgruppe.SucheArtikelgruppe(name);
+        }
+
+        public int ArtikelGruppeID(string name)
+        {
+           return  modelArtikelgruppe.ArtikelgruppeID(name);
         }
     }
 }
