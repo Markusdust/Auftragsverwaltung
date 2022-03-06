@@ -20,6 +20,16 @@ namespace DataAccessLayer.Model
             }
         }
 
+        public bool loeschen(Auftrag auftrag)
+        {
+            using (var context = new AuftragContext())
+            {
+                context.Auftraege.Remove(auftrag);                
+                //context.SaveChanges();
+                return true;
+            }
+        }
+
         public bool aendern(Auftrag auftrag)
         {
             using (var context = new AuftragContext())

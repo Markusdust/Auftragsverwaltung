@@ -25,7 +25,8 @@ namespace Auftragsverwaltung.Views
         private ControllerAuftrag controllerAuftrag = new ControllerAuftrag();
         private ControllerArtikel controllerArtikel = new ControllerArtikel();
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
-        private int TempPos = 10;
+        private int TempPos = 0;
+        private int TempAuftragNr = 0;
 
         public AuftragPosition()
         {
@@ -34,7 +35,8 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
-            var auftragNr = 2;
+            TempAuftragNr = TempAuftragNr + 1;
+            var auftragsNr = TempAuftragNr;
             DateTime datum = DateTime.Now;
             int kundeId = 1;
 
@@ -57,7 +59,7 @@ namespace Auftragsverwaltung.Views
 
             try
             {
-                controllerAuftrag.NeuerAuftragAnlegen(auftragNr, datum, kundeId);
+                controllerAuftrag.NeuerAuftragAnlegen(auftragsNr, datum, kundeId);
             }
             catch (Exception exception)
             {
@@ -68,7 +70,7 @@ namespace Auftragsverwaltung.Views
         }
         private void cmdAendern_Click(object sender, RoutedEventArgs e)
         {
-            var auftragNr = 1;
+            var auftragsNr = 2;
             DateTime datum = DateTime.Now;
             int kundeId = 1;
             int id = 1;
@@ -79,7 +81,7 @@ namespace Auftragsverwaltung.Views
                 try
                 {
                     datum = dpDatum.SelectedDate.Value;
-                    auftragNr = Convert.ToInt32(txtAuftragNr.Text);
+                    auftragsNr = Convert.ToInt32(txtAuftragNr.Text);
                     id = Convert.ToInt32(txtId.Text);
                 }
                 catch (Exception)
@@ -94,7 +96,7 @@ namespace Auftragsverwaltung.Views
 
             try
             {
-                controllerAuftrag.AlterAuftragBearbeiten(id, auftragNr, datum, kundeId);
+                controllerAuftrag.AlterAuftragBearbeiten(id, auftragsNr, datum, kundeId);
             }
             catch (Exception exception)
             {
@@ -146,6 +148,8 @@ namespace Auftragsverwaltung.Views
                 LadeArtikel();
                 LadeKunden();
                 WaehleErstesElement();
+                FelderLeeren();
+                PosFelderLeeren();
             }
             catch (Exception exception)
             {
@@ -179,9 +183,9 @@ namespace Auftragsverwaltung.Views
                 catch (Exception exception)
                 {
                     MessageBox.Show("Position kann nicht geladen werden.");
-                }
-                //LadePositionen();
+                }                
                 LadeTeilPositionen(auftragId);
+                PosFelderLeeren();
             }
             catch
             {
@@ -220,6 +224,96 @@ namespace Auftragsverwaltung.Views
             txtAuftragNr.Text = Convert.ToString(aktuellerAuftrag.AuftragsNr);
             txtKundenNr.Text = Convert.ToString(aktuellerAuftrag.KundeId);
             dpDatum.SelectedDate = aktuellerAuftrag.Datum;
-        }        
+        }
+
+        private void cmdPosLeeren_Click(object sender, RoutedEventArgs e)
+        {
+            PosFelderLeeren();
+        }
+
+        private void PosFelderLeeren()
+        {
+            txtPosition.Text = "";
+            txtMenge.Text = "";
+            txtArtikelNr.Text = "";
+            txtAuftragId.Text = "";
+            txtId.Text = "";
+        }
+
+        private void cmdLoeschen_Click(object sender, RoutedEventArgs e)
+        {
+            var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
+            var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
+
+            var auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+
+            controllerAuftrag.AuftragLoeschen(auftragId);
+            //dgvAuftrag.ItemsSource = controllerAuftrag.LadeAuftraege();
+            LadeAuftraege();
+        }
+
+        private void dgvPosition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var aktuelleZeile = dgvPosition.SelectedCells.ToArray();
+                var aktuellePosition = (Position)aktuelleZeile[0].Item;
+
+                SelectierterPosZuFeldern(aktuellePosition);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Daten konnten nicht geladen werden.");
+            }
+        }
+
+        private void SelectierterPosZuFeldern(Position aktuellePosition)
+        {
+            txtPosId.Text = Convert.ToString(aktuellePosition.Id);
+            txtAuftragId.Text = Convert.ToString(aktuellePosition.AuftragId);
+            txtPosition.Text = Convert.ToString(aktuellePosition.PositionNr);
+            txtMenge.Text = Convert.ToString(aktuellePosition.Menge);
+            txtArtikelNr.Text = Convert.ToString(aktuellePosition.ArtikelId);            
+        }
+
+        private void cmdPosAendern_Click(object sender, RoutedEventArgs e)
+        {
+            var artikelNr = 1;
+            int menge = 1;
+            int position = 1;
+            int id = 1;
+            int auftragId = 1;
+
+            try
+            {
+                artikelNr = Convert.ToInt32(txtArtikelNr.Text);
+                try
+                {
+                    auftragId = Convert.ToInt32(txtAuftragId.Text);
+                    menge = Convert.ToInt32(txtMenge.Text);
+                    position = Convert.ToInt32(txtPosition.Text);
+                    id = Convert.ToInt32(txtPosId.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Es ist ein Fehler aufgetreten.");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Es wurde keine ArtieklNr eingegeben.");
+            }
+
+            try
+            {
+                controllerAuftrag.AltePositionBearbeiten(id, position, menge, auftragId, artikelNr);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Kunde kann nicht geladen werden.");
+            }
+            LadePositionen();
+            PosFelderLeeren();
+        }
     }
 }

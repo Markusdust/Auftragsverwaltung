@@ -24,6 +24,16 @@ namespace BusinessLogik
             return true;
         }
 
+        public bool AuftragLoeschen(int auftragId)
+        {
+            Auftrag a1 = new Auftrag()
+            {
+                Id = auftragId
+            };
+            modelAuftrag.loeschen(a1);
+            return true;
+        }
+
         public bool AlterAuftragBearbeiten(int id, int auftragsNr, DateTime datum, int kundeId)
         {
             Auftrag a1 = new Auftrag()
@@ -50,10 +60,11 @@ namespace BusinessLogik
             return true;
         }
 
-        public bool AltePositionBearbeiten(int positionNr, int menge, int auftragId, int artikelId)
+        public bool AltePositionBearbeiten(int id, int positionNr, int menge, int auftragId, int artikelId)
         {
             Position p1 = new Position()
             {
+                Id = id,
                 PositionNr = positionNr,
                 Menge = menge,
                 AuftragId = auftragId,
