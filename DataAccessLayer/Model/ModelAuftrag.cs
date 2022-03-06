@@ -50,5 +50,15 @@ namespace DataAccessLayer.Model
             }
             return meineAuftraege;
         }
+
+        public List<Auftrag> SucheAuftrag(string input)
+        {
+            using (var context = new AuftragContext())
+            {
+                meineAuftraege = context.Auftraege
+                    .Where(a => a.AuftragsNr == Convert.ToInt32(input) || a.KundeId == Convert.ToInt32(input)).ToList();
+                return meineAuftraege;
+            }
+        }
     }
 }

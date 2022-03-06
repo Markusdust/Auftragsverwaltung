@@ -149,7 +149,7 @@ namespace Auftragsverwaltung.Views
                 LadeKunden();
                 WaehleErstesElement();
                 FelderLeeren();
-                PosFelderLeeren();
+                PosFelderLeeren();                
             }
             catch (Exception exception)
             {
@@ -363,6 +363,38 @@ namespace Auftragsverwaltung.Views
             {
 
             }
+        }
+
+        private void cmdSuchen_Click(object sender, RoutedEventArgs e)
+        {
+            string input = txtSuche.Text;
+            if (input == "")
+            {
+                LadeAuftraege();
+            }
+            else
+            {
+                dgvAuftrag.ItemsSource = controllerAuftrag.SucheAuftrag(input);
+            }            
+        }
+
+        private void cmdPosSuchen_Click(object sender, RoutedEventArgs e)
+        {
+            var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
+            var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
+
+            int auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+
+            if (txtPosSuche.Text == "")
+            {
+                LadeTeilPositionen(auftragId);
+            }
+            else
+            {
+                int input = Convert.ToInt32(txtPosSuche.Text);
+                dgvPosition.ItemsSource = controllerAuftrag.SuchePositionen(input);
+            }           
+            
         }
     }
 }

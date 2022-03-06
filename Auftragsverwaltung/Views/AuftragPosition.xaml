@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Auftragsverwaltung.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="950"
+      d:DesignHeight="460" d:DesignWidth="950"
       Title="AuftragPosition"
       Background="White">
 
@@ -23,6 +23,9 @@
 
             <Label Content="Erstelldatum:" Margin="20,0,0,0"></Label>
             <DatePicker x:Name="dpDatum" VerticalAlignment="Center" Margin="5,0,0,0"></DatePicker>
+
+            <TextBox x:Name="txtSuche" Width="150" Height="18" Margin="40,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+            <Button x:Name="cmdSuchen" Content="Suchen" Width="60" Height="18" Margin="5" Click="cmdSuchen_Click"></Button>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Width="150" HorizontalAlignment="Right" Margin="0,100,0,0">
@@ -30,8 +33,8 @@
             <Button x:Name="cmdAendern" Content="Ändern" Width="100" Height="20" Margin="5" Click="cmdAendern_Click"></Button>
             <Button x:Name="cmdLoeschen" Content="Löschen" Width="100" Height="20" Margin="5" Click="cmdLoeschen_Click"></Button>
             <Button x:Name="cmdLeeren" Content="Leeren" Width="100" Height="20" Margin="5" Click="cmdLeeren_Click"></Button>
-            <!--<TextBox x:Name="TestBox" Text="TextBox" TextWrapping="Wrap" Width="120" Height="170"/>-->
-            <Button x:Name="cmdInBestellung" Content="Pos in die Liste" Margin="5,60,5,5" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
+            
+            <Button x:Name="cmdInBestellung" Content="Pos in die Liste" Margin="5,80,5,5" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
             <Button x:Name="cmdPosAendern" Content="Pos ändern" Width="100" Height="20" Margin="5" RenderTransformOrigin="0.436,5.167" Click="cmdPosAendern_Click"></Button>
             <Button x:Name="cmdPosLoeschen" Content="Pos löschen" Width="100" Height="20" Margin="5" Click="cmdPosLoeschen_Click"></Button>
             <Button x:Name="cmdPosLeeren" Content="Pos Leeren" Width="100" Height="20" Margin="5" Click="cmdPosLeeren_Click"></Button>
@@ -52,17 +55,17 @@
 
             <Label Content="ArtikelNr:" Margin="20,0,0,0" VerticalAlignment="Center"></Label>
             <TextBox x:Name="txtArtikelNr" Width="50" Height="18" Margin="5,0,5,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
-            <!--<ComboBox x:Name="cmboArtikel" Width="150" Height="20" VerticalAlignment="Center"></ComboBox>-->
-
             
+            <TextBox x:Name="txtPosSuche" Width="150" Height="18" Margin="40,0,0,0" TextWrapping="Wrap" RenderTransformOrigin="0.546,0.426" VerticalAlignment="Center"></TextBox>
+            <Button x:Name="cmdPosSuchen" Content="Suchen" Width="60" Height="18" Margin="5" Click="cmdPosSuchen_Click"></Button>
         </StackPanel>
 
-        <DataGrid x:Name="dgvAuftrag" Margin="20,110,574,200" CanUserAddRows="False" SelectionChanged="dgvAuftrag_SelectionChanged"/>
-        <DataGrid x:Name="dgvKunde2" Margin="400,110,197,200" CanUserAddRows="False"/>
+        <DataGrid x:Name="dgvAuftrag" MinHeight="100" MaxHeight="130" Margin="20,105,574,200" CanUserAddRows="False" SelectionChanged="dgvAuftrag_SelectionChanged"/>
+        <DataGrid x:Name="dgvKunde2" MinHeight="110" MaxHeight="130" Margin="400,105,197,200" CanUserAddRows="False"/>
 
-        <DataGrid x:Name="dgvPosition" Margin="20,294,574,16" CanUserAddRows="False" SelectionChanged="dgvPosition_SelectionChanged"/>
-        <DataGrid x:Name="dgvArtikel" Margin="400,294,197,16" CanUserAddRows="False"/>
-        <Label Content="Kunden Liste" HorizontalAlignment="Left" Margin="675,85,0,0" VerticalAlignment="Top" FontStyle="Normal" />
-        <Label Content="Artikel Liste" HorizontalAlignment="Left" Margin="675,270,0,0" VerticalAlignment="Top" FontStyle="Normal" />
+        <DataGrid x:Name="dgvPosition" MinHeight="110" MaxHeight="130" Margin="20,290,574,16" CanUserAddRows="False" SelectionChanged="dgvPosition_SelectionChanged"/>
+        <DataGrid x:Name="dgvArtikel" MinHeight="110" MaxHeight="130" Margin="400,290,197,16" CanUserAddRows="False"/>
+        <Label Content="Kunden Nr oder Auftrags Nr eingeben" HorizontalAlignment="Left" Margin="650,32,0,0" VerticalAlignment="Top"/>
+        <Label Content="Artikel Nr oder Auftrags Nr eingeben" HorizontalAlignment="Left" Margin="670,235,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

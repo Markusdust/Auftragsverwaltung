@@ -75,5 +75,15 @@ namespace DataAccessLayer.Model
                 return true;
             }
         }
+
+        public List<Position> SuchePositionen(int input)
+        {
+            using (var context = new AuftragContext())
+            {
+                meinePositionen = context.Positionen
+                    .Where(b => b.ArtikelId == input || b.AuftragId == input).ToList();
+                return meinePositionen;
+            }
+        }
     }
 }

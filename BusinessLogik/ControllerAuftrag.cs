@@ -90,5 +90,15 @@ namespace BusinessLogik
         {
             return modelPosition.LadeTeilPositionen(auftragsId);
         }
+
+        public List<Auftrag> SucheAuftrag(string input)
+        {
+            return modelAuftrag.SucheAuftrag(input);
+        }
+
+        public List<Position> SuchePositionen(int input)
+        {
+            return modelPosition.SuchePositionen(input);
+        }
     }
 }
