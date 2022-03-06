@@ -22,25 +22,6 @@ namespace DataAccessLayer.Model
             }
         }
 
-        public int GetCounterArtikel(string sqlcommand)
-        {
-
-            using (var context = new AuftragContext())
-            {
-
-                //string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKEL";
-                int count = context.GetCountColumn(sqlcommand);
-
-                using (SqlCommand cmdCount = new SqlCommand(sqlcommand))
-                {
-                    count = context.GetCountColumn(sqlcommand);
-                    
-                }
-
-                return count+1;
-            }
-        }
-
         public static List<Artikel> LadeArtikel()
         {
             using (AuftragContext context = new AuftragContext())
@@ -67,11 +48,33 @@ namespace DataAccessLayer.Model
         {
             using (AuftragContext context = new AuftragContext())
             {
-                context.Artikel.Update(artikel);
-                context.SaveChanges();
-                return true;
+                var updateartikel = context.Artikel.SingleOrDefault(a => a.Id == artikel.ArtikelNr);
+                if (updateartikel != null)
+                {
+                    updateartikel.Bezeichnung = artikel.Bezeichnung;
+                    updateartikel.ArtikelNr = artikel.ArtikelNr;
+                    updateartikel.Aktiv = artikel.Aktiv;
+                    updateartikel.Mwst = artikel.Mwst;
+                    updateartikel.PreisNetto = artikel.PreisNetto;
+                    updateartikel.Artikelgruppe = artikel.Artikelgruppe;
+
+                    context.SaveChanges();
+                    return true;
+                }
+
+                return false;
             }
         }
 
+        public List<Artikel> SuchArtikel(string? bezeichnung,int? artikelgruppeid)
+        {
+            using (var context = new AuftragContext())
+            {
+                artikellist = context.Artikel.Where(a =>
+                    a.Bezeichnung == bezeichnung ||
+                    a.ArtikelgruppeId == artikelgruppeid).ToList();
+                return artikellist;
+            }
+        }
     }
 }
