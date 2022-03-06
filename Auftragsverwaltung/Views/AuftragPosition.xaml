@@ -25,15 +25,15 @@
             <DatePicker x:Name="dpDatum" VerticalAlignment="Center" Margin="5,0,0,0"></DatePicker>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Width="150" HorizontalAlignment="Right" Margin="0,105,0,0">
+        <StackPanel Orientation="Vertical" Width="150" HorizontalAlignment="Right" Margin="0,100,0,0">
             <Button x:Name="cmdSpeichern" Content="Speichern" Width="100" Height="20" Margin="5" Click="cmdSpeichern_Click"></Button>
             <Button x:Name="cmdAendern" Content="Ändern" Width="100" Height="20" Margin="5" Click="cmdAendern_Click"></Button>
             <Button x:Name="cmdLoeschen" Content="Löschen" Width="100" Height="20" Margin="5" Click="cmdLoeschen_Click"></Button>
             <Button x:Name="cmdLeeren" Content="Leeren" Width="100" Height="20" Margin="5" Click="cmdLeeren_Click"></Button>
             <!--<TextBox x:Name="TestBox" Text="TextBox" TextWrapping="Wrap" Width="120" Height="170"/>-->
-            <Button x:Name="cmdInBestellung" Content="Pos in die Liste" Margin="5,70,5,5" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
+            <Button x:Name="cmdInBestellung" Content="Pos in die Liste" Margin="5,60,5,5" Width="100" Height="20" Click="cmdInBestellung_Click"></Button>
             <Button x:Name="cmdPosAendern" Content="Pos ändern" Width="100" Height="20" Margin="5" RenderTransformOrigin="0.436,5.167" Click="cmdPosAendern_Click"></Button>
-            <Button x:Name="cmdPosLoeschen" Content="Pos löschen" Width="100" Height="20" Margin="5"></Button>
+            <Button x:Name="cmdPosLoeschen" Content="Pos löschen" Width="100" Height="20" Margin="5" Click="cmdPosLoeschen_Click"></Button>
             <Button x:Name="cmdPosLeeren" Content="Pos Leeren" Width="100" Height="20" Margin="5" Click="cmdPosLeeren_Click"></Button>
         </StackPanel>
 

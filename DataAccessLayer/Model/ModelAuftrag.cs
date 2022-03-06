@@ -20,12 +20,14 @@ namespace DataAccessLayer.Model
             }
         }
 
-        public bool loeschen(Auftrag auftrag)
+        public bool loeschen(int auftragid)
         {
             using (var context = new AuftragContext())
             {
+                var auftrag = context.Auftraege.SingleOrDefault(a => a.Id == auftragid);
+                
                 context.Auftraege.Remove(auftrag);                
-                //context.SaveChanges();
+                context.SaveChanges();
                 return true;
             }
         }

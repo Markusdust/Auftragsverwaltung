@@ -62,8 +62,18 @@ namespace DataAccessLayer.Model
               
             }
             return queryPositionen;
+        }
 
+        public bool loeschen(int posId)
+        {
+            using (var context = new AuftragContext())
+            {
+                var position = context.Positionen.SingleOrDefault(a => a.Id == posId);
 
+                context.Positionen.Remove(position);
+                context.SaveChanges();
+                return true;
+            }
         }
     }
 }

@@ -26,11 +26,13 @@ namespace BusinessLogik
 
         public bool AuftragLoeschen(int auftragId)
         {
-            Auftrag a1 = new Auftrag()
-            {
-                Id = auftragId
-            };
-            modelAuftrag.loeschen(a1);
+            modelAuftrag.loeschen(auftragId);
+            return true;
+        }
+
+        public bool PositionLoeschen(int posId)
+        {
+            modelPosition.loeschen(posId);
             return true;
         }
 

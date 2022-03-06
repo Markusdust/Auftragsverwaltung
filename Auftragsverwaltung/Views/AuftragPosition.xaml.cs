@@ -209,8 +209,10 @@ namespace Auftragsverwaltung.Views
             {
                 var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
                 var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
-
-                SelectierterAuftragZuFeldern(aktuellerAuftrag);               
+                int auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+                
+                SelectierterAuftragZuFeldern(aktuellerAuftrag);
+                LadeTeilPositionen(auftragId);
             }
             catch (Exception)
             {
@@ -242,14 +244,29 @@ namespace Auftragsverwaltung.Views
 
         private void cmdLoeschen_Click(object sender, RoutedEventArgs e)
         {
-            var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
-            var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
+            if (MessageBox.Show("Wirklich löschen?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning)== MessageBoxResult.Yes)
+            {
+                var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
+                var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
 
-            var auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+                int auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
 
-            controllerAuftrag.AuftragLoeschen(auftragId);
-            //dgvAuftrag.ItemsSource = controllerAuftrag.LadeAuftraege();
-            LadeAuftraege();
+                try
+                {
+                    controllerAuftrag.AuftragLoeschen(auftragId);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Fehler beim Löschen.");
+                }
+
+                //dgvAuftrag.ItemsSource = controllerAuftrag.LadeAuftraege();
+                LadeAuftraege();
+            }
+            else
+            {
+                
+            }  
         }
 
         private void dgvPosition_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -314,6 +331,38 @@ namespace Auftragsverwaltung.Views
             }
             LadePositionen();
             PosFelderLeeren();
+        }
+
+        private void cmdPosLoeschen_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Wirklich löschen?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                //var aktuelleZeile = dgvPosition.SelectedCells.ToArray();
+                //var aktuellePosition = (Auftrag)aktuelleZeile[0].Item;
+
+                var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
+                var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
+
+                int auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+
+                int posId = Convert.ToInt32(txtPosId.Text);
+
+                try
+                {
+                    controllerAuftrag.PositionLoeschen(posId);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Fehler beim Löschen.");
+                }
+
+                //dgvAuftrag.ItemsSource = controllerAuftrag.LadeAuftraege();
+                LadeTeilPositionen(auftragId);
+            }
+            else
+            {
+
+            }
         }
     }
 }
