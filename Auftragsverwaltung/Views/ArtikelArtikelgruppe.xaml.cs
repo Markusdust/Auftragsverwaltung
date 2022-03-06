@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -29,15 +30,14 @@ namespace Auftragsverwaltung.Views
     {
         private ControllerArtikel controllerArtikel;
         private static ControllerArtikelGruppe controllerArtikelGruppe;
+        
         public ArtikelArtikelgruppe()
         {
             InitializeComponent();
             controllerArtikel = new ControllerArtikel();
             controllerArtikelGruppe = new ControllerArtikelGruppe();
-
-            LblArtikelNummmer.Content = "0";
-            LblArtikekgruppeNummer.Content = "0";
-
+            // Schreibt Anzahl Artikel,Artikelgruppen in Label
+            Count();
             // Füllt Grid mit Bestehenden Daten von DB 
             LadeDataGrid("Artikel");
             LadeDataGrid("Artikelgruppe");
@@ -61,6 +61,7 @@ namespace Auftragsverwaltung.Views
                     ArtikelgruppeId = controllerArtikelGruppe.ArtikelGruppeID(CmbArtikelGruppe.Text)
                 };
                 controllerArtikel.NeuerArtieklAnlegen(a1);
+                Count();
             }
             catch (Exception exception)
             {
@@ -85,6 +86,8 @@ namespace Auftragsverwaltung.Views
 
             DgvArtikel.SelectedItem = false;
             LadeDataGrid("Artikel");
+            LeereFelder();
+            Count();
 
         }
         //Artikel Ändern
@@ -94,17 +97,21 @@ namespace Auftragsverwaltung.Views
             {
                 if (DgvArtikel.SelectedCells[0] != null)
                 {
+                    var zeile = (Artikel)DgvArtikel.SelectedCells[0].Item;
+                    
                     Artikel a1 = new Artikel()
                     {
-                        ArtikelNr = Convert.ToInt16(LblArtikelNummmer.Content),
+                        Id = zeile.Id,
+                        ArtikelNr = Convert.ToInt16(TxtArtikelNummer.Text),
                         Bezeichnung = TxtArtikelBezeichung.Text,
                         PreisNetto = Convert.ToDecimal(TxtPreisNetto.Text),
                         Aktiv = (bool)ChkAktiv.IsChecked ? true : false,
                         Mwst = MWST(),
-                        ArtikelgruppeId = CmbArtikelGruppe.Text == "" ? -1 : CmbArtikelGruppe.SelectedIndex + 1
+                        ArtikelgruppeId = controllerArtikelGruppe.ArtikelGruppeID(CmbArtikelGruppe.Text)
                     };
                     controllerArtikel.AendereArtikel(a1);
                     LadeDataGrid("Artikel");
+                    LeereFelder();
                 }
                 else
                     MessageBox.Show("Selektieren Sie den gewünschten Artikel im Grid");
@@ -138,15 +145,23 @@ namespace Auftragsverwaltung.Views
             {
                 var aktuelleZeile = (Artikel)DgvArtikel.SelectedCells[0].Item;
 
-                LblArtikelNummmer.Content = aktuelleZeile.Id.ToString();
+                TxtArtikelNummer.Text = aktuelleZeile.ArtikelNr.ToString();
                 TxtArtikelBezeichung.Text = aktuelleZeile.Bezeichnung;
                 TxtPreisNetto.Text = aktuelleZeile.PreisNetto.ToString();
                 ChkAktiv.Content = aktuelleZeile.Aktiv;
                 CmbArtikelGruppe.Text = DgvArtikel.SelectedCells[8].Item.ToString();
+                TxtPreisBrutto.Text = aktuelleZeile.PreisBrutto.ToString();
+
+                if (aktuelleZeile.Mwst == 7.7m)
+                    RadNormalMWST.IsChecked = true;
+                else if (aktuelleZeile.Mwst == 2.5m)
+                    RadReduziert.IsChecked = true;
+                else
+                    RadSteuerfrei.IsChecked = true;
             }
             catch (Exception exception)
             {
-                Console.WriteLine("exception");
+                MessageBox.Show("überprüfen sie ihre eingabe");
             }
         }
 
@@ -159,12 +174,6 @@ namespace Auftragsverwaltung.Views
 
 
         #endregion ----------------Artikel-------------------
-
-
-
-
-
-
 
         #region ----------------Artikelgruppe----------------
         //ArtikelGruppe anlegen
@@ -186,6 +195,7 @@ namespace Auftragsverwaltung.Views
                 throw;
             }
             LeereFelder();
+            Count();
         }
 
         // ArtikelGruppe löschen
@@ -207,6 +217,8 @@ namespace Auftragsverwaltung.Views
             }
 
             LadeDataGrid("Artikelgruppe");
+            LeereFelder();
+            Count();
 
         }
 
@@ -282,7 +294,39 @@ namespace Auftragsverwaltung.Views
 
         #endregion --------------Artikelgruppe---------------
 
+        #region ---------------TreeView----------------
 
+        //Lade TreeView
+        private void CmdTreeView_Click(object sender, RoutedEventArgs e)
+        {
+            TVArtikelgruppe.Items.Clear();
+            var ladeCte = controllerArtikelGruppe.LadeCte();
+
+            var tree = this.GenerateTreeView(ladeCte, x => x.Id, x => x.UebergeordneteGruppeId, null).ToList();
+            var rootItem = new TreeViewItem()
+            {
+                Title = "Artikelgruppen",
+                Items = new ObservableCollection<TreeViewItem>(tree)
+            };
+            TVArtikelgruppe.Items.Add(rootItem);
+        }
+        //GeneriereTreeView
+        private IEnumerable<TreeViewItem> GenerateTreeView(List<Artikelgruppe> gruppen, Func<Artikelgruppe, int?> idSelector,
+            Func<Artikelgruppe, int?> parentIdSelector, int? rootId = null)
+        {
+            var list = gruppen;
+            foreach (var item in list.Where(x => parentIdSelector(x).Equals(rootId)))
+            {
+                var tvItem = new TreeViewItem
+                {
+                    Title = item.Name,
+                };
+                tvItem.Items = new ObservableCollection<TreeViewItem>(GenerateTreeView(gruppen, idSelector, parentIdSelector, idSelector(item)));
+                yield return tvItem;
+            }
+        }
+
+        #endregion ------------TreeView----------------
 
         //return MWST
         private decimal MWST()
@@ -295,7 +339,6 @@ namespace Auftragsverwaltung.Views
                 return 0;
         }
 
-       
         // Lade Grid
         private void LadeDataGrid(string grid)
         {
@@ -318,12 +361,18 @@ namespace Auftragsverwaltung.Views
             TxtArtikelBezeichung.Text = "";
             TxtPreisNetto.Text = "";
             CmbArtikelGruppe.Text = "";
+            TxtArtikelNummer.Text = "";
+            TxtPreisBrutto.Text = "";
         }
 
-        //Lade TreeView
-        private void CmdTreeView_Click(object sender, RoutedEventArgs e)
+        //Zähle alle Artikel und Artikelgruppen
+        private void Count()
         {
-            var ladeArtikelgruppeCTE = controllerArtikelGruppe.LadeCte();
+            LblArtikelNummmer.Content = Convert.ToString(controllerArtikel.LadeArtikel().Count);
+            LblArtikekgruppeNummer.Content = Convert.ToString(controllerArtikelGruppe.LadeArtikelgruppe().Count);
         }
+
+    
+        
     }
 }

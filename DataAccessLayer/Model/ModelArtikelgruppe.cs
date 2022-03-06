@@ -28,6 +28,7 @@ namespace DataAccessLayer.Model
         {
             using (AuftragContext context = new AuftragContext())
             {
+                
 
                 artikelgruppelist = context.Artikelgruppe.ToList();
 
@@ -127,26 +128,28 @@ namespace DataAccessLayer.Model
         {
             using (var context = new AuftragContext())
             {
-                var result = context.Artikelgruppe.FromSqlRaw(
-                    ";WITH CTE_Artikelgruppe(Id, UebergeordneteGruppeId, Produktlevel" +
-                    "AS(Select Id, UebergeordneteGruppeId, 0 As Produktlevel" +
-                    "FROM Artikelgruppe WHERE UebergeordneteGruppeId IS NULL" +
-                    "UNION ALL" +
-                    "SELECT pn.Id, pn.UebergeordneteGruppeId, p1.Produktlevel + 1" +
-                    "FROM Artikelgruppe AS pn" +
-                    "INNER JOIN CTE_Artikelgruppe AS p1 ON p1.Id = pn.UebergeordneteGruppeId);"
-                    +
-                    "SELECT Id, UebergeordneteGruppeId, Produktlevel" +
-                    "FROM CTE_Artikelgruppe" +
-                    "ORDER BY UebergeordneteGruppeId;" +
-                    "GO"
-                );
+                List<Artikelgruppe> AG = new List<Artikelgruppe>();
+
+                var query = ";WITH CTE_Artikelgruppe(Id, Name, UebergeordneteGruppeId, Active, Produktlevel) " +
+                            "AS(Select Id, Name, UebergeordneteGruppeId, Active, 0 As Produktlevel " +
+                            "FROM Artikelgruppe WHERE UebergeordneteGruppeId IS NULL " +
+                            "UNION ALL " +
+                            "SELECT pn.Id, pn.Name, pn.UebergeordneteGruppeId, pn.Active, p1.Produktlevel + 1 " +
+                            "FROM Artikelgruppe AS pn " +
+                            "INNER JOIN CTE_Artikelgruppe AS p1 ON p1.Id = pn.UebergeordneteGruppeId) "
+                            +
+                            "SELECT Id, Name, UebergeordneteGruppeId, Active, Produktlevel " +
+                            "FROM CTE_Artikelgruppe " +
+                            "ORDER BY UebergeordneteGruppeId; ";
+
+                var result = context.Artikelgruppe.FromSqlRaw(query);
+
                 foreach (var item in result)
                 {
-                    artikelgruppelist.Add(item);
+                    AG.Add(item);
                 }
 
-                return artikelgruppelist;
+                return AG;
             }
 
             

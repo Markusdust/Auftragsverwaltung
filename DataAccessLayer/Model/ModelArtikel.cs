@@ -48,7 +48,7 @@ namespace DataAccessLayer.Model
         {
             using (AuftragContext context = new AuftragContext())
             {
-                var updateartikel = context.Artikel.SingleOrDefault(a => a.Id == artikel.ArtikelNr);
+                var updateartikel = context.Artikel.SingleOrDefault(a => a.Id == artikel.Id);
                 if (updateartikel != null)
                 {
                     updateartikel.Bezeichnung = artikel.Bezeichnung;
@@ -56,13 +56,10 @@ namespace DataAccessLayer.Model
                     updateartikel.Aktiv = artikel.Aktiv;
                     updateartikel.Mwst = artikel.Mwst;
                     updateartikel.PreisNetto = artikel.PreisNetto;
-                    updateartikel.Artikelgruppe = artikel.Artikelgruppe;
-
-                    context.SaveChanges();
-                    return true;
+                    updateartikel.ArtikelgruppeId = artikel.ArtikelgruppeId;
                 }
-
-                return false;
+                context.SaveChanges();
+                return true;
             }
         }
 

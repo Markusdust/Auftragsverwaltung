@@ -3,13 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      
       xmlns:local="clr-namespace:Auftragsverwaltung.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="506" d:DesignWidth="1223.967"
+      d:DesignHeight="506"
       Title="ArtikelArtikelgruppe"
-      Background="White">
+      Background="White" Width="1283">
 
-    <Grid x:Name="Grid">
+    <Grid x:Name="Grid" Margin="0,0,-13,0">
 
         <TextBlock x:Name="LblArtikelTopic" Text="Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="5,4,0,0" Height="33" Width="69"/>
         <Button x:Name="CmbArtikelAnlegen" Content="Artikel Anlegen" HorizontalAlignment="Left" Margin="5,185,0,0" VerticalAlignment="Top" Click="CmdArtikelAnlegen" RenderTransformOrigin="0.5,0.5" Height="21" Width="95"/>
@@ -26,13 +27,13 @@
         <Label x:Name="LblArtikelGruppe" Content="Artikel Gruppe:" HorizontalAlignment="Left" Margin="-1,119,0,0" VerticalAlignment="Top" FontSize="15" Height="28" Width="114"/>
         <DataGrid x:Name="DgvArtikel" Margin="4,217,0,11" SelectionChanged="DgvArtikel_SelectionChanged" CanUserAddRows="False" MaxWidth="530" HorizontalAlignment="Left" Width="528"/>
         <ComboBox x:Name="CmbArtikelGruppe" HorizontalAlignment="Left" Margin="5,152,0,0" VerticalAlignment="Top" Width="125" Height="22" TabIndex="4"/>
-        <TextBlock x:Name="LblArtikelGruppeTopic" Text="ArtikelGruppe" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="520,6,0,0" Height="33" Width="150"/>
+        <TextBlock x:Name="LblArtikelGruppeTopic" Text="ArtikelGruppe" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="511,9,0,0" Height="33" Width="150"/>
         <Label x:Name="LblArtikelGruppeNummerName" Content="Anzahl Artikelgruppen:" HorizontalAlignment="Left" Margin="504,45,0,0" VerticalAlignment="Top" FontSize="15" Height="29" Width="166"/>
         <Label x:Name="LblArtikekgruppeNummer" Content="..." HorizontalAlignment="Left" Margin="676,43,0,0" VerticalAlignment="Top" FontSize="15" Width="38" Height="31" RenderTransformOrigin="1.553,0.581"/>
         <Label x:Name="LblBezeichungArtikelGruppe" Content="ArtikelGruppe Bezeichung:" HorizontalAlignment="Left" Margin="504,81,0,0" VerticalAlignment="Top" FontSize="15" Height="31" Width="190"/>
         <TextBox x:Name="TxtArtikelgruppeBezeichung" HorizontalAlignment="Left" Margin="699,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="15" Height="26" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.062,0.603" TabIndex="5"/>
-        <Label x:Name="LblArtikelgruppeAktiv" Content="Aktiv:" HorizontalAlignment="Left" Margin="511,123,0,0" VerticalAlignment="Top" FontSize="15" Width="50" Height="28"/>
-        <CheckBox x:Name="ChkArtikelGruppeAktiv" Content="" HorizontalAlignment="Left" Margin="576,128,0,0" VerticalAlignment="Top" Height="19" Width="19" RenderTransformOrigin="0.535,0.562" TabIndex="6" IsChecked="True"/>
+        <Label x:Name="LblArtikelgruppeAktiv" Content="Aktiv:" HorizontalAlignment="Left" Margin="504,110,0,0" VerticalAlignment="Top" FontSize="15" Width="50" Height="28"/>
+        <CheckBox x:Name="ChkArtikelGruppeAktiv" Content="" HorizontalAlignment="Left" Margin="558,119,0,0" VerticalAlignment="Top" Height="19" Width="19" RenderTransformOrigin="0.535,0.562" TabIndex="6" IsChecked="True"/>
         <DataGrid x:Name="DgvArtikelGruppe" Margin="558,217,0,11" CanUserAddRows="False" MaxWidth="287" SelectionChanged="DgvArtikelGruppe_SelectionChanged" HorizontalAlignment="Left" Width="287" />
         <Button x:Name="CmdArtikelGruppeAnlegen" Content="Anlegen" HorizontalAlignment="Left" Margin="558,186,0,0" VerticalAlignment="Top" Width="68" Click="CmdArtikelgruppeAnlegen"/>
         <Button x:Name="CmdLöschen" Content="Artikel Löschen" HorizontalAlignment="Left" Margin="105,185,0,0" VerticalAlignment="Top" Click="CmdLöschen_Click" Height="21" Width="95"/>
@@ -48,11 +49,17 @@
         <Button x:Name="CmdGridLadenA" Content="Grid Laden" HorizontalAlignment="Left" Margin="405,186,0,0" VerticalAlignment="Top" Width="95" Click="CmdGridLadenA_Click"/>
         <Button x:Name="CmdGridLadenAG" Content="Grid Laden" HorizontalAlignment="Left" Margin="777,158,0,0" VerticalAlignment="Top" Width="68" Click="CmdGridLadenAG_Click"/>
         <Label x:Name="LblTreeView" Content="TreeView" HorizontalAlignment="Left" Margin="978,5,0,0" VerticalAlignment="Top" Width="193" FontSize="24"/>
-        <Button x:Name="CmdTreeView" Content="Starte TreeView" HorizontalAlignment="Left" Margin="653,136,0,0" VerticalAlignment="Top" Click="CmdTreeView_Click"/>
-        <TreeView x:Name="TVArtikelgruppe" Margin="876,120,18,13"/>
+        <Button x:Name="CmdTreeView" Content="Starte TreeView" HorizontalAlignment="Left" Margin="876,77,0,0" VerticalAlignment="Top" Click="CmdTreeView_Click"/>
         <Label x:Name="LblArtikelNr" Content="ArtikelNummer:" HorizontalAlignment="Left" Margin="152,11,0,0" VerticalAlignment="Top" FontSize="15"/>
         <TextBox x:Name="TxtArtikelNummer" HorizontalAlignment="Left" Margin="296,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="25"/>
 
+        <TreeView x:Name="TVArtikelgruppe" Margin="876,120,68,13">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type TreeViewItem}" ItemsSource="{Binding Items}">
+                    <TextBlock Text="{Binding Title}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
 
     </Grid>
 </Page>
