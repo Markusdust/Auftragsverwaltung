@@ -52,6 +52,7 @@ namespace Auftragsverwaltung.Views
             {
                 Artikel a1 = new Artikel()
                 {
+                    ArtikelNr = Convert.ToInt16(TxtArtikelNummer.Text),
                     Bezeichnung = TxtArtikelBezeichung.Text,
                     PreisNetto = Convert.ToDecimal(TxtPreisNetto.Text),
                     PreisBrutto = (MWST() / 100 + 1) * Convert.ToDecimal(TxtPreisNetto.Text),
@@ -173,8 +174,9 @@ namespace Auftragsverwaltung.Views
             {
                 string name = TxtArtikelgruppeBezeichung.Text;
                 bool akitve = (bool)ChkArtikelGruppeAktiv.IsChecked ? true : false;
-
-                controllerArtikelGruppe.ArtikelGruppeAnlegen(name, akitve);
+                int? uebergeortneteAG = controllerArtikelGruppe.GetUebergeortneteAG();
+                
+                controllerArtikelGruppe.ArtikelGruppeAnlegen(name, akitve, uebergeortneteAG);
                 LadeDataGrid("Artikelgruppe");
                 LadeCmbAG();
             }
@@ -193,7 +195,7 @@ namespace Auftragsverwaltung.Views
             {
                 var deleteArtikelgruppe = (Artikelgruppe)DgvArtikelGruppe.SelectedCells[0].Item;
 
-                if (controllerArtikelGruppe.ArtikelGruppeLöschen(deleteArtikelgruppe.Id) == true)
+                if (controllerArtikelGruppe.ArtikelGruppeLöschen(deleteArtikelgruppe) == true)
                     MessageBox.Show("Artikelgruppe wurde gelöscht");
                 else
                     MessageBox.Show("Bei dieser Artikelgruppe gibt es noch dazugehörige Artikel");
@@ -316,6 +318,12 @@ namespace Auftragsverwaltung.Views
             TxtArtikelBezeichung.Text = "";
             TxtPreisNetto.Text = "";
             CmbArtikelGruppe.Text = "";
+        }
+
+        //Lade TreeView
+        private void CmdTreeView_Click(object sender, RoutedEventArgs e)
+        {
+            var ladeArtikelgruppeCTE = controllerArtikelGruppe.LadeCte();
         }
     }
 }
