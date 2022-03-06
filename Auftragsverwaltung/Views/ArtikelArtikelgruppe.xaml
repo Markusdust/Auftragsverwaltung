@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Auftragsverwaltung.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="506" d:DesignWidth="897"
+      d:DesignHeight="506" d:DesignWidth="1223.967"
       Title="ArtikelArtikelgruppe"
       Background="White">
 
     <Grid x:Name="Grid">
 
-        <TextBlock x:Name="LblArtikelTopic" Text="Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="91,3,0,0" Height="33" Width="69"/>
+        <TextBlock x:Name="LblArtikelTopic" Text="Artikel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="5,4,0,0" Height="33" Width="69"/>
         <Button x:Name="CmbArtikelAnlegen" Content="Artikel Anlegen" HorizontalAlignment="Left" Margin="5,185,0,0" VerticalAlignment="Top" Click="CmdArtikelAnlegen" RenderTransformOrigin="0.5,0.5" Height="21" Width="95"/>
         <Label x:Name="LblBezeichung" Content="Artikel Bezeichung:" HorizontalAlignment="Left" Margin="152,42,0,0" VerticalAlignment="Top" FontSize="15" Height="29" Width="140"/>
         <TextBox x:Name="TxtArtikelBezeichung" HorizontalAlignment="Left" Margin="296,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="15" Height="28" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.062,0.603" TabIndex="1"/>
@@ -33,7 +33,7 @@
         <TextBox x:Name="TxtArtikelgruppeBezeichung" HorizontalAlignment="Left" Margin="699,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="15" Height="26" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.062,0.603" TabIndex="5"/>
         <Label x:Name="LblArtikelgruppeAktiv" Content="Aktiv:" HorizontalAlignment="Left" Margin="511,123,0,0" VerticalAlignment="Top" FontSize="15" Width="50" Height="28"/>
         <CheckBox x:Name="ChkArtikelGruppeAktiv" Content="" HorizontalAlignment="Left" Margin="576,128,0,0" VerticalAlignment="Top" Height="19" Width="19" RenderTransformOrigin="0.535,0.562" TabIndex="6" IsChecked="True"/>
-        <DataGrid x:Name="DgvArtikelGruppe" Margin="558,218,28,10" CanUserAddRows="False" MaxWidth="310" SelectionChanged="DgvArtikelGruppe_SelectionChanged"/>
+        <DataGrid x:Name="DgvArtikelGruppe" Margin="558,217,0,11" CanUserAddRows="False" MaxWidth="287" SelectionChanged="DgvArtikelGruppe_SelectionChanged" HorizontalAlignment="Left" Width="287" />
         <Button x:Name="CmdArtikelGruppeAnlegen" Content="Anlegen" HorizontalAlignment="Left" Margin="558,186,0,0" VerticalAlignment="Top" Width="68" Click="CmdArtikelgruppeAnlegen"/>
         <Button x:Name="CmdLöschen" Content="Artikel Löschen" HorizontalAlignment="Left" Margin="105,185,0,0" VerticalAlignment="Top" Click="CmdLöschen_Click" Height="21" Width="95"/>
         <Button x:Name="CmdArtikelGruppeLöschen" Content="Löschen" HorizontalAlignment="Left" Margin="704,186,0,0" VerticalAlignment="Top" Width="68" Click="CmdArtikelGruppeLöschen_Click"/>
@@ -47,6 +47,11 @@
         <Button x:Name="ArtikelgruppeSuchen" Content="Suchen" HorizontalAlignment="Left" Margin="777,186,0,0" VerticalAlignment="Top" Width="68" Click="ArtikelgruppeSuchen_Click"/>
         <Button x:Name="CmdGridLadenA" Content="Grid Laden" HorizontalAlignment="Left" Margin="405,186,0,0" VerticalAlignment="Top" Width="95" Click="CmdGridLadenA_Click"/>
         <Button x:Name="CmdGridLadenAG" Content="Grid Laden" HorizontalAlignment="Left" Margin="777,158,0,0" VerticalAlignment="Top" Width="68" Click="CmdGridLadenAG_Click"/>
+        <Label x:Name="LblTreeView" Content="TreeView" HorizontalAlignment="Left" Margin="978,5,0,0" VerticalAlignment="Top" Width="193" FontSize="24"/>
+        <Button x:Name="CmdTreeView" Content="Starte TreeView" HorizontalAlignment="Left" Margin="653,136,0,0" VerticalAlignment="Top" Click="CmdTreeView_Click"/>
+        <TreeView x:Name="TVArtikelgruppe" Margin="876,120,18,13"/>
+        <Label x:Name="LblArtikelNr" Content="ArtikelNummer:" HorizontalAlignment="Left" Margin="152,11,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <TextBox x:Name="TxtArtikelNummer" HorizontalAlignment="Left" Margin="296,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="25"/>
 
 
     </Grid>

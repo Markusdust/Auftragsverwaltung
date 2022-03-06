@@ -13,12 +13,13 @@ namespace BusinessLogik
     {
         private ModelArtikelgruppe modelArtikelgruppe = new ModelArtikelgruppe();
 
-        public void ArtikelGruppeAnlegen(string name, bool aktiv)
+        public void ArtikelGruppeAnlegen(string name, bool aktiv, int? uebergeortneteAg)
         {
             Artikelgruppe ag1 = new Artikelgruppe()
             {
                 Name = name,
-                Active = aktiv
+                Active = aktiv,
+                UebergeordneteGruppeId = uebergeortneteAg
             };
             modelArtikelgruppe.artikelgruppespeichern(ag1);
         }
@@ -28,15 +29,15 @@ namespace BusinessLogik
             return ModelArtikelgruppe.LadeArtikelGruppe();
         }
 
-        public bool ArtikelGruppeLöschen(int artikelgruppeId)
+        public bool ArtikelGruppeLöschen(Artikelgruppe artikelgruppe)
         {
-            if (artikelgruppeId == null)
+            if (artikelgruppe == null)
                 return false;
-            else if (modelArtikelgruppe.ArtikelGruppenReferenzCheck(artikelgruppeId) == true)
+            else if (modelArtikelgruppe.ArtikelGruppenReferenzCheck(artikelgruppe) == true)
                 return false;
             else
             {
-                modelArtikelgruppe.ArtikelGruppeLöschen(artikelgruppeId);
+                modelArtikelgruppe.ArtikelGruppeLöschen(artikelgruppe);
                 return true;
             }
 
@@ -55,6 +56,16 @@ namespace BusinessLogik
         public int ArtikelGruppeID(string name)
         {
            return  modelArtikelgruppe.ArtikelgruppeID(name);
+        }
+
+        public int? GetUebergeortneteAG()
+        {
+            return modelArtikelgruppe.GetUebergeortneteAG();
+        }
+
+        public List<Artikelgruppe> LadeCte()
+        {
+            return modelArtikelgruppe.ladeCte();
         }
     }
 }

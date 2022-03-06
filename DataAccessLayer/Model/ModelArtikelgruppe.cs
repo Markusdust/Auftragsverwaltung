@@ -6,6 +6,7 @@ using System.Text;
 using DataAccessLayer.Entities;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Model
 {
@@ -35,13 +36,20 @@ namespace DataAccessLayer.Model
             return artikelgruppelist;
         }
 
-        public bool ArtikelGruppeLöschen(int artikelgruppeId)
+        public bool ArtikelGruppeLöschen(Artikelgruppe artikelgruppe)
         {
             using (AuftragContext context = new AuftragContext())
             {
-                var artikelgruppe = context.Artikelgruppe.SingleOrDefault(a => a.Id == artikelgruppeId);
+                var refUebergeortArtikelgruppe =
+                    context.Artikelgruppe.SingleOrDefault(a => a.UebergeordneteGruppeId == artikelgruppe.Id);
+                if (refUebergeortArtikelgruppe != null)
+                {
+                    refUebergeortArtikelgruppe.UebergeordneteGruppeId = artikelgruppe.UebergeordneteGruppeId;
+                }
 
-                context.Artikelgruppe.Remove(artikelgruppe);
+                var ag = context.Artikelgruppe.SingleOrDefault(a => a.Id == artikelgruppe.Id);
+
+                context.Artikelgruppe.Remove(ag);
                 context.SaveChanges();
 
                 return true;
@@ -75,7 +83,7 @@ namespace DataAccessLayer.Model
             }
                 
         }
-        public bool ArtikelGruppenReferenzCheck(int artikelgruppeId)
+        public bool ArtikelGruppenReferenzCheck(Artikelgruppe artikelgruppe)
         {
             using (var context = new AuftragContext())
             {
@@ -83,7 +91,7 @@ namespace DataAccessLayer.Model
                 var listArtikel = context.Artikel.ToList();
                 foreach (var Artikel in listArtikel)
                 {
-                    if (check = Artikel.ArtikelgruppeId.Equals(artikelgruppeId) == true)
+                    if (check = Artikel.ArtikelgruppeId.Equals(artikelgruppe.Id) == true)
                         break;
                 }
 
@@ -98,6 +106,50 @@ namespace DataAccessLayer.Model
                 var ag = context.Artikelgruppe.Where(ag => ag.Name == name).SingleOrDefault();
                 return ag.Id;
             }
+        }
+
+        public int? GetUebergeortneteAG()
+        {
+            List<Artikelgruppe> Ag = LadeArtikelGruppe();
+            int? lastAg = null;
+
+            for (int i = 0; i < Ag.Count; i++)
+            {
+                lastAg = artikelgruppelist[i].Id;
+                if (lastAg == 0)
+                    lastAg = null;
+            }
+
+            return lastAg;
+        }
+
+        public List<Artikelgruppe> ladeCte()
+        {
+            using (var context = new AuftragContext())
+            {
+                var result = context.Artikelgruppe.FromSqlRaw(
+                    ";WITH CTE_Artikelgruppe(Id, UebergeordneteGruppeId, Produktlevel" +
+                    "AS(Select Id, UebergeordneteGruppeId, 0 As Produktlevel" +
+                    "FROM Artikelgruppe WHERE UebergeordneteGruppeId IS NULL" +
+                    "UNION ALL" +
+                    "SELECT pn.Id, pn.UebergeordneteGruppeId, p1.Produktlevel + 1" +
+                    "FROM Artikelgruppe AS pn" +
+                    "INNER JOIN CTE_Artikelgruppe AS p1 ON p1.Id = pn.UebergeordneteGruppeId);"
+                    +
+                    "SELECT Id, UebergeordneteGruppeId, Produktlevel" +
+                    "FROM CTE_Artikelgruppe" +
+                    "ORDER BY UebergeordneteGruppeId;" +
+                    "GO"
+                );
+                foreach (var item in result)
+                {
+                    artikelgruppelist.Add(item);
+                }
+
+                return artikelgruppelist;
+            }
+
+            
         }
     }
 }
