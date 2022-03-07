@@ -56,5 +56,15 @@ namespace DataAccessLayer.Model
             return meineKunden;
         }
 
+        public List<Kunde> LadeAlleKunden()
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                meineKunden = context.Kunden.ToList();
+            }
+
+            return meineKunden;
+        }
+
     }
 }

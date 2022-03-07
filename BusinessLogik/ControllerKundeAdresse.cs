@@ -177,6 +177,11 @@ namespace BusinessLogik
             return modelKunde.LadeKunden(filtergrad);
         }
 
+        public List<Kunde> LadeAlleKunden()
+        {
+            return modelKunde.LadeAlleKunden();
+        }
+
         public List<Adresse> LadeAdressen(int kundenId)
         {
             //return modelAdresse.LadeAdressen();
