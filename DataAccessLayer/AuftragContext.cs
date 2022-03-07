@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer.Entities;
-using Microsoft.Data.SqlClient;
+﻿using DataAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DataAccessLayer
 {
@@ -45,7 +39,7 @@ namespace DataAccessLayer
         {
             //CustomerNumber gets automatic a number starting by 1000 increment 5
             modelBuilder.HasSequence<int>("KundenNummern", schema: "shared")
-                .StartsAt(1000)
+                .StartsAt(1500)
                 .IncrementsBy(5);
 
             modelBuilder.Entity<Kunde>()
@@ -64,6 +58,415 @@ namespace DataAccessLayer
                 .HasDefaultValueSql("NEXT VALUE FOR shared.AuftragNr");
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
+
+
+
+            //BEISPIELDATEN
+            //Artikelgruppe
+
+            #region Artikelgruppe
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 1,
+                Name = "Pflanzen",
+                UebergeordneteGruppeId = null,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 2,
+                Name = "Werkzeug",
+                UebergeordneteGruppeId = 1,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 3,
+                Name = "Fahrzeug",
+                UebergeordneteGruppeId = 2,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 4,
+                Name = "Getränk",
+                UebergeordneteGruppeId = 3,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 5,
+                Name = "Esswaren",
+                UebergeordneteGruppeId = 4,
+                Active = true
+            });
+            #endregion
+
+            #region Artikel
+
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 1,
+                ArtikelNr = 10,
+                Bezeichnung = "Gipfeli",
+                PreisNetto = 1.1m,
+                PreisBrutto = 1.2m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 4
+            });
+
+
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 2,
+                ArtikelNr = 20,
+                Bezeichnung = "Blume",
+                PreisNetto = 2.50m,
+                PreisBrutto = 3.00m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 1
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 3,
+                ArtikelNr = 30,
+                Bezeichnung = "Axt",
+                PreisNetto = 50.0m,
+                PreisBrutto = 52m,
+                Mwst = 7.7m,
+                Aktiv = false,
+                ArtikelgruppeId = 2
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 4,
+                ArtikelNr = 40,
+                Bezeichnung = "Renault",
+                PreisNetto = 70000m,
+                PreisBrutto = 70200m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 3
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 5,
+                ArtikelNr = 50,
+                Bezeichnung = "Sonnenblume",
+                PreisNetto = 2.50m,
+                PreisBrutto = 2.70m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 1
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 6,
+                ArtikelNr = 60,
+                Bezeichnung = "Audi",
+                PreisNetto = 20000m,
+                PreisBrutto = 21540m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 3
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 7,
+                ArtikelNr = 70,
+                Bezeichnung = "BMW",
+                PreisNetto = 28000m,
+                PreisBrutto = 30156m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 3
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 8,
+                ArtikelNr = 80,
+                Bezeichnung = "Cola",
+                PreisNetto = 3.2m,
+                PreisBrutto = 3.3m,
+                Mwst = 2.5m,
+                Aktiv = true,
+                ArtikelgruppeId = 4
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 9,
+                ArtikelNr = 90,
+                Bezeichnung = "Sprite",
+                PreisNetto = 2.2m,
+                PreisBrutto = 2.35m,
+                Mwst = 7.7m,
+                Aktiv = true,
+                ArtikelgruppeId = 4
+            });
+            modelBuilder.Entity<Artikel>().HasData(new Artikel()
+            {
+                Id = 10,
+                ArtikelNr = 100,
+                Bezeichnung = "Ananas",
+                PreisNetto = 2m,
+                PreisBrutto = 2m,
+                Mwst = 0m,
+                Aktiv = true,
+                ArtikelgruppeId = 5
+            });
+            #endregion
+
+
+            #region Kunden
+            DateTime maxDateValue = DateTime.MaxValue;
+
+            modelBuilder.Entity<Kunde>().HasData(new Kunde()
+            {
+                Id = 1,
+                KundenNr = 1000,
+                Vorname = "Markus",
+                Nachname = "Staub",
+                Firma = "Kellenberger",
+                Email = "markusstaub1@gmail.com",
+                Passwort = "1234",
+                Website = "Kellenberger.com",
+                GueltigAb = new DateTime(2022, 03, 07, 16, 26, 11),
+                GueltigBis = maxDateValue
+            });
+
+            modelBuilder.Entity<Kunde>().HasData(new Kunde()
+            {
+                Id = 2,
+                KundenNr = 1005,
+                Vorname = "Andy",
+                Nachname = "Steingruber",
+                Firma = "Safran",
+                Email = "a.Safran@safran.com",
+                Passwort = "Safisupi",
+                Website = "Safran.com",
+                GueltigAb = new DateTime(2022, 03, 07, 16, 27, 03),
+                GueltigBis = maxDateValue
+            });
+
+            modelBuilder.Entity<Kunde>().HasData(new Kunde()
+            {
+                Id = 3,
+                KundenNr = 1010,
+                Vorname = "Pascal",
+                Nachname = "Gerard",
+                Firma = "Hardinge",
+                Email = "P.Gerard@H.com",
+                Passwort = "hadiou88",
+                Website = "Hardigne.com",
+                GueltigAb = new DateTime(2022, 03, 07, 16, 27, 51),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 28, 50)
+            });
+
+            modelBuilder.Entity<Kunde>().HasData(new Kunde()
+            {
+                Id = 4,
+                KundenNr = 1010,
+                Vorname = "Pascal",
+                Nachname = "Türliman",
+                Firma = "Hardinge",
+                Email = "P.Gerard@H.com",
+                Passwort = "hadiou88",
+                Website = "Hardigne.com",
+                GueltigAb = new DateTime(2022, 03, 07, 16, 28, 51),
+                GueltigBis = maxDateValue
+            });
+            #endregion
+
+            #region KundenAdressen
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 1,
+                KundenNr = 1000,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 26, 12),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 30, 12),
+                KundeId = 1,
+                AdresseId = 1
+
+            });
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 2,
+                KundenNr = 1005,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 27, 03),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 28, 15),
+                KundeId = 2,
+                AdresseId = 2
+
+            });
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 3,
+                KundenNr = 1010,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 27, 51),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 28, 50),
+                KundeId = 3,
+                AdresseId = 3
+
+            });
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 4,
+                KundenNr = 1005,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 28, 15),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 29, 47),
+                KundeId = 2,
+                AdresseId = 4
+
+            });
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 5,
+                KundenNr = 1010,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 28, 50),
+                GueltigBis = maxDateValue,
+                KundeId = 4,
+                AdresseId = 3
+
+            });
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 6,
+                KundenNr = 1005,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 29, 47),
+                GueltigBis = maxDateValue,
+                KundeId = 2,
+                AdresseId = 5
+
+            });
+
+            modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
+            {
+                Id = 7,
+                KundenNr = 1000,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 30, 12),
+                GueltigBis = maxDateValue,
+                KundeId = 1,
+                AdresseId = 6
+
+            });
+            #endregion
+
+            #region Adresse
+
+            modelBuilder.Entity<Adresse>().HasData(new Adresse()
+            {
+                Id = 1,
+                Strasse = "Bahnhofstrasse",
+                HausNr = "23",
+                OrtschaftId = 1,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 26, 12),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 30, 13)
+            });
+
+            modelBuilder.Entity<Adresse>().HasData(new Adresse()
+            {
+                Id = 2,
+                Strasse = "Safranstrasse",
+                HausNr = "Safranstrasse",
+                OrtschaftId = 2,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 27, 03),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 28, 15)
+            });
+
+            modelBuilder.Entity<Adresse>().HasData(new Adresse()
+            {
+                Id = 3,
+                Strasse = "Tunnelstrasse",
+                HausNr = "848",
+                OrtschaftId = 3,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 27, 51),
+                GueltigBis = maxDateValue
+            });
+
+            modelBuilder.Entity<Adresse>().HasData(new Adresse()
+            {
+                Id = 4,
+                Strasse = "Kürbistrasse",
+                HausNr = "23",
+                OrtschaftId = 4,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 28, 15),
+                GueltigBis = new DateTime(2022, 03, 07, 16, 29, 47)
+            });
+
+            modelBuilder.Entity<Adresse>().HasData(new Adresse()
+            {
+                Id = 5,
+                Strasse = "Helvetiastrasse",
+                HausNr = "11",
+                OrtschaftId = 5,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 29, 47),
+                GueltigBis = maxDateValue
+            });
+
+            modelBuilder.Entity<Adresse>().HasData(new Adresse()
+            {
+                Id = 6,
+                Strasse = "Markplatz",
+                HausNr = "5",
+                OrtschaftId = 1,
+                GueltigAb = new DateTime(2022, 03, 07, 16, 30, 12),
+                GueltigBis = maxDateValue
+            });
+            #endregion
+
+            #region Ortschaft
+
+            modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
+            {
+                Id = 1,
+                PLZ = 9000,
+                Ort = "St.Gallen",
+                Aktiv = true,
+            });
+
+            modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
+            {
+                Id = 2,
+                PLZ = 5811,
+                Ort = "Bern",
+                Aktiv = true,
+            });
+
+            modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
+            {
+                Id = 3,
+                PLZ = 2114,
+                Ort = "Genf",
+                Aktiv = true,
+            });
+            modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
+            {
+                Id = 4,
+                PLZ = 6585,
+                Ort = "Basel",
+                Aktiv = true,
+            });
+            modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
+            {
+                Id = 5,
+                PLZ = 6437,
+                Ort = "Zug",
+                Aktiv = true,
+            });
+            #endregion
+
         }
     }
 }
