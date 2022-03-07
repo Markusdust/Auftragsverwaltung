@@ -109,43 +109,6 @@ namespace Auftragsverwaltung.Views
             FelderLeeren();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var vorname = txtVorname.Text;
-            var nachname = txtNachname.Text;
-            var firma = txtFirma.Text;
-            var email = txtEmail.Text;
-            var passwort = txtPasswort.Text;
-            var website = txtWebsite.Text;
-
-            Kunde equalKunde = new Kunde()
-            {
-                Id = 1,
-                KundenNr = 1234,
-                Vorname = vorname,
-                Nachname = nachname,
-                Firma = firma,
-                Email = email,
-                Passwort = passwort,
-                Website = website,
-                GueltigAb = DateTime.Now,
-                GueltigBis = DateTime.MaxValue,
-            };
-            
-            
-
-
-
-            if (aktuellerKunde.Equals(equalKunde))
-            {
-                MessageBox.Show("es ist gleich");
-            }
-            else
-            {
-                MessageBox.Show("nicht gleich");
-            }
-        }
-
 
 
 
@@ -194,7 +157,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Fehler: " + "r\n" + exception);
+              //  MessageBox.Show("Fehler: " + "r\n" + exception);
             }
 
 
@@ -286,8 +249,10 @@ namespace Auftragsverwaltung.Views
 
         private void FelderLeeren()
         {
+            
             lblKundenId.Content = "";
             lblKundenNr.Content = "";
+            txtKundenNr.Text = "";
             txtNachname.Text = "";
             txtVorname.Text = "";
             txtFirma.Text = "";
@@ -298,6 +263,7 @@ namespace Auftragsverwaltung.Views
             txtStrasse.Text = "";
             txtHausNr.Text = "";
             txtOrtschaft.Text = "";
+            txtPLZ.Text = "";
         }
 
         private bool PruefeAenderungKunde()
@@ -384,6 +350,25 @@ namespace Auftragsverwaltung.Views
             filtergradKunde = "alte";
             LadeKunden(filtergradKunde);
             cmdAendern.IsEnabled = false;
+        }
+
+        private void cmdSuchen_Click(object sender, RoutedEventArgs e)
+        {
+            var kundenNr = Convert.ToString(txtKundenNr.Text);
+            var vorname = txtVorname.Text;
+            var nachname = txtNachname.Text;
+            var firma = txtFirma.Text;
+            var email = txtEmail.Text;
+            var passwort = txtPasswort.Text;
+            var website = txtWebsite.Text;
+            //var strasse = txtStrasse.Text;
+            //var hausNr = txtHausNr.Text;
+            //var ortschaft = txtOrtschaft.Text;
+            //var plz = Convert.ToInt32(txtPLZ.Text);
+
+            dgvKunde.ItemsSource = controllerKundeAdresse.SucheDatensatz(kundenNr, vorname, nachname, firma, email, website);
+
+
         }
     }
 }

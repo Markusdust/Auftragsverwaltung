@@ -47,8 +47,7 @@
         <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Left" Margin="576,302,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
         <DataGrid x:Name="dgvAdresse" Margin="14,329,340,0" MaxWidth="550" CanUserAddRows="False" Height="116" VerticalAlignment="Top"/>
-        <Button x:Name="cmdSpeichern" Content="SpeichernTEST" HorizontalAlignment="Left" Margin="546,56,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="420,56,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="cmdSpeichern" Content="Speichern" HorizontalAlignment="Left" Margin="546,56,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
         <Button x:Name="cmdAendern" Content="Ändern" HorizontalAlignment="Left" Margin="652,56,0,0" VerticalAlignment="Top" Click="cmdAendern_Click"/>
         <Label Content="Doppelklick auf Ortschaft um OrtschaftenView zu öffnen" HorizontalAlignment="Left" Margin="361,281,0,0" VerticalAlignment="Top" FontSize="8"/>
 
@@ -60,7 +59,10 @@
         <RadioButton x:Name="radAktuelleKunden" Content=" aktuelle Kunden" HorizontalAlignment="Left" Margin="541,1,0,0" VerticalAlignment="Top" Checked="radAktuelleKunden_Checked" />
         <RadioButton x:Name="radAlteKunden" Content="alte Kunden" HorizontalAlignment="Left" Margin="662,1,0,0" VerticalAlignment="Top" Checked="radAlteKunden_Checked"/>
 
-       
+        <Button x:Name="cmdSuchen" Content="Suchen" HorizontalAlignment="Left" Margin="474,56,0,0" VerticalAlignment="Top" Click="cmdSuchen_Click"/>
+        <TextBox x:Name="txtKundenNr" HorizontalAlignment="Left" Margin="233,77,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="44" Height="18" RenderTransformOrigin="0.546,0.426"/>
+
+
 
 
     </Grid>
