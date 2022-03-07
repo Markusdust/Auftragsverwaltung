@@ -131,7 +131,7 @@ namespace Auftragsverwaltung.Views
 
         private void LadeKunden()
         {
-            dgvKunde2.ItemsSource = controllerKundeAdresse.LadeKunden();
+            dgvKunde2.ItemsSource = controllerKundeAdresse.LadeAlleKunden();
         }
 
         private void LadeTeilPositionen(int auftragId)
