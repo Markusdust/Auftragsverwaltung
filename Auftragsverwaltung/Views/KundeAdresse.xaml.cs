@@ -124,7 +124,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Daten konnten nicht geladen werden: " + "r\n" + exception);
+              //  MessageBox.Show("Daten konnten nicht geladen werden: " + "r\n" + exception);
             }
 
         }

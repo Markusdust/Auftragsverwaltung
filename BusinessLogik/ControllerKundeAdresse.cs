@@ -355,15 +355,17 @@ namespace BusinessLogik
                     modelOrtschaft.speichern(ortschaftNeu);
                     //neue Ortschaft der Adresse zuweisen
                     adresseNeu.OrtschaftId = ortschaftNeu.Id;
+                    modelAdresse.speichern(adresseNeu);
                 }
                 else
-
+                {
                     //neue Adresse speichern
                     //Datum nochmals auf aktuelle zeit setzen um keine überschneidung zu haben.
                     adresseNeu.GueltigAb = DateTime.Now;
-                    adresseNeu.OrtschaftId = ortschaftNeu.Id;
+                    adresseNeu.OrtschaftId = ortschaftAlt.Id;
 
-                modelAdresse.speichern(adresseNeu);
+                    modelAdresse.speichern(adresseNeu);
+                }
 
                 //KundeAdresse verknüpfung auf limited Zeit ändern
                 altKundenAdresse = modelKundeAdresse.LadeKundenAdresseHilfTb(kundeIdAlt);
