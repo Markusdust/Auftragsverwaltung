@@ -109,43 +109,6 @@ namespace Auftragsverwaltung.Views
             FelderLeeren();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var vorname = txtVorname.Text;
-            var nachname = txtNachname.Text;
-            var firma = txtFirma.Text;
-            var email = txtEmail.Text;
-            var passwort = txtPasswort.Text;
-            var website = txtWebsite.Text;
-
-            Kunde equalKunde = new Kunde()
-            {
-                Id = 1,
-                KundenNr = 1234,
-                Vorname = vorname,
-                Nachname = nachname,
-                Firma = firma,
-                Email = email,
-                Passwort = passwort,
-                Website = website,
-                GueltigAb = DateTime.Now,
-                GueltigBis = DateTime.MaxValue,
-            };
-            
-            
-
-
-
-            if (aktuellerKunde.Equals(equalKunde))
-            {
-                MessageBox.Show("es ist gleich");
-            }
-            else
-            {
-                MessageBox.Show("nicht gleich");
-            }
-        }
-
 
 
 
