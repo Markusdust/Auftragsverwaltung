@@ -105,7 +105,9 @@ namespace DataAccessLayer.Model
             using (var context = new AuftragContext())
             {
                 var ag = context.Artikelgruppe.Where(ag => ag.Name == name).SingleOrDefault();
-                return ag.Id;
+                if (ag != null)
+                    return ag.Id;
+                return 0;
             }
         }
 
