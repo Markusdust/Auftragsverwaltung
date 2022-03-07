@@ -161,7 +161,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                MessageBox.Show("überprüfen sie ihre eingabe");
+                
             }
         }
 
