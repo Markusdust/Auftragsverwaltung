@@ -35,6 +35,7 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
+            TempPos = 0;
             TempAuftragNr = TempAuftragNr + 1;
             var auftragsNr = TempAuftragNr;
             DateTime datum = DateTime.Now;
@@ -182,14 +183,14 @@ namespace Auftragsverwaltung.Views
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Position kann nicht geladen werden.");
+                    //MessageBox.Show("Position kann nicht geladen werden.");
                 }                
                 LadeTeilPositionen(auftragId);
                 PosFelderLeeren();
             }
             catch
             {
-                MessageBox.Show("Es gibt einen Fehler.");
+                //MessageBox.Show("Es gibt einen Fehler.");
             }
         }       
 
@@ -205,6 +206,7 @@ namespace Auftragsverwaltung.Views
 
         private void dgvAuftrag_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            TempPos = 0;
             try
             {
                 var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
@@ -216,7 +218,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception)
             {
-                MessageBox.Show("Daten konnten nicht geladen werden.");
+                
             }
         }
 
@@ -380,10 +382,19 @@ namespace Auftragsverwaltung.Views
 
         private void cmdPosSuchen_Click(object sender, RoutedEventArgs e)
         {
-            var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
-            var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
+            int auftragId = 0;
+            try
+            {
+                var aktuelleZeile = dgvAuftrag.SelectedCells.ToArray();
+                var aktuellerAuftrag = (Auftrag)aktuelleZeile[0].Item;
 
-            int auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+                auftragId = SelectierterAuftragZuFeld(aktuellerAuftrag);
+            }
+            catch (Exception)
+            {
+
+            }
+            
 
             if (txtPosSuche.Text == "")
             {
