@@ -1,13 +1,9 @@
 ﻿using BusinessLogik;
 using DataAccessLayer.Entities;
 using System;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Auftragsverwaltung.Views;
-using DataAccessLayer;
 
 namespace Auftragsverwaltung.Views
 {
@@ -22,6 +18,9 @@ namespace Auftragsverwaltung.Views
         private Adresse adresseVonKunde;
         private Ortschaft ortschaftVonAdresse;
 
+        
+        private string filtergradKunde;
+
         private ControllerKundeAdresse controllerKundeAdresse = new ControllerKundeAdresse();
         private ControllerOrtschaft controllerOrtschaft = new ControllerOrtschaft();
 
@@ -33,61 +32,75 @@ namespace Auftragsverwaltung.Views
 
         private void cmdSpeichern_Click(object sender, RoutedEventArgs e)
         {
-            var vorname = txtVorname.Text;
-            var nachname = txtNachname.Text;
-            var firma = txtFirma.Text;
-            var email = txtEmail.Text;
-            var passwort = txtPasswort.Text;
-            var website = txtWebsite.Text;
-            var strasse = txtStrasse.Text;
-            var hausNr = txtHausNr.Text;
-            var ortschaft = txtOrtschaft.Text;
-            var plz =Convert.ToInt32(txtPLZ.Text);
-
             try
             {
-                controllerKundeAdresse.NeuerKundeAdresseAnlegen( vorname, nachname, firma,
+                var vorname = txtVorname.Text;
+                var nachname = txtNachname.Text;
+                var firma = txtFirma.Text;
+                var email = txtEmail.Text;
+                var passwort = txtPasswort.Text;
+                var website = txtWebsite.Text;
+                var strasse = txtStrasse.Text;
+                var hausNr = txtHausNr.Text;
+                var ortschaft = txtOrtschaft.Text;
+                var plz = Convert.ToInt32(txtPLZ.Text);
+
+
+                controllerKundeAdresse.NeuerKundeAdresseAnlegen(vorname, nachname, firma,
                     email, passwort, website, strasse, hausNr, ortschaft, plz);
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                MessageBox.Show("Fehler: " + "r\n" + exception);
 
             }
-            LadeKunden();
-            LadeAdressen();
+            LadeKunden(filtergradKunde);
+            LadeAdressen(aktuellerKundenId);
             LadeOrtschaften();
         }
 
         private void cmdAendern_Click(object sender, RoutedEventArgs e)
         {
-            var altKundenId = aktuellerKundenId;
-            var altAdressId = adresseVonKunde.Id;
-            var altOrtschaftId = ortschaftVonAdresse.Id;
+            //Idee: ändern button so machen das daten nur übergeben werden an controller (quasi wie bei speichern)
+            //      und erst im controller geprüft wird ob änderungen da sind und welche...
 
-            var vorname = txtVorname.Text;
-            var nachname = txtNachname.Text;
-            var firma = txtFirma.Text;
-            var email = txtEmail.Text;
-            var passwort = txtPasswort.Text;
-            var website = txtWebsite.Text;
-            var strasse = txtStrasse.Text;
-            var hausNr = txtHausNr.Text;
-            var ortschaft = txtOrtschaft.Text;
-            var plz = Convert.ToInt32(txtPLZ.Text);
+            //ganze Objekte an controller übergeben welche von selectionchange erstllt werden und global verfügbar sind
+            //aktuerllerKunde, aktuelleAdresse, aktuelleOrtschaft
+            //diese an controller übergeben und irgendwie mit IComparable auf Änderungen prüfen.
+            //wenn änderugen da sind dann erst speichern...
 
-            //Wenn alles geändert wurde dann Änderungen bei Kunde, Adresse und Ortschaft
-            if (PruefeAenderungKunde()/*&&
-                PruefeAnderungAdresse()&&
-                PruefeAnderungOrtschaft()*/)
+            try
             {
-                controllerKundeAdresse.AendereKundeAdresseOrtschaft(
-                    aktuellerKunde, adresseVonKunde, altOrtschaftId,
-                    vorname, nachname, firma,
-                    email, passwort, website, 
-                    strasse, hausNr, ortschaft, plz);
+                var altKundenId = aktuellerKundenId;
+                var altAdressId = adresseVonKunde.Id;
+                var altOrtschaftId = ortschaftVonAdresse.Id;
+
+                var vorname = txtVorname.Text;
+                var nachname = txtNachname.Text;
+                var firma = txtFirma.Text;
+                var email = txtEmail.Text;
+                var passwort = txtPasswort.Text;
+                var website = txtWebsite.Text;
+                var strasse = txtStrasse.Text;
+                var hausNr = txtHausNr.Text;
+                var ortschaft = txtOrtschaft.Text;
+                var plz = Convert.ToInt32(txtPLZ.Text);
+
+
+                    controllerKundeAdresse.AendereKundeAdresseOrtschaft(
+                        altKundenId, vorname, nachname, firma, email,
+                        passwort, website, strasse, hausNr, plz, ortschaft);
 
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Fehler: " + "r\n" + exception);
+
+            }
+            LadeKunden(filtergradKunde);
+            LadeAdressen(aktuellerKundenId);
+            LadeOrtschaften();
+
 
         }
 
@@ -98,19 +111,52 @@ namespace Auftragsverwaltung.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PruefeAenderungKunde();
+            var vorname = txtVorname.Text;
+            var nachname = txtNachname.Text;
+            var firma = txtFirma.Text;
+            var email = txtEmail.Text;
+            var passwort = txtPasswort.Text;
+            var website = txtWebsite.Text;
+
+            Kunde equalKunde = new Kunde()
+            {
+                Id = 1,
+                KundenNr = 1234,
+                Vorname = vorname,
+                Nachname = nachname,
+                Firma = firma,
+                Email = email,
+                Passwort = passwort,
+                Website = website,
+                GueltigAb = DateTime.Now,
+                GueltigBis = DateTime.MaxValue,
+            };
+            
+            
+
+
+
+            if (aktuellerKunde.Equals(equalKunde))
+            {
+                MessageBox.Show("es ist gleich");
+            }
+            else
+            {
+                MessageBox.Show("nicht gleich");
+            }
         }
 
-        
 
-        
+
+
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                LadeKunden();
-                LadeAdressen();
+                radAktuelleKunden.IsChecked = true;
+                LadeKunden("aktive");
+                LadeAdressen(aktuellerKundenId);
                 LadeOrtschaften();
             }
             catch (Exception exception)
@@ -122,22 +168,25 @@ namespace Auftragsverwaltung.Views
 
         private void dgvKunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-           
+
+
             try
             {
                 var aktuelleZeile = dgvKunde.SelectedCells.ToArray();
-                 aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
-                
+                aktuellerKunde = (Kunde)aktuelleZeile[0].Item;
+
 
                 SelectierterKundeZuFeldern(aktuellerKunde);
                 aktuellerKundenId = aktuellerKunde.Id;
 
-                adresseVonKunde=AdresseZuKundenId(aktuellerKundenId);
+                //Ladet Adressen zu aktuellem Kunden
+                LadeAdressen(aktuellerKundenId);
+
+                adresseVonKunde = AdresseZuKundenId(aktuellerKundenId);
                 MarkiereAdressInDg(adresseVonKunde.Id);
                 SeletierteAdresseZuFeldern(adresseVonKunde);
 
-                ortschaftVonAdresse= OrtschaftzuAdresseId(adresseVonKunde.OrtschaftId);
+                ortschaftVonAdresse = OrtschaftzuAdresseId(adresseVonKunde.OrtschaftId);
                 SelectierteOrtschaftZuFelder(ortschaftVonAdresse);
                 MarkiereOrtschaftInDg(ortschaftVonAdresse.Id);
 
@@ -161,7 +210,7 @@ namespace Auftragsverwaltung.Views
             ortschaftWindow.Show();
         }
 
-        private void SelectierterKundeZuFeldern(Kunde aktuellerKunde)
+        private void  SelectierterKundeZuFeldern(Kunde aktuellerKunde)
         {
             lblKundenId.Content = Convert.ToString(aktuellerKunde.Id);
             lblKundenNr.Content = Convert.ToString(aktuellerKunde.KundenNr);
@@ -177,7 +226,7 @@ namespace Auftragsverwaltung.Views
         {
             txtStrasse.Text = aktuelleAdresse.Strasse;
             txtHausNr.Text = Convert.ToString(aktuelleAdresse.HausNr);
-          //  txtOrtschaft.Text = Convert.ToString(aktuelleAdresse.OrtschaftId);
+            //  txtOrtschaft.Text = Convert.ToString(aktuelleAdresse.OrtschaftId);
         }
 
         private void SelectierteOrtschaftZuFelder(Ortschaft aktuelleOrtschaft)
@@ -196,13 +245,13 @@ namespace Auftragsverwaltung.Views
             return controllerOrtschaft.OrtschaftZuAdresse(ortschaftId);
         }
 
-        private void LadeKunden()
+        private void LadeKunden(string filtergrad)
         {
-            dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden();
+            dgvKunde.ItemsSource = controllerKundeAdresse.LadeKunden(filtergrad);
         }
-        private void LadeAdressen()
+        private void LadeAdressen(int kundenId)
         {
-            dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen();
+            dgvAdresse.ItemsSource = controllerKundeAdresse.LadeAdressen(kundenId);
         }
         private void LadeOrtschaften()
         {
@@ -217,7 +266,7 @@ namespace Auftragsverwaltung.Views
                 if (adressId == ((Adresse)dgvAdresse.Items[i]).Id)
                 {
                     dgvAdresse.SelectedIndex = i;
-                    
+
                 }
             }
 
@@ -257,10 +306,10 @@ namespace Auftragsverwaltung.Views
             //aktuellerKunde
 
             //prüft ob ännderunge vorgenommen wruden
-            if (txtVorname.Text!=aktuellerKunde.Vorname || 
-                txtNachname.Text !=aktuellerKunde.Nachname ||
-                txtEmail.Text != aktuellerKunde.Email||
-                txtFirma.Text != aktuellerKunde.Firma||
+            if (txtVorname.Text != aktuellerKunde.Vorname ||
+                txtNachname.Text != aktuellerKunde.Nachname ||
+                txtEmail.Text != aktuellerKunde.Email ||
+                txtFirma.Text != aktuellerKunde.Firma ||
                 txtWebsite.Text != aktuellerKunde.Website ||
                 txtPasswort.Text != aktuellerKunde.Passwort)
             {
@@ -278,7 +327,7 @@ namespace Auftragsverwaltung.Views
         {
             //prüft ob txt eingaben mit selektierteme Kunden Änderungen in Adresse vorweisen
 
-            if (txtStrasse.Text != adresseVonKunde.Strasse||
+            if (txtStrasse.Text != adresseVonKunde.Strasse ||
                 txtHausNr.Text != adresseVonKunde.HausNr)
             {
                 //return true => änderungen sind vorhanden
@@ -305,6 +354,36 @@ namespace Auftragsverwaltung.Views
             }
         }
 
-        
+        private void radAlleKunden_Checked(object sender, RoutedEventArgs e)
+        {
+            radAlteKunden.IsChecked = false;
+            radAktuelleKunden.IsChecked = false;
+
+            filtergradKunde = "alle";
+
+            LadeKunden(filtergradKunde);
+            cmdAendern.IsEnabled = false;
+        }
+
+        private void radAktuelleKunden_Checked(object sender, RoutedEventArgs e)
+        {
+            radAlleKunden.IsChecked = false;
+            radAlteKunden.IsChecked = false;
+
+            filtergradKunde = "aktive";
+            LadeKunden(filtergradKunde);
+
+            cmdAendern.IsEnabled = true;
+        }
+
+        private void radAlteKunden_Checked(object sender, RoutedEventArgs e)
+        {
+            radAktuelleKunden.IsChecked = false;
+            radAlteKunden.IsChecked = false;
+
+            filtergradKunde = "alte";
+            LadeKunden(filtergradKunde);
+            cmdAendern.IsEnabled = false;
+        }
     }
 }

@@ -35,11 +35,22 @@ namespace DataAccessLayer.Model
             throw new NotImplementedException();
         }
 
-        public List<Kunde> LadeKunden()
+        public List<Kunde> LadeKunden(string filtergrad)
         {
             using (AuftragContext context = new AuftragContext())
             {
-                meineKunden = context.Kunden.ToList();
+                if (filtergrad == "aktive")
+                {
+                    meineKunden = context.Kunden.Where(x => x.GueltigBis.Equals(DateTime.MaxValue)).ToList();
+                }
+                else if (filtergrad == "alte")
+                {
+                    meineKunden = context.Kunden.Where(x => x.GueltigBis < DateTime.MaxValue).ToList();
+                }
+                else //lade alle
+                {
+                    meineKunden = context.Kunden.ToList();
+                }
             }
 
             return meineKunden;
