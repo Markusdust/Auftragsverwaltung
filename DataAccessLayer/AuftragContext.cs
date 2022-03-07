@@ -21,11 +21,11 @@ namespace DataAccessLayer
         public DbSet<Auftrag> Auftraege { get; set; }
         public DbSet<Position> Positionen { get; set; }
         //Joel
-        public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
+        //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Markus
         //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Andy
-        //public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
+        public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connectionstring);
@@ -54,22 +54,5 @@ namespace DataAccessLayer
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
         }
-
-        // Gibt eine Zahl int zurück //sql string muss übergeben werden
-        public int GetCountColumn(string sqlstring)
-        {
-            int count = 0;
-            using (SqlConnection connection = new SqlConnection(connectionstring))
-            {
-                using (SqlCommand cmdCount = new SqlCommand(sqlstring, connection))
-                {
-                    connection.Open();
-                    count = (int)cmdCount.ExecuteScalar();
-                }
-
-                return count;
-            }
-        }
-
     }
 }

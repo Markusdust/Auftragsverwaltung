@@ -10,6 +10,7 @@ namespace BusinessLogik
     public class ControllerAuftrag
     {
         private ModelAuftrag modelAuftrag = new ModelAuftrag();
+        private ModelPosition modelPosition = new ModelPosition();
 
         public bool NeuerAuftragAnlegen(int auftragsNr, DateTime datum, int kundeId)
         {
@@ -23,9 +24,81 @@ namespace BusinessLogik
             return true;
         }
 
+        public bool AuftragLoeschen(int auftragId)
+        {
+            modelAuftrag.loeschen(auftragId);
+            return true;
+        }
+
+        public bool PositionLoeschen(int posId)
+        {
+            modelPosition.loeschen(posId);
+            return true;
+        }
+
+        public bool AlterAuftragBearbeiten(int id, int auftragsNr, DateTime datum, int kundeId)
+        {
+            Auftrag a1 = new Auftrag()
+            {
+                Id = id,
+                AuftragsNr = auftragsNr,
+                Datum = datum,
+                KundeId = kundeId
+            };
+            modelAuftrag.aendern(a1);
+            return true;
+        }
+
+        public bool NeuePositionAnlegen(int positionNr, int menge, int auftragId, int artikelId)
+        {
+            Position p1 = new Position()
+            {                
+                PositionNr = positionNr,
+                Menge = menge,
+                AuftragId = auftragId,
+                ArtikelId = artikelId                
+            };
+            modelPosition.speichern(p1);
+            return true;
+        }
+
+        public bool AltePositionBearbeiten(int id, int positionNr, int menge, int auftragId, int artikelId)
+        {
+            Position p1 = new Position()
+            {
+                Id = id,
+                PositionNr = positionNr,
+                Menge = menge,
+                AuftragId = auftragId,
+                ArtikelId = artikelId
+            };
+            modelPosition.aendern(p1);
+            return true;
+        }
+
         public List<Auftrag> LadeAuftraege()
         {
             return modelAuftrag.LadeAuftraege();
+        }
+
+        public List<Position> LadePositionen()
+        {
+            return modelPosition.LadePositionen();
+        }
+
+        public List<Position> LadeTeilPositionen(int auftragsId)
+        {
+            return modelPosition.LadeTeilPositionen(auftragsId);
+        }
+
+        public List<Auftrag> SucheAuftrag(string input)
+        {
+            return modelAuftrag.SucheAuftrag(input);
+        }
+
+        public List<Position> SuchePositionen(int input)
+        {
+            return modelPosition.SuchePositionen(input);
         }
     }
 }

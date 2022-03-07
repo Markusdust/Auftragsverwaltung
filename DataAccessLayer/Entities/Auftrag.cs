@@ -14,6 +14,6 @@ namespace DataAccessLayer.Entities
 
         //Foreign Key Kunde
         public int KundeId { get; set; }
-        public Kunde Kunde { get; set; }
+        //public Kunde Kunde { get; set; }
     }
 }

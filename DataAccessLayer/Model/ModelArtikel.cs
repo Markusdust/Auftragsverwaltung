@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace DataAccessLayer.Model
 {
@@ -21,43 +22,6 @@ namespace DataAccessLayer.Model
             }
         }
 
-
-        public int GetCounterArtikel()
-        {
-
-            using (var context = new AuftragContext())
-            {
-
-                string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKEL";
-                int count = context.GetCountColumn(sqlgetcountstring);
-
-                // using (SqlCommand cmdCount = new SqlCommand(sqlgetcountstring))
-                // {
-                //     count = context.GetCountColumn(sqlgetcountstring);
-                //     
-                // }
-
-                return count;
-            }
-
-        }
-        // public int GetCountArtikel()
-        // {
-        //     int count = 0;
-        //     using (SqlConnection connection = new SqlConnection(connectionstring))
-        //     {
-        //
-        //         string sqlgetcountstring = "SELECT COUNT(Id) FROM ARTIKEL";
-        //
-        //         using (SqlCommand cmdCount = new SqlCommand(sqlgetcountstring, connection))
-        //         {
-        //             connection.Open();
-        //             count = (int)cmdCount.ExecuteScalar();
-        //         }
-        //
-        //         return count;
-        //     }
-        // }
         public static List<Artikel> LadeArtikel()
         {
             using (AuftragContext context = new AuftragContext())
@@ -68,5 +32,46 @@ namespace DataAccessLayer.Model
 
         }
 
+        public void DeleteArtikel(int  artikelid)
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                var artikel = context.Artikel.SingleOrDefault(a => a.Id == artikelid);
+                if (artikel == null) return;
+
+                context.Artikel.Remove(artikel);
+                context.SaveChanges();
+            }
+        }
+
+        public bool Aendere(Artikel artikel)
+        {
+            using (AuftragContext context = new AuftragContext())
+            {
+                var updateartikel = context.Artikel.SingleOrDefault(a => a.Id == artikel.Id);
+                if (updateartikel != null)
+                {
+                    updateartikel.Bezeichnung = artikel.Bezeichnung;
+                    updateartikel.ArtikelNr = artikel.ArtikelNr;
+                    updateartikel.Aktiv = artikel.Aktiv;
+                    updateartikel.Mwst = artikel.Mwst;
+                    updateartikel.PreisNetto = artikel.PreisNetto;
+                    updateartikel.ArtikelgruppeId = artikel.ArtikelgruppeId;
+                }
+                context.SaveChanges();
+                return true;
+            }
+        }
+
+        public List<Artikel> SuchArtikel(string? bezeichnung,int? artikelgruppeid)
+        {
+            using (var context = new AuftragContext())
+            {
+                artikellist = context.Artikel.Where(a =>
+                    a.Bezeichnung == bezeichnung ||
+                    a.ArtikelgruppeId == artikelgruppeid).ToList();
+                return artikellist;
+            }
+        }
     }
 }

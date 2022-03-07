@@ -12,31 +12,60 @@ namespace BusinessLogik
     public class ControllerArtikelGruppe
     {
         private ModelArtikelgruppe modelArtikelgruppe = new ModelArtikelgruppe();
-        public int GetCounterArtikelGruppe()
-        {
-            return modelArtikelgruppe.GetCounterArtikelgruppe();
-        }
 
-        public void ArtikelGruppeAnlegen()
+        public void ArtikelGruppeAnlegen(string name, bool aktiv, int? uebergeortneteAg)
         {
             Artikelgruppe ag1 = new Artikelgruppe()
             {
-                Name = "Werkzeug",
-                Active = true
+                Name = name,
+                Active = aktiv,
+                UebergeordneteGruppeId = uebergeortneteAg
             };
             modelArtikelgruppe.artikelgruppespeichern(ag1);
-
-            Artikelgruppe ag2 = new Artikelgruppe()
-            {
-                Name = "Schmuck",
-                Active = true
-            };
-            modelArtikelgruppe.artikelgruppespeichern(ag2);
         }
 
         public List<Artikelgruppe> LadeArtikelgruppe()
         {
             return ModelArtikelgruppe.LadeArtikelGruppe();
+        }
+
+        public bool ArtikelGruppeLöschen(Artikelgruppe artikelgruppe)
+        {
+            if (artikelgruppe == null)
+                return false;
+            else if (modelArtikelgruppe.ArtikelGruppenReferenzCheck(artikelgruppe) == true)
+                return false;
+            else
+            {
+                modelArtikelgruppe.ArtikelGruppeLöschen(artikelgruppe);
+                return true;
+            }
+
+        }
+
+        public bool ArtikelGruppeÄndern(Artikelgruppe artikelgruppe)
+        {
+            return modelArtikelgruppe.Aendere(artikelgruppe);
+        }
+
+        public List<Artikelgruppe> SucheArtikelgruppe(string name)
+        {
+            return modelArtikelgruppe.SucheArtikelgruppe(name);
+        }
+
+        public int ArtikelGruppeID(string name)
+        {
+           return  modelArtikelgruppe.ArtikelgruppeID(name);
+        }
+
+        public int? GetUebergeortneteAG()
+        {
+            return modelArtikelgruppe.GetUebergeortneteAG();
+        }
+
+        public List<Artikelgruppe> LadeCte()
+        {
+            return modelArtikelgruppe.ladeCte();
         }
     }
 }

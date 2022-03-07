@@ -15,43 +15,9 @@ namespace BusinessLogik
         private ModelArtikel modelArtikel = new ModelArtikel();
 
 
-        public void testartikelanlegen()
+        public bool NeuerArtieklAnlegen(Artikel artikel)
         {
-
-            Artikel a1 = new Artikel()
-            {
-                Bezeichnung = "Trizeps",
-                ArtikelNr = 5,
-                PreisNetto = 50.50m,
-                Aktiv = true,
-                ArtikelgruppeId = 1
-            };
-            modelArtikel.artikelspeichern(a1);
-            
-            Artikel a2 = new Artikel()
-            {
-                Bezeichnung = "Discopumper",
-                ArtikelNr = 5,
-                PreisNetto = 50.50m,
-                Aktiv = true,
-                ArtikelgruppeId = 1
-            };
-            modelArtikel.artikelspeichern(a2);
-
-        }
-
-        public bool NeuerArtieklAnlegen(string bezeichnung, decimal preisnetto, bool aktiv)
-        {
-
-            Artikel a1 = new Artikel()
-            {
-                Bezeichnung = bezeichnung,
-                PreisNetto = preisnetto,
-                Aktiv = aktiv,
-                //ArtikelgruppeId = artikelgruppeid
-            };
-            modelArtikel.artikelspeichern(a1);
-
+            modelArtikel.artikelspeichern(artikel);
             return true;
         }
 
@@ -60,9 +26,19 @@ namespace BusinessLogik
             return ModelArtikel.LadeArtikel();
         }
 
-        public int GetCounterArtikel()
+        public void DeleteArtikel(int artikelid)
         {
-            return modelArtikel.GetCounterArtikel();
+            modelArtikel.DeleteArtikel(artikelid);
+        }
+
+        public bool AendereArtikel(Artikel a1)
+        {
+            return modelArtikel.Aendere(a1);
+        }
+
+        public List<Artikel> SuchArtikel(string? bezeichnung,int? artikelgruppeid)
+        {
+            return modelArtikel.SuchArtikel(bezeichnung, artikelgruppeid);
         }
     }
 }
