@@ -53,6 +53,17 @@ namespace DataAccessLayer
                 .HasDefaultValueSql("NEXT VALUE FOR shared.KundenNummern");
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
+
+
+            modelBuilder.HasSequence<int>("AuftragNr", schema: "shared")
+                .StartsAt(2000)
+                .IncrementsBy(5);
+
+            modelBuilder.Entity<Auftrag>()
+                .Property(c => c.AuftragsNr)
+                .HasDefaultValueSql("NEXT VALUE FOR shared.AuftragNr");
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuftragContext).Assembly);
         }
     }
 }

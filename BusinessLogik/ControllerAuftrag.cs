@@ -16,7 +16,7 @@ namespace BusinessLogik
         {
             Auftrag a1 = new Auftrag()
             {
-                AuftragsNr = auftragsNr,
+                //AuftragsNr = auftragsNr,
                 Datum = datum,
                 KundeId = kundeId
             };
