@@ -23,9 +23,9 @@ namespace DataAccessLayer
         //Joel
         //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Markus
-        //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
+        public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Andy
-        public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
+      //  public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connectionstring);

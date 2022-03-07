@@ -473,5 +473,10 @@ namespace BusinessLogik
         {
 
         }
+
+        public List<Kunde> SucheDatensatz(string kundenNr, string vorname, string nachname, string firma, string email, string website)
+        {
+            return modelKunde.SucheDatenesatz(kundenNr ,vorname, nachname, firma, email, website);
+        }
     }
 }
