@@ -15,11 +15,11 @@ namespace DataAccessLayer
         public DbSet<Auftrag> Auftraege { get; set; }
         public DbSet<Position> Positionen { get; set; }
         //Joel
-        public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
+        //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Markus
         //public string connectionstring = "Data Source=localhost; Database=Auftragsverwaltung; Trusted_Connection=True";
         //Andy
-        //public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
+        public string connectionstring ="Data Source=.\\SQLEXPRESS; Database=Auftragsverwaltung; Trusted_Connection=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connectionstring);
@@ -50,7 +50,7 @@ namespace DataAccessLayer
 
 
             modelBuilder.HasSequence<int>("AuftragNr", schema: "shared")
-                .StartsAt(2000)
+                .StartsAt(2020)
                 .IncrementsBy(5);
 
             modelBuilder.Entity<Auftrag>()
@@ -62,8 +62,7 @@ namespace DataAccessLayer
 
 
             //BEISPIELDATEN
-            //Artikelgruppe
-
+            
             #region Artikelgruppe
             modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
             {
@@ -221,7 +220,6 @@ namespace DataAccessLayer
                 ArtikelgruppeId = 5
             });
             #endregion
-
 
             #region Kunden
             DateTime maxDateValue = DateTime.MaxValue;
@@ -451,6 +449,7 @@ namespace DataAccessLayer
                 Ort = "Genf",
                 Aktiv = true,
             });
+
             modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
             {
                 Id = 4,
@@ -458,6 +457,7 @@ namespace DataAccessLayer
                 Ort = "Basel",
                 Aktiv = true,
             });
+
             modelBuilder.Entity<Ortschaft>().HasData(new Ortschaft()
             {
                 Id = 5,
@@ -467,6 +467,149 @@ namespace DataAccessLayer
             });
             #endregion
 
+            #region Auftrag
+            modelBuilder.Entity<Auftrag>().HasData(new Auftrag()
+            {
+                Id = 1,
+                AuftragsNr = 2000,                
+                Datum = new DateTime(2022, 03, 08, 00, 00, 00),
+                KundeId = 1005
+            });
+
+            modelBuilder.Entity<Auftrag>().HasData(new Auftrag()
+            {
+                Id = 2,
+                AuftragsNr = 2005,
+                Datum = new DateTime(2022, 03, 04, 00, 00, 00),
+                KundeId = 1000
+            });
+
+            modelBuilder.Entity<Auftrag>().HasData(new Auftrag()
+            {
+                Id = 3,
+                AuftragsNr = 2010,
+                Datum = new DateTime(2022, 02, 15, 00, 00, 00),
+                KundeId = 1010
+            });
+
+            modelBuilder.Entity<Auftrag>().HasData(new Auftrag()
+            {
+                Id = 4,
+                AuftragsNr = 2015,
+                Datum = new DateTime(2022, 03, 22, 00, 00, 00),
+                KundeId = 1005
+            });
+            #endregion
+
+            #region Position
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 1,
+                PositionNr = 10,
+                Menge = 8,
+                AuftragId = 2000,
+                ArtikelId = 10
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 2,
+                PositionNr = 20,
+                Menge = 4,
+                AuftragId = 2000,
+                ArtikelId = 100
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 3,
+                PositionNr = 30,
+                Menge = 6,
+                AuftragId = 2000,
+                ArtikelId = 80
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 4,
+                PositionNr = 10,
+                Menge = 2,
+                AuftragId = 2005,
+                ArtikelId = 70
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 5,
+                PositionNr = 20,
+                Menge = 3,
+                AuftragId = 2005,
+                ArtikelId = 40
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 6,
+                PositionNr = 30,
+                Menge = 3,
+                AuftragId = 2005,
+                ArtikelId = 10
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 7,
+                PositionNr = 10,
+                Menge = 15,
+                AuftragId = 2010,
+                ArtikelId = 20
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 8,
+                PositionNr = 20,
+                Menge = 4,
+                AuftragId = 2010,
+                ArtikelId = 30
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 9,
+                PositionNr = 30,
+                Menge = 100,
+                AuftragId = 2010,
+                ArtikelId = 50
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 10,
+                PositionNr = 40,
+                Menge = 3,
+                AuftragId = 2010,
+                ArtikelId = 100
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 11,
+                PositionNr = 50,
+                Menge = 2,
+                AuftragId = 2010,
+                ArtikelId = 90
+            });
+
+            modelBuilder.Entity<Position>().HasData(new Position()
+            {
+                Id = 12,
+                PositionNr = 10,
+                Menge = 12,
+                AuftragId = 2015,
+                ArtikelId = 60
+            });
+            #endregion
         }
     }
 }
