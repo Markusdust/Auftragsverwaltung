@@ -76,7 +76,7 @@ namespace DataAccessLayer
             {
                 Id = 2,
                 Name = "Werkzeug",
-                UebergeordneteGruppeId = 1,
+                UebergeordneteGruppeId = null,
                 Active = true
             });
 
@@ -84,23 +84,47 @@ namespace DataAccessLayer
             {
                 Id = 3,
                 Name = "Fahrzeug",
-                UebergeordneteGruppeId = 2,
+                UebergeordneteGruppeId = null,
                 Active = true
             });
 
             modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
             {
                 Id = 4,
-                Name = "Getränk",
-                UebergeordneteGruppeId = 3,
+                Name = "Blume",
+                UebergeordneteGruppeId = 1,
                 Active = true
             });
 
             modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
             {
                 Id = 5,
-                Name = "Esswaren",
+                Name = "Feilchen",
                 UebergeordneteGruppeId = 4,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 6,
+                Name = "Hammer",
+                UebergeordneteGruppeId = 2,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 7,
+                Name = "Quad",
+                UebergeordneteGruppeId = 3,
+                Active = true
+            });
+
+            modelBuilder.Entity<Artikelgruppe>().HasData(new Artikelgruppe()
+            {
+                Id = 8,
+                Name = "Velo",
+                UebergeordneteGruppeId = 3,
                 Active = true
             });
             #endregion
@@ -111,7 +135,7 @@ namespace DataAccessLayer
             {
                 Id = 1,
                 ArtikelNr = 10,
-                Bezeichnung = "Gipfeli",
+                Bezeichnung = "Rose",
                 PreisNetto = 1.1m,
                 PreisBrutto = 1.2m,
                 Mwst = 7.7m,
@@ -124,7 +148,7 @@ namespace DataAccessLayer
             {
                 Id = 2,
                 ArtikelNr = 20,
-                Bezeichnung = "Blume",
+                Bezeichnung = "Löwenzahn",
                 PreisNetto = 2.50m,
                 PreisBrutto = 3.00m,
                 Mwst = 7.7m,
@@ -190,34 +214,34 @@ namespace DataAccessLayer
             {
                 Id = 8,
                 ArtikelNr = 80,
-                Bezeichnung = "Cola",
+                Bezeichnung = "Säge",
                 PreisNetto = 3.2m,
                 PreisBrutto = 3.3m,
                 Mwst = 2.5m,
                 Aktiv = true,
-                ArtikelgruppeId = 4
+                ArtikelgruppeId = 2
             });
             modelBuilder.Entity<Artikel>().HasData(new Artikel()
             {
                 Id = 9,
                 ArtikelNr = 90,
-                Bezeichnung = "Sprite",
+                Bezeichnung = "Schlauch",
                 PreisNetto = 2.2m,
                 PreisBrutto = 2.35m,
                 Mwst = 7.7m,
                 Aktiv = true,
-                ArtikelgruppeId = 4
+                ArtikelgruppeId = 8
             });
             modelBuilder.Entity<Artikel>().HasData(new Artikel()
             {
                 Id = 10,
                 ArtikelNr = 100,
-                Bezeichnung = "Ananas",
+                Bezeichnung = "Bremse",
                 PreisNetto = 2m,
                 PreisBrutto = 2m,
                 Mwst = 0m,
                 Aktiv = true,
-                ArtikelgruppeId = 5
+                ArtikelgruppeId = 8
             });
             #endregion
 
