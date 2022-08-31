@@ -173,6 +173,30 @@ namespace Auftragsverwaltung.Views
             ortschaftWindow.Show();
         }
 
+        private void cmdExport_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                var kundenId = SelectierterKunde();
+                controllerKundeAdresse.KundeExportieren(kundenId);
+
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+
+
+        private int SelectierterKunde()
+        {
+            return 1;
+
+
+
+        }
+
         private void  SelectierterKundeZuFeldern(Kunde aktuellerKunde)
         {
             lblKundenId.Content = Convert.ToString(aktuellerKunde.Id);
@@ -370,5 +394,7 @@ namespace Auftragsverwaltung.Views
 
 
         }
+
+        
     }
 }

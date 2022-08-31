@@ -2,6 +2,12 @@
 using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+//using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 
 namespace BusinessLogik
 {
@@ -479,6 +485,23 @@ namespace BusinessLogik
         public List<Kunde> SucheDatensatz(string kundenNr, string vorname, string nachname, string firma, string email, string website)
         {
             return modelKunde.SucheDatenesatz(kundenNr ,vorname, nachname, firma, email, website);
+        }
+
+
+        public bool KundeExportieren(int KundenId)
+        {
+           var kunde= KundezuKundeId(KundenId);
+
+           var options = new JsonSerializerOptions()
+           {
+               WriteIndented = true
+           };
+
+            string serialized = JsonSerializer.Serialize(kunde, options);
+
+            modelKunde.speicherJson(serialized);
+
+           return true;
         }
     }
 }

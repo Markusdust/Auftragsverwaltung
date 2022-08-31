@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -110,6 +111,14 @@ namespace DataAccessLayer.Model
 
 
         }
+
+        public bool speicherJson(string kundeValues)
+        {
+            File.WriteAllText(@"C:\Users\Markus\Downloads\testexport.json", kundeValues);
+
+            return true;
+        }
+
 
     }
 }
