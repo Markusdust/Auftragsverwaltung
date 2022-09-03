@@ -35,7 +35,7 @@ namespace DataAccessLayer.Model
             throw new NotImplementedException();
         }
 
-        public List<Adresse> LadeAdressen()
+        public List<Adresse> LadeListeAdressen()
         {
             using (var context = new AuftragContext())
             {
@@ -43,6 +43,22 @@ namespace DataAccessLayer.Model
             }
 
             return meineAdressen;
+        }
+
+        public Adresse LadeAdresseZuAdressId(int adressId)
+        {
+            Adresse adresseZuAdressId;
+
+            using (var context = new AuftragContext())
+            {
+                var queryMatchingAdresse = context.Adressen
+                    .Where(x => x.Id.Equals(adressId))
+                    .Select(x => x).First();
+
+                adresseZuAdressId = queryMatchingAdresse;
+            }
+
+            return adresseZuAdressId;
         }
 
     }

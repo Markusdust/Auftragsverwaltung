@@ -2,6 +2,7 @@
 using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.Json;
 //using Newtonsoft.Json;
 using System.Text.Json.Serialization;
@@ -190,7 +191,7 @@ namespace BusinessLogik
 
         public List<Adresse> LadeAdressen(int kundenId)
         {
-            //return modelAdresse.LadeAdressen();
+            //return modelAdresse.LadeListeAdressen();
             return modelKundeAdresse.LadeAlleAdressenzuKunde(kundenId);
         }
 
@@ -202,6 +203,11 @@ namespace BusinessLogik
         public Kunde KundezuKundeId(int kundenId)
         {
             return modelKundeAdresse.LadeKundezuKundeId(kundenId);
+        }
+
+        public Adresse AdresseZuAdressId(int adressId)
+        {
+            return modelAdresse.LadeAdresseZuAdressId(adressId);
         }
 
 
@@ -389,7 +395,7 @@ namespace BusinessLogik
                 };
                 modelKundeAdresse.speichern(kundenAdresseNeuKundeAenderung);
 
-               
+
             }
 
             //Wenn sich Nur Ortschaft ändert muss ebenfalls die Adresse angepasst werden da Ortschaft kein Limited Time hat.
@@ -403,9 +409,9 @@ namespace BusinessLogik
         public bool KundePruefeAenderungen(Kunde altkunde, Kunde neuKunde)
         {
             if (altkunde.Vorname != neuKunde.Vorname ||
-                altkunde.Nachname!= neuKunde.Nachname ||
-                altkunde.Firma != neuKunde.Firma||
-                altkunde.Email   != neuKunde.Email ||
+                altkunde.Nachname != neuKunde.Nachname ||
+                altkunde.Firma != neuKunde.Firma ||
+                altkunde.Email != neuKunde.Email ||
                 altkunde.Passwort != neuKunde.Passwort ||
                 altkunde.Website != neuKunde.Website
                )
@@ -417,13 +423,13 @@ namespace BusinessLogik
 
             aenderungKunde = false;
             return false;
-            
+
         }
 
         public bool AdressePruefeAenderugen(Adresse altAdresse, Adresse neuAdresse)
         {
             if (altAdresse.Strasse != neuAdresse.Strasse ||
-                altAdresse.HausNr  != neuAdresse.HausNr)
+                altAdresse.HausNr != neuAdresse.HausNr)
             {
 
                 //Änderung vorhanden
@@ -482,26 +488,48 @@ namespace BusinessLogik
 
         }
 
-        public List<Kunde> SucheDatensatz(string kundenNr, string vorname, string nachname, string firma, string email, string website)
+        public List<Kunde> SucheDatensatz(string kundenNr, string vorname, string nachname, string firma, string email,
+            string website)
         {
-            return modelKunde.SucheDatenesatz(kundenNr ,vorname, nachname, firma, email, website);
+            return modelKunde.SucheDatenesatz(kundenNr, vorname, nachname, firma, email, website);
         }
 
 
         public bool KundeExportieren(int KundenId)
         {
-           var kunde= KundezuKundeId(KundenId);
+            var kunde = KundezuKundeId(KundenId);
 
-           var options = new JsonSerializerOptions()
-           {
-               WriteIndented = true
-           };
+            var options = new JsonSerializerOptions()
+            {
+                WriteIndented = true
+            };
 
             string serialized = JsonSerializer.Serialize(kunde, options);
 
             modelKunde.speicherJson(serialized);
 
-           return true;
+            return true;
+        }
+
+        public bool KundeAdresseExportieren(int kundenId, int adressId)
+        {
+            var kunde = KundezuKundeId(kundenId);
+            var adresse = AdresseZuAdressId(adressId);
+
+            var options = new JsonSerializerOptions()
+            {
+                WriteIndented = true
+            };
+
+            string serialized = JsonSerializer.Serialize(kunde, options);
+
+            serialized += JsonSerializer.Serialize(adresse, options);
+
+
+            //Auf KundenAdresse model ändern
+            modelKunde.speicherJson(serialized);
+
+            return true;
         }
     }
 }

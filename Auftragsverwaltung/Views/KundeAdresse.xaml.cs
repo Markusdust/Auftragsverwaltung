@@ -14,6 +14,7 @@ namespace Auftragsverwaltung.Views
     {
 
         private int aktuellerKundenId;
+        private int aktuelleAdressId;
         private Kunde aktuellerKunde;
         private Adresse adresseVonKunde;
         private Ortschaft ortschaftVonAdresse;
@@ -160,6 +161,14 @@ namespace Auftragsverwaltung.Views
               //  MessageBox.Show("Fehler: " + "r\n" + exception);
             }
 
+        }
+
+        private void dgvAdresse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var aktuelleZeile = dgvAdresse.SelectedCells.ToArray();
+            var aktuelleAdresse = (Adresse)aktuelleZeile[0].Item;
+
+            aktuellerKundenId = aktuelleAdresse.Id;
 
         }
 
@@ -177,9 +186,15 @@ namespace Auftragsverwaltung.Views
         {
             try
             {
+                var adressId = 1;//aktuelleAdressId;
+                var kundenId = SelectierterKunde_Id();
+                
+                //Alt
+                //controllerKundeAdresse.KundeExportieren(kundenId);
 
-                var kundenId = SelectierterKunde();
-                controllerKundeAdresse.KundeExportieren(kundenId);
+                //neu
+                controllerKundeAdresse.KundeAdresseExportieren(kundenId, adressId);
+
 
             }
             catch (Exception exception)
@@ -187,15 +202,13 @@ namespace Auftragsverwaltung.Views
 
             }
         }
-
-
-        private int SelectierterKunde()
+        
+        private int SelectierterKunde_Id()
         {
-            return 1;
-
-
-
+            var kundenId = Convert.ToInt32(lblKundenId.Content);
+            return kundenId;
         }
+
 
         private void  SelectierterKundeZuFeldern(Kunde aktuellerKunde)
         {
