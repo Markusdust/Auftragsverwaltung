@@ -21,7 +21,7 @@ namespace BusinessLogik
             Kunde k1 = new Kunde()
             {
                // Id = 12,
-                KundenNr = 99,
+                KundenNr = "CU99",
                 Vorname = "Jürgen",
                 Nachname = "Hans",
                 Firma = "Zbw",

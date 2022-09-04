@@ -9,7 +9,7 @@ namespace DataAccessLayer.Entities
     public class Kunde
     {
         public int Id { get; set; }
-        public int KundenNr { get; set; }
+        public string KundenNr { get; set; }
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public string Firma { get; set; }

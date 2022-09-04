@@ -11,7 +11,7 @@ namespace DataAccessLayer.Entities
         public int Id { get; set; }
 
         //evtl nicht notwendig KundenNr
-        public int KundenNr { get; set; }
+        public string KundenNr { get; set; }
         public DateTime GueltigAb { get; set; }
         public DateTime GueltigBis { get; set; }
 

@@ -24,7 +24,7 @@ namespace BusinessLogik
         bool aenderungOrtschaft;
 
 
-        public bool NeuerKundeAdresseAnlegen(string vorname, string nachname,
+        public bool NeuerKundeAdresseAnlegen(string kundenNr,string vorname, string nachname,
             string firma, string email, string passwort, string website, string strasse,
             string hausNr, string ortschaft, int plz)
         {
@@ -33,6 +33,7 @@ namespace BusinessLogik
 
             Kunde k1 = new Kunde()
             {
+                KundenNr = kundenNr,
                 Vorname = vorname,
                 Nachname = nachname,
                 Firma = firma,
@@ -511,19 +512,35 @@ namespace BusinessLogik
             return true;
         }
 
-        public bool KundeAdresseExportieren(int kundenId, int adressId)
+        public bool KundeAdresseExportieren(int kundenId, int adressId, int ortschaftId)
         {
+            var controllerOrtschaft = new ControllerOrtschaft();
+
             var kunde = KundezuKundeId(kundenId);
             var adresse = AdresseZuAdressId(adressId);
+            var ortschaft = controllerOrtschaft.OrtschaftZuAdresse(adressId);
+
+
+            //Todo implementieren
+            var exportObjekt = new ExportKundeAdresse()
+            {
+                KundenId = kunde.Id,
+                KundenNr = kunde.KundenNr,
+                Vorname ="Dinimami" 
+
+
+            };
+
+
 
             var options = new JsonSerializerOptions()
             {
                 WriteIndented = true
             };
 
-            string serialized = JsonSerializer.Serialize(kunde, options);
+            string serialized = JsonSerializer.Serialize(exportObjekt, options);
 
-            serialized += JsonSerializer.Serialize(adresse, options);
+          //  serialized += JsonSerializer.Serialize(adresse, options);
 
 
             //Auf KundenAdresse model ändern

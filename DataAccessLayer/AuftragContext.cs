@@ -251,7 +251,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 1,
-                KundenNr = 1000,
+                KundenNr = "CU1000",
                 Vorname = "Markus",
                 Nachname = "Staub",
                 Firma = "Kellenberger",
@@ -265,7 +265,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 2,
-                KundenNr = 1005,
+                KundenNr = "CU1005",
                 Vorname = "Andy",
                 Nachname = "Steingruber",
                 Firma = "Safran",
@@ -279,7 +279,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 3,
-                KundenNr = 1010,
+                KundenNr = "CU1010",
                 Vorname = "Pascal",
                 Nachname = "Gerard",
                 Firma = "Hardinge",
@@ -293,7 +293,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 4,
-                KundenNr = 1010,
+                KundenNr = "CU1010",
                 Vorname = "Pascal",
                 Nachname = "Türliman",
                 Firma = "Hardinge",
@@ -310,7 +310,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 1,
-                KundenNr = 1000,
+                KundenNr = "CU1000",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 26, 12),
                 GueltigBis = new DateTime(2022, 03, 07, 16, 30, 12),
                 KundeId = 1,
@@ -321,7 +321,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 2,
-                KundenNr = 1005,
+                KundenNr = "CU1005",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 27, 03),
                 GueltigBis = new DateTime(2022, 03, 07, 16, 28, 15),
                 KundeId = 2,
@@ -332,7 +332,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 3,
-                KundenNr = 1010,
+                KundenNr = "CU1010",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 27, 51),
                 GueltigBis = new DateTime(2022, 03, 07, 16, 28, 50),
                 KundeId = 3,
@@ -343,7 +343,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 4,
-                KundenNr = 1005,
+                KundenNr = "CU1005",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 28, 15),
                 GueltigBis = new DateTime(2022, 03, 07, 16, 29, 47),
                 KundeId = 2,
@@ -354,7 +354,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 5,
-                KundenNr = 1010,
+                KundenNr = "CU1010",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 28, 50),
                 GueltigBis = maxDateValue,
                 KundeId = 4,
@@ -365,7 +365,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 6,
-                KundenNr = 1005,
+                KundenNr = "CU1005",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 29, 47),
                 GueltigBis = maxDateValue,
                 KundeId = 2,
@@ -376,7 +376,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<KundenAdresse>().HasData(new KundenAdresse()
             {
                 Id = 7,
-                KundenNr = 1000,
+                KundenNr = "CU1000",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 30, 12),
                 GueltigBis = maxDateValue,
                 KundeId = 1,

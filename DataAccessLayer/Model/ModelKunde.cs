@@ -76,9 +76,11 @@ namespace DataAccessLayer.Model
             {
                 kunden = context.Kunden.AsQueryable();
 
+
+                //TODO Kundennr als String
                 if (!string.IsNullOrEmpty(kundenNr))
                 {
-                    kunden = kunden.Where(x => x.KundenNr.Equals(Convert.ToInt32(kundenNr)));
+                    kunden = kunden.Where(x => x.KundenNr.Equals(kundenNr));
                     // listeKunden = kunden.ToList();
                 }
 

@@ -35,6 +35,7 @@ namespace Auftragsverwaltung.Views
         {
             try
             {
+                var kundenNr = txtKundenNr.Text;
                 var vorname = txtVorname.Text;
                 var nachname = txtNachname.Text;
                 var firma = txtFirma.Text;
@@ -47,7 +48,7 @@ namespace Auftragsverwaltung.Views
                 var plz = Convert.ToInt32(txtPLZ.Text);
 
 
-                controllerKundeAdresse.NeuerKundeAdresseAnlegen(vorname, nachname, firma,
+                controllerKundeAdresse.NeuerKundeAdresseAnlegen(kundenNr,vorname, nachname, firma,
                     email, passwort, website, strasse, hausNr, ortschaft, plz);
             }
             catch (Exception exception)
@@ -76,6 +77,7 @@ namespace Auftragsverwaltung.Views
                 var altAdressId = adresseVonKunde.Id;
                 var altOrtschaftId = ortschaftVonAdresse.Id;
 
+               
                 var vorname = txtVorname.Text;
                 var nachname = txtNachname.Text;
                 var firma = txtFirma.Text;
@@ -165,10 +167,10 @@ namespace Auftragsverwaltung.Views
 
         private void dgvAdresse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var aktuelleZeile = dgvAdresse.SelectedCells.ToArray();
-            var aktuelleAdresse = (Adresse)aktuelleZeile[0].Item;
+            //var aktuelleZeile = dgvAdresse.SelectedCells.ToArray();
+            //var aktuelleAdresse = (Adresse)aktuelleZeile[0].Item;
 
-            aktuellerKundenId = aktuelleAdresse.Id;
+            //aktuellerKundenId = aktuelleAdresse.Id;
 
         }
 
@@ -188,12 +190,13 @@ namespace Auftragsverwaltung.Views
             {
                 var adressId = 1;//aktuelleAdressId;
                 var kundenId = SelectierterKunde_Id();
-                
+                var ortschaftId = 1; //ortschaftVonAdresse.Id;
+
                 //Alt
                 //controllerKundeAdresse.KundeExportieren(kundenId);
 
                 //neu
-                controllerKundeAdresse.KundeAdresseExportieren(kundenId, adressId);
+                controllerKundeAdresse.KundeAdresseExportieren(kundenId, adressId, ortschaftId);
 
 
             }
@@ -212,8 +215,10 @@ namespace Auftragsverwaltung.Views
 
         private void  SelectierterKundeZuFeldern(Kunde aktuellerKunde)
         {
+
             lblKundenId.Content = Convert.ToString(aktuellerKunde.Id);
             lblKundenNr.Content = Convert.ToString(aktuellerKunde.KundenNr);
+            txtKundenNr.Text = aktuellerKunde.KundenNr;
             txtNachname.Text = aktuellerKunde.Nachname;
             txtVorname.Text = aktuellerKunde.Vorname;
             txtFirma.Text = aktuellerKunde.Firma;
@@ -408,6 +413,9 @@ namespace Auftragsverwaltung.Views
 
         }
 
-        
+        private void txtKundenNr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
