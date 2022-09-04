@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DataAccessLayer.Model
 {
@@ -116,9 +117,13 @@ namespace DataAccessLayer.Model
 
         public bool speicherJson(string kundeValues)
         {
-            File.WriteAllText(@"C:\Users\Markus\Downloads\testexport.json", kundeValues);
 
+            string TimeNow = DateTime.Now.ToString();
+            var TimeNowString = TimeNow.Replace(".", "-").Replace(" ", "_").Replace(":", "-");
+            var path = $@"C:\temp\CustomerExport_{TimeNowString}.Json";
+            File.WriteAllText(path, kundeValues);
             return true;
+
         }
 
 

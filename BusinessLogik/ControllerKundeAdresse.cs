@@ -526,9 +526,24 @@ namespace BusinessLogik
             {
                 KundenId = kunde.Id,
                 KundenNr = kunde.KundenNr,
-                Vorname ="Dinimami" 
+                Vorname = kunde.Vorname,
+                Nachname = kunde.Nachname,
+                Firma = kunde.Firma,
+                Email = kunde.Email,
+                Passwort = kunde.Passwort,
+                Website = kunde.Website,
+                GueltigAb = kunde.GueltigAb,
+                GueltigBis = kunde.GueltigBis,
 
+                AdressId = adresse.Id,
+                Strasse = adresse.Strasse,
+                HausNr = adresse.HausNr,
+                AdressGueltigAb = adresse.GueltigAb,
+                AdressGueltigBis = adresse.GueltigBis,
 
+                OrtschaftId = ortschaft.Id,
+                PLZ = ortschaft.PLZ,
+                Ort = ortschaft.Ort
             };
 
 
