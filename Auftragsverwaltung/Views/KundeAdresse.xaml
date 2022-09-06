@@ -15,10 +15,10 @@
         <Label Content="KundeId:" HorizontalAlignment="Left" Margin="35,90,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblKundenId" Content="xxxx" HorizontalAlignment="Left" Margin="101,90,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="KundenNr:" HorizontalAlignment="Left" Margin="164,90,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblKundenNr" Content="xxxx" HorizontalAlignment="Left" Margin="230,90,0,0" VerticalAlignment="Top"/>
+        <Label Content="KundenNr:" HorizontalAlignment="Left" Margin="138,90,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Nachname:" HorizontalAlignment="Left" Margin="277,90,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtKundenNr" HorizontalAlignment="Left" Margin="204,94,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="73" Height="18" RenderTransformOrigin="0.546,0.426" TextChanged="txtKundenNr_TextChanged"/>
         <TextBox x:Name="txtNachname" HorizontalAlignment="Left" Margin="352,98,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="18" RenderTransformOrigin="0.546,0.426"/>
 
         <Label Content="Vorname:" HorizontalAlignment="Left" Margin="464,90,0,0" VerticalAlignment="Top"/>
@@ -36,7 +36,7 @@
         <Label Content="Passwort:" HorizontalAlignment="Left" Margin="339,115,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtPasswort" HorizontalAlignment="Left" Margin="398,119,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
-        <DataGrid x:Name="dgvKunde" Margin="14,145,18,0" SelectionChanged="dgvKunde_SelectionChanged" CanUserAddRows="False" Height="140" VerticalAlignment="Top"/>
+        
         <Label Content="Strasse:" HorizontalAlignment="Left" Margin="31,298,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtStrasse" HorizontalAlignment="Left" Margin="81,302,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
@@ -45,6 +45,7 @@
 
         <Label x:Name="lblOrtschaft" Content="Ortschaft:" HorizontalAlignment="Left" Margin="508,298,0,0" VerticalAlignment="Top" PreviewMouseDoubleClick="lblOrtschaft_PreviewMouseDoubleClick"/>
         <TextBox x:Name="txtOrtschaft" HorizontalAlignment="Left" Margin="576,302,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
+        <TextBox x:Name="txtPLZ" HorizontalAlignment="Left" Margin="694,302,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
 
         <DataGrid x:Name="dgvAdresse" Margin="14,329,340,0" MaxWidth="550" CanUserAddRows="False" Height="116" VerticalAlignment="Top" SelectionChanged="dgvAdresse_SelectionChanged"/>
         <Button x:Name="cmdSpeichern" Content="Speichern" HorizontalAlignment="Left" Margin="546,56,0,0" VerticalAlignment="Top" Click="cmdSpeichern_Click"/>
@@ -53,15 +54,15 @@
 
         <Button x:Name="cmdFelderLeeren" Content="Felder leeren" HorizontalAlignment="Left" Margin="716,56,0,0" VerticalAlignment="Top" Click="cmdFelderLeeren_Click"/>
         <Label x:Name="lblPLZ" Content="PLZ:" HorizontalAlignment="Left" Margin="662,298,0,0" VerticalAlignment="Top" PreviewMouseDoubleClick="lblOrtschaft_PreviewMouseDoubleClick"/>
-        <TextBox x:Name="txtPLZ" HorizontalAlignment="Left" Margin="694,302,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="18"/>
+        
         <DataGrid x:Name="dgvOrtschaft" Margin="581,329,25,0" CanUserAddRows="False" Height="116" VerticalAlignment="Top"/>
         <RadioButton x:Name="radAlleKunden" Content="alle Kunden" HorizontalAlignment="Left" Margin="447,1,0,0" VerticalAlignment="Top" Checked="radAlleKunden_Checked" />
         <RadioButton x:Name="radAktuelleKunden" Content=" aktuelle Kunden" HorizontalAlignment="Left" Margin="541,1,0,0" VerticalAlignment="Top" Checked="radAktuelleKunden_Checked" />
         <RadioButton x:Name="radAlteKunden" Content="alte Kunden" HorizontalAlignment="Left" Margin="662,1,0,0" VerticalAlignment="Top" Checked="radAlteKunden_Checked"/>
 
         <Button x:Name="cmdSuchen" Content="Suchen" HorizontalAlignment="Left" Margin="474,56,0,0" VerticalAlignment="Top" Click="cmdSuchen_Click"/>
-        <TextBox x:Name="txtKundenNr" HorizontalAlignment="Left" Margin="233,77,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="44" Height="18" RenderTransformOrigin="0.546,0.426" TextChanged="txtKundenNr_TextChanged"/>
         <Button x:Name="cmdExport" Content="Exportieren" HorizontalAlignment="Left" Margin="101,30,0,0" VerticalAlignment="Top" Click="cmdExport_Click"/>
+        <DataGrid x:Name="dgvKunde" Margin="14,145,18,0" SelectionChanged="dgvKunde_SelectionChanged" CanUserAddRows="False" Height="140" VerticalAlignment="Top"/>
 
 
 

@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
-
+using System.Text.RegularExpressions;
 
 namespace BusinessLogik
 {
@@ -23,58 +23,108 @@ namespace BusinessLogik
         bool aenderungAdresse;
         bool aenderungOrtschaft;
 
+        private bool RegexKunde(string kundenNr, string email, string webside, string passwort)
+        {
+            var regKundenNr = @"^CU\d{5}$";
+
+            //var regEmail = @"/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21 \x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B \x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?: [\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08 \x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-+[a-z0-9]+)*\.){1,126}){1,}(?:(?: [az][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-+[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?: [a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0- 9]))){3}))\]))\z/i";
+            //var regEmail = @"/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[az0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\z/i";
+            var regEmail = @"^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$";
+            //var regWebside = "";
+
+            var regPasswort = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+            
+            Regex regexKundenNr = new Regex(regKundenNr);
+            Regex regexEmail = new Regex(regEmail);
+            //Regex regexWebside = new Regex(regWebside);
+            Regex regexPasswort = new Regex(regPasswort);
+            bool check = true;
+
+            if (!regexKundenNr.IsMatch(kundenNr))
+            {
+                throw new Exception("Ungütlige KundenNr");
+                check = false;
+                
+            }
+            else if (!regexEmail.IsMatch(email))
+            {
+                throw new Exception("Ungültige Emailadresse");
+                check = false;
+            }
+            //else if (!regexWebside.IsMatch(email))
+            //{
+            //    throw new Exception("Ungültige Emailadresse");
+            //    return false;
+            //}
+            else if (!regexPasswort.IsMatch(passwort))
+            {
+                throw new Exception("Ungültige Emailadresse");
+                check = false;
+            }
+
+            return check ;
+        }
 
         public bool NeuerKundeAdresseAnlegen(string kundenNr,string vorname, string nachname,
             string firma, string email, string passwort, string website, string strasse,
             string hausNr, string ortschaft, int plz)
         {
-            ///KundeAdresse als Speicherbefehl geben somit sollte Adresse und Kunde automatisch mitgespeichert werden.
-            /// muss somit nicht einzel gespeichert werden.
-
-            Kunde k1 = new Kunde()
+            if(RegexKunde(kundenNr, email, website, passwort))
             {
-                KundenNr = kundenNr,
-                Vorname = vorname,
-                Nachname = nachname,
-                Firma = firma,
-                Email = email,
-                Passwort = passwort,
-                Website = website,
-                GueltigAb = DateTime.Now,
-                GueltigBis = DateTime.MaxValue,
-            };
-            modelKunde.speichern(k1);
+                Kunde k1 = new Kunde()
+                {
+                    KundenNr = kundenNr,
+                    Vorname = vorname,
+                    Nachname = nachname,
+                    Firma = firma,
+                    Email = email,
+                    Passwort = passwort,
+                    Website = website,
+                    GueltigAb = DateTime.Now,
+                    GueltigBis = DateTime.MaxValue,
+                };
+                modelKunde.speichern(k1);
 
-            Ortschaft o1 = new Ortschaft()
-            {
-                Ort = ortschaft,
-                PLZ = plz,
-                Aktiv = true
-            };
-            modelOrtschaft.speichern(o1);
+                Ortschaft o1 = new Ortschaft()
+                {
+                    Ort = ortschaft,
+                    PLZ = plz,
+                    Aktiv = true
+                };
+                modelOrtschaft.speichern(o1);
 
 
-            Adresse a1 = new Adresse()
-            {
-                Strasse = strasse,
-                HausNr = hausNr,
-                GueltigAb = DateTime.Now,
-                GueltigBis = DateTime.MaxValue,
-                OrtschaftId = o1.Id
-            };
-            modelAdresse.speichern(a1);
-            KundenAdresse kA1 = new KundenAdresse()
-            {
-                KundeId = k1.Id,
-                KundenNr = k1.KundenNr,
-                AdresseId = a1.Id,
-                GueltigAb = DateTime.Now,
-                GueltigBis = DateTime.MaxValue
-            };
-            modelKundeAdresse.speichern(kA1);
-            // modelKunde aber mit KudnenAdresse also => modelKunde(kA1);
+                Adresse a1 = new Adresse()
+                {
+                    Strasse = strasse,
+                    HausNr = hausNr,
+                    GueltigAb = DateTime.Now,
+                    GueltigBis = DateTime.MaxValue,
+                    OrtschaftId = o1.Id
+                };
+                modelAdresse.speichern(a1);
 
-            return true;
+                ///KundeAdresse als Speicherbefehl geben somit sollte Adresse und Kunde automatisch mitgespeichert werden.
+                /// muss somit nicht einzel gespeichert werden.
+                KundenAdresse kA1 = new KundenAdresse()
+                {
+                    KundeId = k1.Id,
+                    KundenNr = k1.KundenNr,
+                    AdresseId = a1.Id,
+                    GueltigAb = DateTime.Now,
+                    GueltigBis = DateTime.MaxValue
+                };
+                modelKundeAdresse.speichern(kA1);
+                // modelKunde aber mit KudnenAdresse also => modelKunde(kA1);
+
+                return true;
+
+
+            }
+            return false;
+            
+
+
         }
 
         //wenn bei Kunde und Adresse Änderungen vorliegen wird dies durchgeführt
@@ -215,7 +265,7 @@ namespace BusinessLogik
         /////////////Neu Ansatz Kunde ändern
         ///
         ///zuerst aktuellen kunde abfragen mit Methode KundezuKundeId
-        /// Dann aktulllen kunden vergeliche mit den Änderungen welche vorgenommen wurden um
+        /// Dann aktuellen kunden vergeliche mit den Änderungen welche vorgenommen wurden um
         /// zu prüfen ob wirklich änderungen vorhanden sind
         ///Wenn Änderungen vorhanden sind dann änderungen speichern....
         ///

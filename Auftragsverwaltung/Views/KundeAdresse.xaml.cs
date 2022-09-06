@@ -53,7 +53,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Fehler: " + "r\n" + exception);
+                MessageBox.Show("Bitte neu eingeben: " + "\r\n" + exception );
 
             }
             LadeKunden(filtergradKunde);
@@ -217,8 +217,8 @@ namespace Auftragsverwaltung.Views
         {
 
             lblKundenId.Content = Convert.ToString(aktuellerKunde.Id);
-            lblKundenNr.Content = Convert.ToString(aktuellerKunde.KundenNr);
-            txtKundenNr.Text = aktuellerKunde.KundenNr;
+            //lblKundenNr.Content = Convert.ToString(aktuellerKunde.KundenNr);
+            txtKundenNr.Text = Convert.ToString(aktuellerKunde.KundenNr);
             txtNachname.Text = aktuellerKunde.Nachname;
             txtVorname.Text = aktuellerKunde.Vorname;
             txtFirma.Text = aktuellerKunde.Firma;
@@ -293,7 +293,7 @@ namespace Auftragsverwaltung.Views
         {
             
             lblKundenId.Content = "";
-            lblKundenNr.Content = "";
+            //lblKundenNr.Content = "";
             txtKundenNr.Text = "";
             txtNachname.Text = "";
             txtVorname.Text = "";
