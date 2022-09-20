@@ -53,7 +53,7 @@ namespace Auftragsverwaltung.Views
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Bitte neu eingeben: " + "\r\n" + exception );
+                MessageBox.Show("Bitte neu eingeben: " + exception.Message );
 
             }
             LadeKunden(filtergradKunde);

@@ -251,13 +251,13 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 1,
-                KundenNr = "CU1000",
+                KundenNr = "CU10000",
                 Vorname = "Markus",
                 Nachname = "Staub",
                 Firma = "Kellenberger",
                 Email = "markusstaub1@gmail.com",
-                Passwort = "1234",
-                Website = "Kellenberger.com",
+                Passwort = "1234abcd",
+                Website = "www.Kellenberger.com",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 26, 11),
                 GueltigBis = maxDateValue
             });
@@ -265,13 +265,13 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 2,
-                KundenNr = "CU1005",
+                KundenNr = "CU10005",
                 Vorname = "Andy",
                 Nachname = "Steingruber",
                 Firma = "Safran",
                 Email = "a.Safran@safran.com",
-                Passwort = "Safisupi",
-                Website = "Safran.com",
+                Passwort = "Safisupi12",
+                Website = "www.Safran.com",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 27, 03),
                 GueltigBis = maxDateValue
             });
@@ -279,13 +279,13 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 3,
-                KundenNr = "CU1010",
+                KundenNr = "CU10010",
                 Vorname = "Pascal",
                 Nachname = "Gerard",
                 Firma = "Hardinge",
                 Email = "P.Gerard@H.com",
                 Passwort = "hadiou88",
-                Website = "Hardigne.com",
+                Website = "www.Hardigne.com",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 27, 51),
                 GueltigBis = new DateTime(2022, 03, 07, 16, 28, 50)
             });
@@ -293,13 +293,13 @@ namespace DataAccessLayer
             modelBuilder.Entity<Kunde>().HasData(new Kunde()
             {
                 Id = 4,
-                KundenNr = "CU1010",
+                KundenNr = "CU10010",
                 Vorname = "Pascal",
                 Nachname = "Türliman",
                 Firma = "Hardinge",
                 Email = "P.Gerard@H.com",
-                Passwort = "hadiou88",
-                Website = "Hardigne.com",
+                Passwort = "hadiou123",
+                Website = "www.Hardigne5800.com",
                 GueltigAb = new DateTime(2022, 03, 07, 16, 28, 51),
                 GueltigBis = maxDateValue
             });

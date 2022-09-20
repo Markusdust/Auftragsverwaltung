@@ -26,17 +26,13 @@ namespace BusinessLogik
         private bool RegexKunde(string kundenNr, string email, string webside, string passwort)
         {
             var regKundenNr = @"^CU\d{5}$";
-
-            //var regEmail = @"/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21 \x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B \x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?: [\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08 \x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-+[a-z0-9]+)*\.){1,126}){1,}(?:(?: [az][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-+[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?: [a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0- 9]))){3}))\]))\z/i";
-            //var regEmail = @"/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[az0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\z/i";
-            var regEmail = @"^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$";
-            //var regWebside = "";
-
+            var regEmail = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+            var regWebside = "^((https?:\\/\\/(?:www\\.|(?!www)))?[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})$";
             var regPasswort = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
             
             Regex regexKundenNr = new Regex(regKundenNr);
             Regex regexEmail = new Regex(regEmail);
-            //Regex regexWebside = new Regex(regWebside);
+            Regex regexWebside = new Regex(regWebside);
             Regex regexPasswort = new Regex(regPasswort);
             bool check = true;
 
@@ -51,14 +47,14 @@ namespace BusinessLogik
                 throw new Exception("Ungültige Emailadresse");
                 check = false;
             }
-            //else if (!regexWebside.IsMatch(email))
-            //{
-            //    throw new Exception("Ungültige Emailadresse");
-            //    return false;
-            //}
+            else if (!regexWebside.IsMatch(webside))
+            {
+                throw new Exception("Ungültige Webadresse");
+                return false;
+            }
             else if (!regexPasswort.IsMatch(passwort))
             {
-                throw new Exception("Ungültige Emailadresse");
+                throw new Exception("Ungültige Passwort");
                 check = false;
             }
 
