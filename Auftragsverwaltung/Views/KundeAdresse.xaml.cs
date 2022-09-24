@@ -188,17 +188,10 @@ namespace Auftragsverwaltung.Views
         {
             try
             {
-                var adressId = 1;//aktuelleAdressId;
-                var kundenId = SelectierterKunde_Id();
-                var ortschaftId = 1; //ortschaftVonAdresse.Id;
-
-                //Alt
-                //controllerKundeAdresse.KundeExportieren(kundenId);
-
-                //neu
-                controllerKundeAdresse.KundeAdresseExportieren(kundenId, adressId, ortschaftId);
-
-
+                if (controllerKundeAdresse.KundeAdresseExportieren())
+                {
+                    MessageBox.Show("Exportieren erfolgreich" + "\r\n" + "gespeichert in:" + "C:\\temp");
+                }  
             }
             catch (Exception exception)
             {

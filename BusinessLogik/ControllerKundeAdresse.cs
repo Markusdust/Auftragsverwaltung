@@ -558,41 +558,9 @@ namespace BusinessLogik
             return true;
         }
 
-        public bool KundeAdresseExportieren(int kundenId, int adressId, int ortschaftId)
+        public bool KundeAdresseExportieren(/*int kundenId, int adressId, int ortschaftId*/)
         {
-            var controllerOrtschaft = new ControllerOrtschaft();
-
-            var kunde = KundezuKundeId(kundenId);
-            var adresse = AdresseZuAdressId(adressId);
-            var ortschaft = controllerOrtschaft.OrtschaftZuAdresse(adressId);
-
-
-            //Todo implementieren
-            var exportObjekt = new ExportKundeAdresse()
-            {
-                KundenId = kunde.Id,
-                KundenNr = kunde.KundenNr,
-                Vorname = kunde.Vorname,
-                Nachname = kunde.Nachname,
-                Firma = kunde.Firma,
-                Email = kunde.Email,
-                Passwort = kunde.Passwort,
-                Website = kunde.Website,
-                GueltigAb = kunde.GueltigAb,
-                GueltigBis = kunde.GueltigBis,
-
-                AdressId = adresse.Id,
-                Strasse = adresse.Strasse,
-                HausNr = adresse.HausNr,
-                AdressGueltigAb = adresse.GueltigAb,
-                AdressGueltigBis = adresse.GueltigBis,
-
-                OrtschaftId = ortschaft.Id,
-                PLZ = ortschaft.PLZ,
-                Ort = ortschaft.Ort
-            };
-
-
+            var exportObjekt = modelKunde.LadeAlleKunden();
 
             var options = new JsonSerializerOptions()
             {
@@ -601,10 +569,6 @@ namespace BusinessLogik
 
             string serialized = JsonSerializer.Serialize(exportObjekt, options);
 
-          //  serialized += JsonSerializer.Serialize(adresse, options);
-
-
-            //Auf KundenAdresse model ändern
             modelKunde.speicherJson(serialized);
 
             return true;

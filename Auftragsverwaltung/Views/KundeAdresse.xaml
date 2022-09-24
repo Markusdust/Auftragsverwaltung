@@ -61,8 +61,11 @@
         <RadioButton x:Name="radAlteKunden" Content="alte Kunden" HorizontalAlignment="Left" Margin="662,1,0,0" VerticalAlignment="Top" Checked="radAlteKunden_Checked"/>
 
         <Button x:Name="cmdSuchen" Content="Suchen" HorizontalAlignment="Left" Margin="474,56,0,0" VerticalAlignment="Top" Click="cmdSuchen_Click"/>
-        <Button x:Name="cmdExport" Content="Exportieren" HorizontalAlignment="Left" Margin="101,30,0,0" VerticalAlignment="Top" Click="cmdExport_Click"/>
+        <Button x:Name="cmdExport" Content="Exportieren" HorizontalAlignment="Left" Margin="93,25,0,0" VerticalAlignment="Top" Click="cmdExport_Click" Width="66"/>
         <DataGrid x:Name="dgvKunde" Margin="14,145,18,0" SelectionChanged="dgvKunde_SelectionChanged" CanUserAddRows="False" Height="140" VerticalAlignment="Top"/>
+        <RadioButton Content="JSON" HorizontalAlignment="Left" Margin="173,18,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton Content="XML" HorizontalAlignment="Left" Margin="173,38,0,0" VerticalAlignment="Top" IsChecked="False"/>
+        <Button x:Name="cmdImport" Content="Importieren" HorizontalAlignment="Left" Margin="93,50,0,0" VerticalAlignment="Top" Click="cmdExport_Click" Height="22" Width="66"/>
 
 
 
